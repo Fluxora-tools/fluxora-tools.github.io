@@ -166,12 +166,62 @@ async function build() {
 
     // 3. About Page
 
+    // Generate    // 4. Root Redirect Page (Client-side language detection)
+    const rootIndexHtml = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Fluxora - Redirecting...</title>
+    <script>
+        var userLang = navigator.language || navigator.userLanguage; 
+        if (userLang.toLowerCase().includes('tr')) {
+            window.location.href = "/tr/";
+        } else {
+            window.location.href = "/en/";
+        }
+    </script>
+    <meta http-equiv="refresh" content="0;url=/en/">
+</head>
+<body style="background:#0f172a; color:white; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh;">
+    <p>Redirecting to your language...</p>
+</body>
+</html>`;
+    fs.writeFileSync(path.join(CONFIG.distDir, 'index.html'), rootIndexHtml);
+
     // Generate Global Sitemap
     generateSitemap(TOOLS, CONFIG.languages);
 
     console.log('Build Complete.');
 }
 
+// Helper: Generate JSON-LD with Rich Snippets
+function generateJsonLd(type, lang, tool = null) {
+    const baseUrl = CONFIG.baseUrl;
+
+    if (type === 'home') {
+        return JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Fluxora",
+            "url": `${baseUrl}/${lang}/`
+        });
+    }
+
+    if (!tool) return '{}';
+
+    const toolUrl = `${baseUrl}/${lang}/${tool.slug[lang]}`;
+    // Base SoftwareApp Schema
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": tool.id,
+        "operatingSystem": "Any",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "url": toolUrl
+    };
+
+    return JSON.stringify(schema);
+}
 // Sitemap Generator
 function generateSitemap(tools, languages) {
     const baseUrl = CONFIG.baseUrl;
@@ -264,9 +314,5 @@ function getSwitchUrl(pageId, currentLang) {
     return tool ? `/${targetLang}/${tool.slug[targetLang]}` : `/${targetLang}/`;
 }
 
-// JSON-LD Dummy
-function generateJsonLd(type, lang, data) {
-    return '{}';
-}
 
 build();
