@@ -3,49 +3,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const interfaceContainer = document.getElementById('tool-interface');
     if (!interfaceContainer) return;
 
-    // Detect Tool Type
     const toolPage = document.querySelector('.tool-page');
     const toolId = toolPage ? toolPage.dataset.toolId : '';
 
+    if (toolId.includes('downloader') || toolId.includes('mp3')) {
+        renderDownloader(interfaceContainer, toolId);
+    } else {
+        renderConverter(interfaceContainer, toolId);
+    }
+});
+
+function renderDownloader(container, toolId) {
     let placeholderText = "Paste video URL here";
-    let platformName = "Platform";
+    let platformName = "Video";
 
     if (toolId.includes('youtube')) {
-        placeholderText = "Paste YouTube URL (e.g. youtube.com/watch?v=...)";
+        placeholderText = "Paste YouTube URL";
         platformName = "YouTube";
     } else if (toolId.includes('pinterest')) {
-        placeholderText = "Paste Pinterest URL (e.g. pinterest.com/pin/...)";
+        placeholderText = "Paste Pinterest URL";
         platformName = "Pinterest";
     }
 
-    interfaceContainer.innerHTML = `
+    container.innerHTML = `
         <div style="width:100%; max-width:600px; text-align:center;">
             <div class="input-group" style="display:flex; gap:10px; margin-bottom:20px;">
-                <input type="text" id="url-input" placeholder="${placeholderText}" style="flex:1;" />
+                <input type="text" id="url-input" placeholder="${placeholderText}" style="flex:1; background:rgba(255,255,255,0.05); border:1px solid var(--border); color:white; padding:12px; border-radius:8px;" />
                 <button id="fetch-btn" class="btn" style="width:auto; padding:0 30px;">Fetch</button>
             </div>
             
             <div id="loader" style="display:none; margin:30px 0;">
                 <div class="spinner" style="width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:var(--primary); border-radius:50%; animation: spin 1s linear infinite; margin:0 auto;"></div>
-                <p style="margin-top:15px; color:var(--text-muted);">Fetching from ${platformName} servers...</p>
+                <p style="margin-top:15px; color:var(--text-muted);">Processing link...</p>
             </div>
 
             <div id="result-area" style="display:none; margin-top:30px; background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid var(--border); text-align:left;">
                 <div id="video-meta" style="display:flex; gap:20px; align-items:flex-start; margin-bottom:25px;">
                     <img id="video-thumb" src="" style="width:180px; height:100px; object-fit:cover; border-radius:10px; background:#1e293b;" />
                     <div>
-                        <h4 id="video-title" style="margin:0; font-size:1.1rem; color:white;">Video Title</h4>
-                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);"></p>
+                        <h4 id="video-title" style="margin:0; font-size:1.1rem; color:white;">Content Ready</h4>
+                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">Successfully extracted.</p>
                     </div>
                 </div>
                 <div style="display:flex; gap:10px;">
-                    <a id="download-link" href="#" class="btn" style="flex:1; text-align:center; background:var(--primary); color:white; text-decoration:none;">Download MP3 / Video</a>
+                    <a id="download-link" href="#" class="btn" style="flex:1; text-align:center; background:var(--primary); color:white; text-decoration:none;">Download</a>
                     <button id="reset-btn" class="btn btn-secondary" style="width:auto;">New Search</button>
                 </div>
-            </div>
-
-            <div id="error-area" style="display:none; margin-top:20px; background:rgba(255,50,50,0.1); padding:15px; border-radius:10px; border:1px solid rgba(255,50,50,0.3); color:#ff8888; font-size:0.9rem;">
-                Failed to extract video. Please check the URL and try again.
             </div>
         </div>
         <style>
@@ -56,89 +59,231 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const fetchBtn = document.getElementById('fetch-btn');
-    const resultArea = document.getElementById('result-area');
-    const errorArea = document.getElementById('error-area');
-    const loader = document.getElementById('loader');
     const urlInput = document.getElementById('url-input');
-    const resetBtn = document.getElementById('reset-btn');
-
+    const loader = document.getElementById('loader');
+    const resultArea = document.getElementById('result-area');
     const downloadLink = document.getElementById('download-link');
     const videoThumb = document.getElementById('video-thumb');
-    const videoTitle = document.getElementById('video-title');
-    const videoInfo = document.getElementById('video-info');
 
     async function handleFetch() {
         const url = urlInput.value.trim();
-        if (!url) {
-            alert('Please enter a URL');
-            return;
-        }
-
-        // Setup UI
+        if (!url) return;
         loader.style.display = 'block';
-        fetchBtn.disabled = true;
         resultArea.style.display = 'none';
-        errorArea.style.display = 'none';
+        fetchBtn.disabled = true;
 
         try {
-            // Using Cobalt API - Gold standard for clean extraction
             const response = await fetch('https://api.cobalt.tools/api/json', {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    url: url,
-                    videoQuality: "1080",
-                    isAudioOnly: toolId.includes('mp3'),
-                    filenamePattern: "pretty"
-                })
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url, videoQuality: "1080", isAudioOnly: toolId.includes('mp3') })
             });
-
             const data = await response.json();
-
-            if (data.status === 'success' || data.url) {
-                // Success
-                const thumbUrl = toolId.includes('youtube')
-                    ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg`
-                    : '/assets/img/fluxora_logo.png'; // Fallback for Pinterest/Others
-
-                videoThumb.src = thumbUrl;
-                videoTitle.innerText = platformName + " Content Ready";
-                videoInfo.innerText = "The link has been extracted. Click the button below to start your download.";
-
+            if (data.url) {
+                videoThumb.src = url.includes('youtube') ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg` : '';
                 downloadLink.href = data.url;
-                // For Cobalt, they often return a direct stream download link
-                downloadLink.innerText = toolId.includes('mp3') ? "Download MP3" : "Download Video";
-
                 resultArea.style.display = 'block';
-            } else if (data.status === 'redirect') {
-                window.location.href = data.url; // Direct redirect for some providers
             } else {
-                throw new Error('API Error');
+                alert("Error fetching content. Please check the URL.");
             }
-        } catch (err) {
-            console.error(err);
-            errorArea.style.display = 'block';
-            errorArea.innerText = "Error: This provider might be rate-limited or the URL is invalid. Try another link.";
-        } finally {
+        } catch (e) {
+            console.error(e);
+            alert("Error fetching content.");
+        }
+        finally {
             loader.style.display = 'none';
             fetchBtn.disabled = false;
         }
     }
 
-    function extractVideoId(url) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[2].length === 11) ? match[2] : null;
-    }
-
     fetchBtn.addEventListener('click', handleFetch);
     urlInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleFetch(); });
-    resetBtn.addEventListener('click', () => {
+    document.getElementById('reset-btn').addEventListener('click', () => {
         resultArea.style.display = 'none';
         urlInput.value = '';
         urlInput.focus();
     });
-});
+}
+
+function renderConverter(container, toolId) {
+    const isToGif = toolId === 'mp4-to-gif';
+    container.innerHTML = `
+        <div class="converter-box" style="width:100%; max-width:600px; background:rgba(255,255,255,0.02); border:2px dashed var(--border); border-radius:20px; padding:60px 20px; text-align:center; cursor:pointer;" id="drop-zone">
+            <input type="file" id="file-input" style="display:none;" accept="${isToGif ? 'video/mp4' : 'image/gif'}" />
+            <i class="fas fa-file-video" style="font-size:3rem; color:var(--primary); opacity:0.5;"></i>
+            <h3 style="margin-top:20px;">Click or Drag ${isToGif ? 'MP4' : 'GIF'} here</h3>
+            <p style="color:var(--text-muted); margin-top:10px;">Max file size: 50MB</p>
+        </div>
+        <div id="loader" style="display:none; margin-top:40px; text-align:center;">
+            <div class="spinner" style="width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:var(--primary); border-radius:50%; animation: spin 1s linear infinite; margin:0 auto;"></div>
+            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Converting in your browser...</p>
+        </div>
+        <div id="result-area" style="display:none; margin-top:40px; text-align:center;">
+             <a id="download-btn" href="#" class="btn" style="padding:15px 40px;">Download Converted File</a>
+             <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin-left:auto; margin-right:auto;">Try Another</button>
+        </div>
+        <canvas id="proc-canvas" style="display:none;"></canvas>
+        <style>
+            @keyframes spin { to { transform: rotate(360deg); } }
+            .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); }
+            .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+        </style>
+    `;
+
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const loader = document.getElementById('loader');
+    const resultArea = document.getElementById('result-area');
+    const downloadBtn = document.getElementById('download-btn');
+    const progressText = document.getElementById('progress-text');
+
+    dropZone.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+    // Drag and drop functionality
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--primary)';
+    });
+    dropZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--border)';
+    });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--border)';
+        if (e.dataTransfer.files.length > 0) {
+            handleFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    async function handleFile(file) {
+        if (!file) return;
+        if (file.size > 50 * 1024 * 1024) { // 50MB limit
+            alert("File size exceeds 50MB limit.");
+            return;
+        }
+
+        dropZone.style.display = 'none';
+        loader.style.display = 'block';
+
+        try {
+            if (isToGif) {
+                await convertMp4ToGif(file);
+            } else {
+                await convertGifToMp4(file);
+            }
+        } catch (error) {
+            console.error("Conversion error:", error);
+            alert("An error occurred during conversion. Please try again.");
+            loader.style.display = 'none';
+            dropZone.style.display = 'block'; // Show drop zone again
+        }
+    }
+
+    async function convertMp4ToGif(file) {
+        progressText.innerText = "Loading GIF encoder...";
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.js');
+
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.muted = true;
+        video.preload = 'metadata';
+
+        await new Promise(resolve => video.onloadedmetadata = resolve);
+
+        const canvas = document.getElementById('proc-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const targetWidth = 480;
+        canvas.width = targetWidth;
+        canvas.height = (video.videoHeight / video.videoWidth) * targetWidth;
+
+        const gif = new GIF({
+            workers: 2,
+            quality: 10,
+            width: canvas.width,
+            height: canvas.height,
+            workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js'
+        });
+
+        const duration = Math.min(video.duration, 10); // Limit to 10 seconds for GIF
+        const totalFrames = 30; // Fixed number of frames for client-side speed
+        const interval = duration / totalFrames;
+
+        for (let i = 0; i < totalFrames; i++) {
+            video.currentTime = i * interval;
+            await new Promise(r => video.onseeked = r);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            gif.addFrame(canvas, { copy: true, delay: (duration * 1000) / totalFrames });
+            progressText.innerText = `Extracting frame ${i + 1}/${totalFrames}...`;
+        }
+
+        progressText.innerText = "Rendering GIF...";
+        gif.on('finished', (blob) => {
+            downloadBtn.href = URL.createObjectURL(blob);
+            downloadBtn.download = "fluxora_converted.gif";
+            loader.style.display = 'none';
+            resultArea.style.display = 'block';
+            URL.revokeObjectURL(video.src); // Clean up video URL
+        });
+
+        gif.on('progress', (p) => {
+            progressText.innerText = `Rendering GIF: ${(p * 100).toFixed(0)}%`;
+        });
+
+        gif.render();
+    }
+
+    async function convertGifToMp4(file) {
+        const canvas = document.getElementById('proc-canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+
+        progressText.innerText = "Loading GIF...";
+        await new Promise(r => img.onload = r);
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const stream = canvas.captureStream(30); // 30 FPS
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' }); // Use webm for broader browser support
+        const chunks = [];
+
+        recorder.ondataavailable = e => chunks.push(e.data);
+
+        progressText.innerText = "Encoding video stream...";
+        recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/mp4' }); // Output as MP4
+            downloadBtn.href = URL.createObjectURL(blob);
+            downloadBtn.download = "fluxora_converted.mp4";
+            loader.style.display = 'none';
+            resultArea.style.display = 'block';
+            URL.revokeObjectURL(img.src); // Clean up image URL
+        };
+
+        recorder.start();
+        // Record for a short duration, e.g., 3 seconds, or loop the GIF if it's animated
+        // For a static GIF, 1 second is enough. For animated, we'd need to parse GIF frames.
+        // For simplicity, we'll record for 3 seconds.
+        setTimeout(() => recorder.stop(), 3000);
+    }
+}
+
+function extractVideoId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
