@@ -40,24 +40,80 @@ document.addEventListener('DOMContentLoaded', () => {
     const textOutput = document.getElementById('text-output');
     const downloadBtn = document.getElementById('download-btn');
 
-    const handleFile = (file) => {
+    const handleFile = async (file) => {
         resultArea.style.display = 'block';
         limitMsg.style.display = 'none';
         outputBox.style.display = 'none';
         loader.style.display = 'block';
         dropZone.style.display = 'none';
 
-        // Simulate processing
-        setTimeout(() => {
+        try {
+            let text = '';
+            if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
+                text = await extractPdfText(file);
+            } else if (
+                file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                file.name.endsWith('.docx')
+            ) {
+                text = await extractDocxText(file);
+            } else {
+                throw new Error('Unsupported file type.');
+            }
+
             loader.style.display = 'none';
-
-            // For demo: Show limitation message + dummy text
-            limitMsg.style.display = 'block';
             outputBox.style.display = 'block';
-            textOutput.value = `[Extracted Text Demo]\n\nfilename: ${file.name}\nsize: ${file.size} bytes\n\n(Content would appear here)`;
+            textOutput.value = text || 'No text content found in document.';
 
-        }, 1500);
+        } catch (err) {
+            console.error(err);
+            loader.style.display = 'none';
+            limitMsg.style.display = 'block';
+            limitMsg.querySelector('h4').textContent = 'Error / Limitation';
+            limitMsg.querySelector('p').innerHTML = `Could not extract text. Reason: ${err.message}<br>Ensure complex formatting is minimized.`;
+        }
     };
+
+    // Helper: Load Script dynamically
+    const loadScript = (src) => {
+        return new Promise((resolve, reject) => {
+            if (document.querySelector(`script[src="${src}"]`)) return resolve();
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    };
+
+    // Real PDF Extraction
+    async function extractPdfText(file) {
+        // Load PDF.js
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+        // Set worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+        let fullText = '';
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items.map(item => item.str).join(' ');
+            fullText += `--- Page ${i} ---\n${pageText}\n\n`;
+        }
+        return fullText;
+    }
+
+    // Real DOCX Extraction
+    async function extractDocxText(file) {
+        // Load Mammoth.js
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
+
+        const arrayBuffer = await file.arrayBuffer();
+        const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
+        return result.value;
+    }
 
     dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));

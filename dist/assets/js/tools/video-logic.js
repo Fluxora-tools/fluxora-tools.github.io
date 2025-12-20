@@ -3,25 +3,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const interfaceContainer = document.getElementById('tool-interface');
     if (!interfaceContainer) return;
 
+    // Detect Tool Type
+    const toolPage = document.querySelector('.tool-page');
+    const toolId = toolPage ? toolPage.dataset.toolId : '';
+
+    let placeholderText = "Paste video URL here";
+    let platformName = "Platform";
+
+    if (toolId.includes('youtube')) {
+        placeholderText = "Paste YouTube URL (e.g. youtube.com/watch?v=...)";
+        platformName = "YouTube";
+    } else if (toolId.includes('pinterest')) {
+        placeholderText = "Paste Pinterest URL (e.g. pinterest.com/pin/...)";
+        platformName = "Pinterest";
+    }
+
     interfaceContainer.innerHTML = `
         <div style="width:100%; max-width:500px; text-align:center;">
-            <input type="text" id="url-input" placeholder="Paste video URL here (e.g. youtube.com/watch?v=...)" />
+            <input type="text" id="url-input" placeholder="${placeholderText}" />
             <button id="fetch-btn" class="btn" style="width:100%;">Download Now</button>
             
             <div id="loader" style="display:none; margin-top:20px;">
                 <div style="width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:var(--primary); border-radius:50%; animation: spin 1s linear infinite; margin:0 auto;"></div>
-                <p style="margin-top:10px;">Analyzing Video...</p>
+                <p style="margin-top:10px;">Searching ${platformName}...</p>
             </div>
 
             <div id="result-area" style="display:none; margin-top:20px; background:rgba(255,50,50,0.1); padding:20px; border-radius:10px; border:1px solid rgba(255,50,50,0.3);">
                 <h3>Technical Limitation</h3>
                 <p style="font-size:0.9rem; margin-top:10px;">
                     This is a <strong>static, client-side only</strong> demonstration. 
-                    Browsers cannot directly download YouTube videos without a backend intermediary (server) due to CORS policies and encryption.
+                    Browsers cannot directly download from <strong>${platformName}</strong> without a backend server due to CORS policies and encryption.
                 </p>
                 <p style="font-size:0.9rem; margin-top:10px;">
-                    In a real production environment, this form would send the URL to a backend API (like node-ytdl-core), which processes the stream and returns a download link.
-                    Since Fluxora is hosted statically without a server, this action cannot be completed here.
+                    In a real production environment, this would hit a backend API (e.g. NodeJS scraper) to extract the source video link.
+                    Since Fluxora is 100% static, this action is simulated.
                 </p>
             </div>
         </div>

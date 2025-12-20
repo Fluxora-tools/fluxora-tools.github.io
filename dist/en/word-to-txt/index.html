@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word to TXT Converter | Fluxora</title>
     <meta name="description" content="Convert Word documents (DOCX) to plain text.">
-    
+
     <!-- Hreflang Tags -->
     <link rel="alternate" hreflang="en" href="/en/word-to-txt" />
     <link rel="alternate" hreflang="tr" href="/tr/word-txt-cevirme" />
@@ -19,16 +20,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- JSON-LD -->
     <script type="application/ld+json">
     {}
     </script>
 </head>
+
 <body class="dark-theme">
     <header class="navbar glass">
         <div class="logo">
-            <a href="/en/">Fluxora<span class="accent">.</span></a>
+            <a href="/en/">
+                <img src="/assets/img/fluxora_logo.png" alt="Fluxora Logo"
+                    style="height: 40px; vertical-align: middle;">
+            </a>
         </div>
         <nav>
             <div class="lang-switch">
@@ -39,11 +45,25 @@
     </header>
 
     <main id="app">
-        <div class="tool-page" data-tool-id="word-to-txt">
-                            <h1>Word to Text Converter</h1>
-                            <div id="tool-interface">Loading Tool...</div>
-                            <article><p>Get the text content from your Word files quickly.</p></article>
-                          </div>
+        <!-- SEO Content Area -->
+        <article style="max-width: 800px; margin: 60px auto 0; text-align: left; color: var(--text-muted);">
+            {{ content }}
+
+            <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
+
+            <!-- Auto-Generated Rich Content -->
+            <section class="seo-rich-content">
+                <h3>{{ faq_title }}</h3>
+                <div class="faq-item">
+                    <strong>{{ faq_q1 }}</strong>
+                    <p>{{ faq_a1 }}</p>
+                </div>
+                <div class="faq-item">
+                    <strong>{{ faq_q2 }}</strong>
+                    <p>{{ faq_a2 }}</p>
+                </div>
+            </section>
+        </article>
     </main>
 
     <footer class="footer">
@@ -60,4 +80,5 @@
     <script type="module" src="/assets/js/main.js"></script>
     <script src="/assets/js/tools/document-logic.js"></script>
 </body>
+
 </html>

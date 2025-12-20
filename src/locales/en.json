@@ -34,6 +34,96 @@
             "description": "Convert Word documents (DOCX) to plain text.",
             "h1": "Word to Text Converter",
             "content": "<p>Get the text content from your Word files quickly.</p>"
+        },
+        "pinterest-downloader": {
+            "title": "Pinterest Video Downloader | Fluxora",
+            "description": "Download Pinterest videos and GIFs instantly. Free online tool.",
+            "h1": "Pinterest Downloader",
+            "content": "<p>Save your favorite Pinterest videos and GIFs.</p>"
+        },
+        "png-to-avif": {
+            "title": "Convert PNG to AVIF Online | Fluxora",
+            "description": "Convert PNG images to modern AVIF format for better compression.",
+            "h1": "PNG to AVIF Converter",
+            "content": "<p>Make your images smaller and faster with AVIF.</p>"
+        },
+        "avif-to-png": {
+            "title": "Convert AVIF to PNG Online | Fluxora",
+            "description": "Convert AVIF files to standard PNG format.",
+            "h1": "AVIF to PNG Converter",
+            "content": "<p>Convert AVIF to PNG for compatibility.</p>"
+        },
+        "jpg-to-webp": {
+            "title": "Convert JPG to WebP Online | Fluxora",
+            "description": "Free JPG to WebP converter. Optimize your images for the web.",
+            "h1": "JPG to WebP Converter",
+            "content": "<p>Convert your JPGs to WebP automatically.</p>"
+        },
+        "webp-to-jpg": {
+            "title": "Convert WebP to JPG Online | Fluxora",
+            "description": "Convert WebP images back to JPG format instantly.",
+            "h1": "WebP to JPG Converter",
+            "content": "<p>Turn WebP files into universally supported JPGs.</p>"
+        },
+        "gif-to-mp4": {
+            "title": "Convert GIF to MP4 Online | Fluxora",
+            "description": "Convert animated GIFs to MP4 video format.",
+            "h1": "GIF to MP4 Converter",
+            "content": "<p>Turn GIFs into shareable video files.</p>"
+        },
+        "mp4-to-gif": {
+            "title": "Convert MP4 to GIF Online | Fluxora",
+            "description": "Create animated GIFs from MP4 videos.",
+            "h1": "MP4 to GIF Converter",
+            "content": "<p>Make GIFs from your videos easily.</p>"
+        },
+        "json-formatter": {
+            "title": "JSON Formatter & Minifier | Fluxora",
+            "description": "Format, validate, and minify JSON data online.",
+            "h1": "JSON Formatter",
+            "content": "<p>Beautify or minify your JSON data instantly.</p>"
+        },
+        "lorem-ipsum": {
+            "title": "Lorem Ipsum Generator | Fluxora",
+            "description": "Generate placeholder text for your designs.",
+            "h1": "Lorem Ipsum Generator",
+            "content": "<p>Create dummy text for your projects.</p>"
+        },
+        "slug-generator": {
+            "title": "URL Slug Generator | Fluxora",
+            "description": "Create SEO-friendly URL slugs from text strings.",
+            "h1": "Slug Generator",
+            "content": "<p>Convert text into clean URL slugs.</p>"
+        },
+        "markdown-to-html": {
+            "title": "Markdown to HTML Converter | Fluxora",
+            "description": "Convert Markdown text to raw HTML code.",
+            "h1": "Markdown to HTML",
+            "content": "<p>Preview and convert Markdown to HTML.</p>"
+        },
+        "qr-generator": {
+            "title": "Free QR Code Generator | Fluxora",
+            "description": "Create custom QR codes for URLs, text, and more. Instant & Private.",
+            "h1": "QR Code Generator",
+            "content": "<p>Generate high-quality QR codes instantly in your browser.</p>"
+        },
+        "password-generator": {
+            "title": "Strong Password Generator | Fluxora",
+            "description": "Create secure, random passwords to protect your accounts.",
+            "h1": "Password Generator",
+            "content": "<p>Generate strong, unhackable passwords locally.</p>"
+        },
+        "word-counter": {
+            "title": "Word & Character Counter | Fluxora",
+            "description": "Count words, characters, and paragraphs in real-time.",
+            "h1": "Word Counter Tool",
+            "content": "<p>Analyze your text for length and density.</p>"
+        },
+        "internet-speed-test": {
+            "title": "Internet Speed Test | Fluxora",
+            "description": "Check your internet connection ping and download speed.",
+            "h1": "Internet Speed Test",
+            "content": "<p>Measure your network latency and speed quickly.</p>"
         }
     },
     "about": {

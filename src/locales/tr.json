@@ -34,6 +34,96 @@
             "description": "Word (DOCX) belgelerini düz metin dosyasına çevirin.",
             "h1": "Word Metin Çevirici",
             "content": "<p>Word dosyalarınızın içerisindeki metni hızlıca alın.</p>"
+        },
+        "pinterest-downloader": {
+            "title": "Pinterest Video İndir | Fluxora",
+            "description": "Pinterest videolarını ve GIFlerini ücretsiz indirin. Hızlı Pinterest indirici.",
+            "h1": "Pinterest Video İndir",
+            "content": "<p>Pinterest videolarını cihazınıza kaydedin.</p>"
+        },
+        "png-to-avif": {
+            "title": "PNG AVIF Çevirme | Fluxora",
+            "description": "PNG resimlerini yeni nesil AVIF formatına dönüştürün.",
+            "h1": "PNG AVIF Çevirici",
+            "content": "<p>Resimlerinizi AVIF formatına çevirerek sıkıştırın.</p>"
+        },
+        "avif-to-png": {
+            "title": "AVIF PNG Çevirme | Fluxora",
+            "description": "AVIF dosyalarınızı PNG formatına çevirin.",
+            "h1": "AVIF PNG Çevirici",
+            "content": "<p>AVIF dosyalarını her yerde açılabilen PNG'ye dönüştürün.</p>"
+        },
+        "jpg-to-webp": {
+            "title": "JPG WebP Çevirme | Fluxora",
+            "description": "JPG fotoğrafları WebP formatına dönüştürün. Daha hızlı web siteleri için.",
+            "h1": "JPG WebP Çevirici",
+            "content": "<p>JPG dosyalarını modern WebP formatına çevirin.</p>"
+        },
+        "webp-to-jpg": {
+            "title": "WebP JPG Çevirme | Fluxora",
+            "description": "WebP dosyalarını JPG formatına dönüştürün.",
+            "h1": "WebP JPG Çevirici",
+            "content": "<p>WebP resimlerini standart JPG yapın.</p>"
+        },
+        "gif-to-mp4": {
+            "title": "GIF MP4 Çevirme | Fluxora",
+            "description": "GIF animasyonlarını MP4 video formatına dönüştürün.",
+            "h1": "GIF MP4 Dönüştürücü",
+            "content": "<p>GIF dosyalarını videoya çevirin.</p>"
+        },
+        "mp4-to-gif": {
+            "title": "MP4 GIF Çevirme | Fluxora",
+            "description": "MP4 videolarını animasyonlu GIF yapın.",
+            "h1": "MP4 GIF Yapma",
+            "content": "<p>Videolarınızdan anında GIF oluşturun.</p>"
+        },
+        "json-formatter": {
+            "title": "JSON Düzenleyici ve Sıkıştırıcı | Fluxora",
+            "description": "JSON verilerini düzenleyin, doğrulayın veya sıkıştırın.",
+            "h1": "JSON Düzenleyici",
+            "content": "<p>JSON verilerinizi anında okunaklı hale getirin.</p>"
+        },
+        "lorem-ipsum": {
+            "title": "Lorem Ipsum Oluşturucu | Fluxora",
+            "description": "Tasarım projeleriniz için rastgele metin üretin.",
+            "h1": "Lorem Ipsum Oluşturucu",
+            "content": "<p>Projeleriniz için mıcır metin oluşturun.</p>"
+        },
+        "slug-generator": {
+            "title": "URL Slug Oluşturucu | Fluxora",
+            "description": "Metinleri SEO uyumlu URL yapısına çevirin.",
+            "h1": "Slug Oluşturucu",
+            "content": "<p>Yazılarınızı link yapısına uygun hale getirin.</p>"
+        },
+        "markdown-to-html": {
+            "title": "Markdown HTML Çevirici | Fluxora",
+            "description": "Markdown formatını HTML koduna çevirin.",
+            "h1": "Markdown HTML Çevirici",
+            "content": "<p>Markdown yazılarınızı HTML'e dönüştürün.</p>"
+        },
+        "qr-generator": {
+            "title": "Ücretsiz Karekod (QR) Oluşturucu | Fluxora",
+            "description": "Linkler ve metinler için anında QR kod oluşturun. Kayıt gerekmez.",
+            "h1": "QR Kod Oluşturucu",
+            "content": "<p>Tarayıcınızda hızlıca QR karekod üretin ve indirin.</p>"
+        },
+        "password-generator": {
+            "title": "Güçlü Şifre Oluşturucu | Fluxora",
+            "description": "Kırılması zor, rastgele ve güvenli şifreler oluşturun.",
+            "h1": "Şifre Oluşturucu",
+            "content": "<p>Hesaplarınız için güvenli şifreler yaratın.</p>"
+        },
+        "word-counter": {
+            "title": "Kelime ve Karakter Sayacı | Fluxora",
+            "description": "Metninizdeki kelime, harf ve paragraf sayısını ölçün.",
+            "h1": "Kelime Sayacı",
+            "content": "<p>Yazılarınızın uzunluğunu ve detaylarını analiz edin.</p>"
+        },
+        "internet-speed-test": {
+            "title": "İnternet Hız Testi | Fluxora",
+            "description": "İnternet bağlantı hızınızı ve ping değerinizi ölçün.",
+            "h1": "İnternet Hız Testi",
+            "content": "<p>Ağ bağlantınızın performansını hemen test edin.</p>"
         }
     },
     "about": {

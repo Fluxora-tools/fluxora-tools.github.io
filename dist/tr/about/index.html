@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hakkımızda | Fluxora</title>
     <meta name="description" content="Fluxora hakkında bilgi, gizlilik politikası ve yapımcılar.">
-    
+
     <!-- Hreflang Tags -->
     <link rel="alternate" hreflang="en" href="/en/" />
     <link rel="alternate" hreflang="tr" href="/tr/" />
@@ -19,16 +20,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- JSON-LD -->
     <script type="application/ld+json">
     {}
     </script>
 </head>
+
 <body class="dark-theme">
     <header class="navbar glass">
         <div class="logo">
-            <a href="/tr/">Fluxora<span class="accent">.</span></a>
+            <a href="/tr/">
+                <img src="/assets/img/fluxora_logo.png" alt="Fluxora Logo"
+                    style="height: 40px; vertical-align: middle;">
+            </a>
         </div>
         <nav>
             <div class="lang-switch">
@@ -39,7 +45,25 @@
     </header>
 
     <main id="app">
-        <div class='container' style='max-width:800px; padding: 40px 0;'><h1>Hakkımızda</h1><p>Fluxora, dosyalarınızı doğrudan tarayıcınızda hızlı ve güvenli bir şekilde işlemeniz için tasarlanmış ücretsiz bir platformdur.</p><h2>Gizlilik ve Güvenlik</h2><p>Gizliliğinize önem veriyoruz. Tüm işlemler <strong>istemci tarafında (tarayıcınızda)</strong> gerçekleşir. <strong>Dosyalarınız asla sunucularımıza yüklenmez.</strong> Bu, verilerinizin tamamen gizli kalmasını sağlar.</p><h2>Emeği Geçenler</h2><p>Tasarım ve Geliştirme: <span class='sys-id'>SYS_0xA7</span>.</p></div>
+        <!-- SEO Content Area -->
+        <article style="max-width: 800px; margin: 60px auto 0; text-align: left; color: var(--text-muted);">
+            {{ content }}
+
+            <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
+
+            <!-- Auto-Generated Rich Content -->
+            <section class="seo-rich-content">
+                <h3>{{ faq_title }}</h3>
+                <div class="faq-item">
+                    <strong>{{ faq_q1 }}</strong>
+                    <p>{{ faq_a1 }}</p>
+                </div>
+                <div class="faq-item">
+                    <strong>{{ faq_q2 }}</strong>
+                    <p>{{ faq_a2 }}</p>
+                </div>
+            </section>
+        </article>
     </main>
 
     <footer class="footer">
@@ -56,4 +80,5 @@
     <script type="module" src="/assets/js/main.js"></script>
     {{extra_scripts}}
 </body>
+
 </html>

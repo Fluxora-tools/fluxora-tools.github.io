@@ -41,7 +41,26 @@ const TOOLS = [
         slug: { en: 'word-to-txt', tr: 'word-txt-cevirme' },
         template: 'converter',
         type: 'document'
-    }
+    },
+    // New Images
+    { id: 'png-to-avif', slug: { en: 'png-to-avif', tr: 'png-avif-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'avif-to-png', slug: { en: 'avif-to-png', tr: 'avif-png-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'jpg-to-webp', slug: { en: 'jpg-to-webp', tr: 'jpg-webp-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'webp-to-jpg', slug: { en: 'webp-to-jpg', tr: 'webp-jpg-cevirme' }, template: 'converter', type: 'image' },
+    // New Video/Downloader
+    { id: 'pinterest-downloader', slug: { en: 'pinterest-downloader', tr: 'pinterest-video-indir' }, template: 'downloader', type: 'video' },
+    { id: 'gif-to-mp4', slug: { en: 'gif-to-mp4', tr: 'gif-mp4-cevirme' }, template: 'converter', type: 'video' },
+    { id: 'mp4-to-gif', slug: { en: 'mp4-to-gif', tr: 'mp4-gif-cevirme' }, template: 'converter', type: 'video' },
+    // Developer Tools (Real & Easy)
+    { id: 'json-formatter', slug: { en: 'json-formatter', tr: 'json-duzenleyici' }, template: 'converter', type: 'dev' },
+    { id: 'lorem-ipsum', slug: { en: 'lorem-ipsum-generator', tr: 'lorem-ipsum-olusturucu' }, template: 'converter', type: 'dev' },
+    { id: 'slug-generator', slug: { en: 'slug-generator', tr: 'slug-olusturucu' }, template: 'converter', type: 'dev' },
+    { id: 'markdown-to-html', slug: { en: 'markdown-to-html', tr: 'markdown-html-cevirici' }, template: 'converter', type: 'dev' },
+    // High Volume Utilities
+    { id: 'qr-generator', slug: { en: 'qr-code-generator', tr: 'karekod-olusturucu' }, template: 'converter', type: 'utility' },
+    { id: 'password-generator', slug: { en: 'password-generator', tr: 'sifre-olusturucu' }, template: 'converter', type: 'utility' },
+    { id: 'word-counter', slug: { en: 'word-counter', tr: 'kelime-sayaci' }, template: 'converter', type: 'utility' },
+    { id: 'internet-speed-test', slug: { en: 'internet-speed-test', tr: 'internet-hiz-testi' }, template: 'converter', type: 'utility' }
     // Add more tools as we implement them
 ];
 
@@ -108,13 +127,21 @@ async function build() {
                 content: `<div class="tool-page" data-tool-id="${tool.id}">
                             <h1>${pageH1}</h1>
                             <div id="tool-interface">Loading Tool...</div>
-                            <article>${toolData ? toolData.content : ''}</article>
+                            <article>${toolData ? toolData.content_long : ''}</article>
                           </div>`,
+
+                // SEO Content Injection
+                faq_title: lang === 'en' ? 'Frequently Asked Questions' : 'Sıkça Sorulan Sorular',
+                faq_q1: lang === 'en' ? `Is ${pageH1} free?` : `${pageH1} ücretsiz mi?`,
+                faq_a1: lang === 'en' ? "Yes, this tool is 100% free and works entirely in your browser." : "Evet, bu araç tamamen ücretsizdir ve tarayıcınızda çalışır.",
+                faq_q2: lang === 'en' ? "Is it safe to use?" : "Kullanımı güvenli mi?",
+                faq_a2: lang === 'en' ? "Absolutely. Fluxora processes files locally on your device for maximum privacy." : "Kesinlikle. Fluxora dosyaları cihazınızda yerel olarak işler, maksimum gizlilik sağlar.",
+
                 hreflang_tags: generateHreflang(tool.id, lang),
                 switch_lang_url: getSwitchUrl(tool.id, lang),
                 switch_lang_label: lang === 'en' ? 'TR' : 'EN',
                 extra_scripts: `<script src="/assets/js/tools/${tool.type}-logic.js"></script>`,
-                json_ld: generateJsonLd('software', lang, tool)
+                json_ld: generateJsonLd('software', lang, tool, locale)
             });
 
             const toolDir = path.join(langDir, toolSlug);

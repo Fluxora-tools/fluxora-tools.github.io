@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="drop-zone" id="drop-zone">
             <p style="margin-bottom:15px; font-size:1.2rem;">Drag & Drop Image Here</p>
             <p class="text-muted">or</p>
-            <input type="file" id="file-input" accept="image/png, image/jpeg, image/webp" style="display:none">
+            <input type="file" id="file-input" accept="image/png, image/jpeg, image/webp, image/avif" style="display:none">
             <button class="btn" onclick="document.getElementById('file-input').click()">Select File</button>
         </div>
         <div id="preview-area" style="margin-top:20px; text-align:center; display:none;">
@@ -96,13 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // Determine generic output format based on tool ID logic
             let format = 'image/jpeg';
             let ext = 'jpg';
+
             if (toolId.includes('to-png')) { format = 'image/png'; ext = 'png'; }
             else if (toolId.includes('to-webp')) { format = 'image/webp'; ext = 'webp'; }
+            else if (toolId.includes('to-avif')) { format = 'image/avif'; ext = 'avif'; }
+            else if (toolId.includes('to-jpg')) { format = 'image/jpeg'; ext = 'jpg'; }
 
 
             canvas.toBlob((blob) => {
                 if (!blob) {
-                    statusMsg.textContent = 'Conversion failed.';
+                    statusMsg.textContent = 'Conversion failed (Browser might not support this format).';
                     return;
                 }
                 const url = URL.createObjectURL(blob);

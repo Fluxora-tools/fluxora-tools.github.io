@@ -73,6 +73,186 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/word-txt-cevirme/"/>
     </url>
     <url>
+        <loc>https://fluxora.com/en/png-to-avif/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-avif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-avif-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/png-avif-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-avif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-avif-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/avif-to-png/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/avif-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/avif-png-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/avif-png-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/avif-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/avif-png-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/jpg-to-webp/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-webp/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-webp-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/jpg-webp-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-webp/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-webp-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/webp-to-jpg/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/webp-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/webp-jpg-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/webp-jpg-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/webp-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/webp-jpg-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/pinterest-downloader/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pinterest-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pinterest-video-indir/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/pinterest-video-indir/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pinterest-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pinterest-video-indir/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/gif-to-mp4/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/gif-to-mp4/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/gif-mp4-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/gif-mp4-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/gif-to-mp4/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/gif-mp4-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/mp4-to-gif/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/mp4-to-gif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/mp4-gif-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/mp4-gif-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/mp4-to-gif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/mp4-gif-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/json-formatter/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/json-formatter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/json-duzenleyici/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/json-duzenleyici/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/json-formatter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/json-duzenleyici/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/lorem-ipsum-generator/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/lorem-ipsum-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/lorem-ipsum-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/lorem-ipsum-olusturucu/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/lorem-ipsum-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/lorem-ipsum-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/slug-generator/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/slug-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/slug-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/slug-olusturucu/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/slug-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/slug-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/markdown-to-html/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/markdown-to-html/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/markdown-html-cevirici/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/markdown-html-cevirici/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/markdown-to-html/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/markdown-html-cevirici/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/qr-code-generator/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/qr-code-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/karekod-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/karekod-olusturucu/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/qr-code-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/karekod-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/password-generator/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/password-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/sifre-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/sifre-olusturucu/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/password-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/sifre-olusturucu/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/word-counter/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-counter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/kelime-sayaci/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/kelime-sayaci/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-counter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/kelime-sayaci/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/internet-speed-test/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/internet-speed-test/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/internet-hiz-testi/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/internet-hiz-testi/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/internet-speed-test/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/internet-hiz-testi/"/>
+    </url>
+    <url>
         <loc>https://fluxora.com/en/about/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
