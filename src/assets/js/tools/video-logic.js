@@ -1,4 +1,4 @@
-// Video Logic Tool - "Nuclear" Playback-Based Engine (Zero Hangs)
+// Video Logic Tool - Ultra-Robust No-Wait Engine
 document.addEventListener('DOMContentLoaded', () => {
     const interfaceContainer = document.getElementById('tool-interface');
     if (!interfaceContainer) return;
@@ -6,15 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const toolPage = document.querySelector('.tool-page');
     const toolId = toolPage ? toolPage.dataset.toolId : '';
 
-    // UI Localization (Absolute Fallbacks)
+    // UI Localization (Hardcoded for stability)
     const isTR = window.location.pathname.includes('/tr/');
     const s = {
         preparing: isTR ? "Video Hazırlanıyor..." : "Preparing Video...",
         capturing: isTR ? "Kareler Yakalanıyor:" : "Capturing Frames:",
-        rendering: isTR ? "Dosya Oluşturuluyor:" : "Rendering File:",
-        error: isTR ? "Hata: Video desteklenmiyor veya çok büyük." : "Error: Video not supported.",
+        rendering: isTR ? "GIF Oluşturuluyor:" : "Rendering GIF:",
+        error: isTR ? "Hata: Video desteklenmiyor." : "Error: Not supported.",
         process: isTR ? "İşleniyor..." : "Processing...",
-        done: isTR ? "Tamamlandı!" : "Done!"
+        select: isTR ? "Video Seçin" : "Select Video"
     };
 
     renderVideoTool(interfaceContainer, toolId, s);
@@ -31,9 +31,9 @@ function renderVideoTool(container, toolId, s) {
 
     container.innerHTML = `
         <div class="converter-box" id="drop-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: 0.3s;">
-            <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
-            <h3>${isFromGif ? 'GIF' : 'Video'} Seçin veya Sürükleyin</h3>
-            <p style="color: var(--text-muted); margin-top: 10px;">Dosya eklemek için buraya tıkla</p>
+            <i class="fas fa-film" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+            <h3>${s.select}</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Dosyayı sürükle veya seç</p>
             <input type="file" id="file-input" style="display:none;" accept="${acceptType}" />
         </div>
         
@@ -47,7 +47,9 @@ function renderVideoTool(container, toolId, s) {
              <a id="download-btn" href="#" class="btn" style="padding:15px 40px;">İndir</a>
              <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin-left:auto; margin-right:auto;">Yeni Dosya</button>
         </div>
-        <video id="hidden-video" style="display:none;" muted playsinline></video>
+        <div style="position:fixed; bottom:0; left:0; width:1px; height:1px; overflow:hidden; opacity:0.1;">
+            <video id="worker-video" muted playsinline></video>
+        </div>
         <canvas id="proc-canvas" style="display:none;"></canvas>
     `;
 
@@ -57,76 +59,78 @@ function renderVideoTool(container, toolId, s) {
     const resultArea = document.getElementById('result-area');
     const downloadBtn = document.getElementById('download-btn');
     const progressText = document.getElementById('progress-text');
-    const video = document.getElementById('hidden-video');
+    const video = document.getElementById('worker-video');
 
     dropZone.onclick = () => fileInput.click();
     fileInput.onchange = (e) => handleFile(e.target.files[0]);
-
-    // Drag support
-    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; };
-    dropZone.ondragleave = () => { dropZone.style.borderColor = 'var(--border)'; };
-    dropZone.ondrop = (e) => { e.preventDefault(); handleFile(e.dataTransfer.files[0]); };
 
     async function handleFile(file) {
         if (!file) return;
         dropZone.style.display = 'none';
         loader.style.display = 'block';
 
-        if (isToGif) await convertToGif(file);
-        else if (isFromGif) await convertToMp4(file);
-        else await processBasic(file);
+        if (isToGif) await convertToGif(file, s);
+        else if (isFromGif) await convertToMp4(file, s);
+        else await processBasic(file, isMute, isToMp3, s);
     }
 
-    // MP4 TO GIF: Using Playback-based capture (Fast & Unstoppable)
-    async function convertToGif(file) {
+    async function convertToGif(file, s) {
+        progressText.innerText = s.preparing + " %10";
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.js');
+
         const canvas = document.getElementById('proc-canvas');
         const ctx = canvas.getContext('2d');
         const objUrl = URL.createObjectURL(file);
         video.src = objUrl;
+        video.load();
 
-        await new Promise(r => video.onloadeddata = r);
+        // Faster loading check
+        await new Promise(r => {
+            video.oncanplay = r;
+            setTimeout(r, 2000); // Max 2s wait
+        });
 
         const scale = 320;
         canvas.width = scale;
-        canvas.height = (video.videoHeight / video.videoWidth) * scale;
+        canvas.height = (video.videoHeight || 180) / (video.videoWidth || 320) * scale;
 
         const gif = new GIF({
             workers: 2,
-            quality: 30,
+            quality: 20,
             width: canvas.width,
             height: canvas.height,
             workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js'
         });
 
-        // Fast Playback Capture
-        video.playbackRate = 4.0; // Play 4 times faster to capture frames
-        video.play();
+        const duration = Math.min(video.duration || 5, 8);
+        const frameCount = 12;
+        const step = duration / frameCount;
 
-        const captureInterval = setInterval(() => {
-            if (video.ended || video.currentTime >= 10) { // Max 10s
-                clearInterval(captureInterval);
-                video.pause();
-                progressText.innerText = s.rendering + " %99";
-                gif.render();
-                return;
-            }
+        for (let i = 0; i < frameCount; i++) {
+            video.currentTime = i * step;
+            await new Promise(r => {
+                const finish = () => { video.removeEventListener('seeked', finish); r(); };
+                video.addEventListener('seeked', finish);
+                setTimeout(finish, 1000); // 1s max per frame seek
+            });
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            gif.addFrame(ctx, { copy: true, delay: 100 });
+            gif.addFrame(ctx, { copy: true, delay: (duration * 1000) / frameCount });
+            progressText.innerText = `${s.capturing} %${Math.round((i / frameCount) * 100)}`;
+        }
 
-            const pct = Math.round((video.currentTime / video.duration) * 100);
-            progressText.innerText = `${s.capturing} %${isNaN(pct) ? 0 : pct}`;
-        }, 100);
+        gif.on('progress', (p) => {
+            progressText.innerText = `${s.rendering} %${Math.round(p * 100)}`;
+        });
 
         gif.on('finished', (blob) => {
             URL.revokeObjectURL(objUrl);
             showResult(blob, "fluxora.gif", "image");
         });
+        gif.render();
     }
 
-    // GIF TO MP4: Frame to stream
-    async function convertToMp4(file) {
-        progressText.innerText = s.process;
+    async function convertToMp4(file, s) {
+        progressText.innerText = s.preparing + " %50";
         const canvas = document.getElementById('proc-canvas');
         const img = new Image();
         img.src = URL.createObjectURL(file);
@@ -135,26 +139,25 @@ function renderVideoTool(container, toolId, s) {
         canvas.getContext('2d').drawImage(img, 0, 0);
 
         const chunks = [];
-        const recorder = new MediaRecorder(canvas.captureStream(30));
+        const recorder = new MediaRecorder(canvas.captureStream(25));
         recorder.ondataavailable = e => chunks.push(e.data);
         recorder.onstop = () => showResult(new Blob(chunks), "fluxora.mp4", "video");
         recorder.start();
         setTimeout(() => recorder.stop(), 3000);
     }
 
-    // MUTE / MP3: Straight stream processing
-    async function processBasic(file) {
+    async function processBasic(file, isMute, isMp3, s) {
         progressText.innerText = s.process;
         video.src = URL.createObjectURL(file);
         await video.play();
-        const chunks = [];
-        const stream = isToMp3 ? video.captureStream() : video.captureStream();
+        const stream = video.captureStream();
         if (isMute) stream.getAudioTracks().forEach(t => stream.removeTrack(t));
-        else stream.getVideoTracks().forEach(t => stream.removeTrack(t));
+        if (isMp3) stream.getVideoTracks().forEach(t => stream.removeTrack(t));
 
+        const chunks = [];
         const recorder = new MediaRecorder(stream);
         recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = () => showResult(new Blob(chunks), isToMp3 ? "audio.mp3" : "muted.mp4", isToMp3 ? "audio" : "video");
+        recorder.onstop = () => showResult(new Blob(chunks), isMp3 ? "audio.mp3" : "muted.mp4", isMp3 ? "audio" : "video");
         recorder.start();
         video.onended = () => recorder.stop();
     }
