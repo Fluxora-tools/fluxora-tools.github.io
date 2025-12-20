@@ -34,7 +34,8 @@ function renderDownloader(container, toolId) {
             
             <div id="loader" style="display:none; margin:30px 0;">
                 <div class="spinner"></div>
-                <p id="loader-text" style="margin-top:15px; color:var(--text-muted); font-size: 0.9rem;">Connecting to global download network...</p>
+                <p id="loader-text" style="margin-top:15px; color:var(--text-muted); font-size: 0.9rem;">Connecting to download network...</p>
+                <p id="proxy-warning" style="display:none; color:var(--primary); font-size:0.75rem; margin-top:5px;">Slow connection detected, attempting tunnel...</p>
             </div>
 
             <div id="result-area" style="display:none; margin-top:30px; background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid var(--border); text-align:left;">
@@ -42,18 +43,25 @@ function renderDownloader(container, toolId) {
                     <img id="video-thumb" src="" style="width:180px; height:100px; object-fit:cover; border-radius:10px; background:#1e293b;" />
                     <div>
                         <h4 id="video-title" style="margin:0; font-size:1.1rem; color:white;">Content Ready</h4>
-                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">Processing complete. You can now download your file.</p>
+                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">The file is ready for download.</p>
                     </div>
                 </div>
                 <div style="display:flex; gap:10px;">
-                    <a id="download-link" href="#" class="btn" style="flex:1; text-align:center; background:var(--primary); color:white; text-decoration:none;">Download</a>
+                    <a id="download-link" href="#" class="btn" style="flex:1; text-align:center; background:var(--primary); color:white; text-decoration:none;">Download Now</a>
                     <button id="reset-btn" class="btn btn-secondary" style="width:auto;">New Search</button>
                 </div>
             </div>
 
             <div id="error-box" style="display:none; margin-top:30px; padding:20px; border-radius:12px; background:rgba(255, 100, 100, 0.1); border:1px solid rgba(255, 100, 100, 0.2); text-align:left;">
-                <p id="error-msg" style="color:#ff8888; font-size:0.9rem; margin-bottom:0;"></p>
-                <p style="color:var(--text-muted); font-size:0.8rem; margin-top:10px;">Note: If you are seeing DNS errors, it might be due to your network blocking download services. Try using a VPN or changing your DNS to 1.1.1.1.</p>
+                <p id="error-msg" style="color:#ff8888; font-size:0.9rem; margin-bottom:0; font-weight:bold;"></p>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-top:10px; line-height:1.4;">
+                    <strong>Why is this happening?</strong><br>
+                    Your network or ISP (Internet Service Provider) is blocking access to media extraction servers. 
+                </p>
+                <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                    <span style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:4px; font-size:0.75rem;">Try VPN</span>
+                    <span style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:4px; font-size:0.75rem;">Change DNS to 1.1.1.1</span>
+                </div>
             </div>
         </div>
         <style>
@@ -68,6 +76,7 @@ function renderDownloader(container, toolId) {
     const urlInput = document.getElementById('url-input');
     const loader = document.getElementById('loader');
     const loaderText = document.getElementById('loader-text');
+    const proxyWarning = document.getElementById('proxy-warning');
     const resultArea = document.getElementById('result-area');
     const errorBox = document.getElementById('error-box');
     const errorMsg = document.getElementById('error-msg');
@@ -79,76 +88,116 @@ function renderDownloader(container, toolId) {
         if (!url) return;
 
         loader.style.display = 'block';
+        proxyWarning.style.display = 'none';
         resultArea.style.display = 'none';
         errorBox.style.display = 'none';
         fetchBtn.disabled = true;
 
-        // Expanded and verified list of Cobalt instances (January 2025)
         const instances = [
             'https://cobalt.hyra.sh/api/json',
             'https://api.v0l.me/api/json',
             'https://im-special.v0l.me/api/json',
             'https://cobalt.api.unblocked.lol/api/json',
             'https://api.cobalt.tools/api/json',
-            'https://cobalt.api.ryuugamine.org/api/json'
+            'https://cobalt.api.ryuugamine.org/api/json',
+            'https://co.wuk.sh/api/json', // Added
+            'https://cobalt.qex.pw/api/json', // Added
+            'https://cobalt.y2mate.app/api/json' // Added
         ];
 
         let success = false;
-        let dnsErrors = 0;
 
+        // Step 1: Try Direct Connections
         for (const instance of instances) {
             try {
-                loaderText.innerText = `Trying server: ${new URL(instance).hostname}...`;
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
-
-                const response = await fetch(instance, {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        url: url,
-                        videoQuality: "1080",
-                        isAudioOnly: toolId.includes('mp3'),
-                        filenamePattern: "pretty"
-                    }),
-                    signal: controller.signal
-                });
-
-                clearTimeout(timeoutId);
-
-                if (!response.ok) continue;
-
-                const data = await response.json();
-
-                if (data.url || data.picker?.[0]?.url) {
-                    const finalUrl = data.url || data.picker[0].url;
-                    videoThumb.src = (url.includes('youtube') || url.includes('youtu.be'))
-                        ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg`
-                        : 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
-
-                    downloadLink.href = finalUrl;
-                    downloadLink.innerText = toolId.includes('mp3') ? "Download MP3" : "Download MP4";
-                    resultArea.style.display = 'block';
+                loaderText.innerText = `Connecting: ${new URL(instance).hostname}...`;
+                const data = await fetchFromCobalt(instance, url, toolId);
+                if (data) {
+                    showResult(data, url, toolId);
                     success = true;
                     break;
                 }
             } catch (e) {
-                console.warn(`Server ${instance} failed:`, e);
-                if (e.name === 'TypeError') dnsErrors++;
+                console.warn(`Direct fail for ${instance}:`, e);
+            }
+        }
+
+        // Step 2: Try Tunnelled Connections (Fallbacks for DNS blocks)
+        if (!success) {
+            proxyWarning.style.display = 'block';
+            const tunnelProxies = [
+                'https://api.allorigins.win/raw?url=',
+                'https://corsproxy.io/?'
+            ];
+
+            for (const proxy of tunnelProxies) {
+                for (const instance of instances) {
+                    try {
+                        loaderText.innerText = `Bypassing filter via ${new URL(proxy).hostname}...`;
+                        const tunnelUrl = proxy + encodeURIComponent(instance);
+                        const data = await fetchFromCobalt(tunnelUrl, url, toolId);
+                        if (data) {
+                            showResult(data, url, toolId);
+                            success = true;
+                            break;
+                        }
+                    } catch (e) {
+                        console.warn(`Tunnel fail for ${proxy}${instance}:`, e);
+                    }
+                }
+                if (success) break;
             }
         }
 
         if (!success) {
             errorBox.style.display = 'block';
-            if (dnsErrors >= 3) {
-                errorMsg.innerText = "Error: All servers are unreachable. This is likely a DNS issue or your network is blocking these services.";
-            } else {
-                errorMsg.innerText = "Error: Extraction failed. The URL might be invalid or the video is restricted.";
-            }
+            errorMsg.innerText = "All servers are unreachable (ISP Block Detected).";
         }
 
         loader.style.display = 'none';
         fetchBtn.disabled = false;
+    }
+
+    async function fetchFromCobalt(apiUrl, contentUrl, tid) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url: contentUrl,
+                    videoQuality: "1080",
+                    isAudioOnly: tid.includes('mp3'),
+                    filenamePattern: "pretty"
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            if (!response.ok) return null;
+            const data = await response.json();
+            return (data.url || data.picker?.[0]?.url) ? data : null;
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    function showResult(data, origUrl, tid) {
+        const finalUrl = data.url || data.picker[0].url;
+
+        // Thumbnail logic
+        if (origUrl.includes('youtube') || origUrl.includes('youtu.be')) {
+            videoThumb.src = `https://img.youtube.com/vi/${extractVideoId(origUrl)}/mqdefault.jpg`;
+        } else if (origUrl.includes('pinterest') && data.picker?.[0]?.thumb) {
+            videoThumb.src = data.picker[0].thumb;
+        } else {
+            videoThumb.src = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
+        }
+
+        downloadLink.href = finalUrl;
+        downloadLink.innerText = tid.includes('mp3') ? "Download Audio" : "Download Video";
+        resultArea.style.display = 'block';
     }
 
     fetchBtn.addEventListener('click', handleFetch);
@@ -273,7 +322,6 @@ function renderConverter(container, toolId) {
             downloadBtn.download = "fluxora.gif";
             loader.style.display = 'none';
             resultArea.style.display = 'block';
-            URL.revokeObjectURL(video.src); // Clean up video URL
         });
 
         gif.on('progress', (p) => {
@@ -307,7 +355,6 @@ function renderConverter(container, toolId) {
             downloadBtn.download = "fluxora.mp4";
             loader.style.display = 'none';
             resultArea.style.display = 'block';
-            URL.revokeObjectURL(img.src); // Clean up image URL
         };
 
         recorder.start();
