@@ -34,7 +34,7 @@ function renderDownloader(container, toolId) {
             
             <div id="loader" style="display:none; margin:30px 0;">
                 <div class="spinner"></div>
-                <p id="loader-text" style="margin-top:15px; color:var(--text-muted);">Processing link...</p>
+                <p id="loader-text" style="margin-top:15px; color:var(--text-muted);">Searching for the best download server...</p>
             </div>
 
             <div id="result-area" style="display:none; margin-top:30px; background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid var(--border); text-align:left;">
@@ -42,7 +42,7 @@ function renderDownloader(container, toolId) {
                     <img id="video-thumb" src="" style="width:180px; height:100px; object-fit:cover; border-radius:10px; background:#1e293b;" />
                     <div>
                         <h4 id="video-title" style="margin:0; font-size:1.1rem; color:white;">Content Ready</h4>
-                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">Successfully extracted.</p>
+                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">The link has been extracted successfully.</p>
                     </div>
                 </div>
                 <div style="display:flex; gap:10px;">
@@ -72,20 +72,21 @@ function renderDownloader(container, toolId) {
         if (!url) return;
 
         loader.style.display = 'block';
-        loaderText.innerText = "Connecting to extraction server...";
         resultArea.style.display = 'none';
         fetchBtn.disabled = true;
 
-        // Try multiple Cobalt instances if one fails (CORS/Rate limit)
+        // More robust instance list (Updated for 2025)
         const instances = [
-            'https://cobalt-api.v0l.me/api/json',
-            'https://cobalt.api.unblocked.lol/api/json'
+            'https://cobalt.hyra.sh/api/json',
+            'https://im-special.v0l.me/api/json',
+            'https://cobalt.api.unblocked.lol/api/json',
+            'https://api.cobalt.tools/api/json' // Keep as fallback
         ];
 
         let success = false;
         for (const instance of instances) {
             try {
-                loaderText.innerText = `Fetching via ${new URL(instance).hostname}...`;
+                loaderText.innerText = `Trying server: ${new URL(instance).hostname}...`;
                 const response = await fetch(instance, {
                     method: 'POST',
                     headers: {
@@ -100,29 +101,31 @@ function renderDownloader(container, toolId) {
                     })
                 });
 
+                if (!response.ok) continue;
+
                 const data = await response.json();
 
                 if (data.url || data.status === 'success' || data.status === 'stream') {
                     const finalUrl = data.url || data.picker?.[0]?.url;
                     if (finalUrl) {
-                        videoThumb.src = url.includes('youtube') || url.includes('youtu.be')
+                        videoThumb.src = (url.includes('youtube') || url.includes('youtu.be'))
                             ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg`
                             : 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
 
                         downloadLink.href = finalUrl;
-                        downloadLink.innerText = toolId.includes('mp3') ? "Download Audio" : "Download Video";
+                        downloadLink.innerText = toolId.includes('mp3') ? "Download Audio (MP3)" : "Download Video (MP4)";
                         resultArea.style.display = 'block';
                         success = true;
                         break;
                     }
                 }
             } catch (e) {
-                console.warn(`Instance ${instance} failed:`, e);
+                console.warn(`Server ${instance} unreachable:`, e);
             }
         }
 
         if (!success) {
-            alert("Error: Extraction failed. The YouTube/Video servers might be blocking the request. Please try a different URL or try again later.");
+            alert("Error: All download servers are currently busy or blocking this request. Please check the URL or try again later.");
         }
 
         loader.style.display = 'none';
@@ -144,17 +147,17 @@ function renderConverter(container, toolId) {
         <div class="converter-box" id="drop-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.02);">
             <i class="fas fa-file-video" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
             <h3>Click or Drag ${isToGif ? 'MP4' : 'GIF'} file</h3>
-            <p style="color: var(--text-muted); margin-top: 10px;">Safe, fast, local conversion</p>
+            <p style="color: var(--text-muted); margin-top: 10px;">Safe, fast, 100% local conversion</p>
             <input type="file" id="file-input" style="display:none;" accept="${isToGif ? 'video/mp4' : 'image/gif'}" />
         </div>
         
         <div id="loader" style="display:none; margin:40px 0; text-align:center;">
             <div class="spinner"></div>
-            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Processing locally...</p>
+            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Converting in your browser...</p>
         </div>
 
         <div id="result-area" style="display:none; margin:40px 0; text-align:center;">
-             <a id="download-btn" href="#" class="btn" style="padding:15px 40px;">Download Converted File</a>
+             <a id="download-btn" href="#" class="btn" style="padding:15px 40px;">Download File</a>
              <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin-left:auto; margin-right:auto;">New Task</button>
         </div>
         <canvas id="proc-canvas" style="display:none;"></canvas>
@@ -203,15 +206,14 @@ function renderConverter(container, toolId) {
             } else {
                 await convertGifToMp4(file);
             }
-        } catch (error) {
-            console.error("Conversion error:", error);
+        } catch (e) {
+            console.error(e);
             alert("Local conversion error. Try a smaller file.");
             location.reload();
         }
     }
 
     async function convertMp4ToGif(file) {
-        progressText.innerText = "Loading GIF encoder...";
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.js');
 
         const video = document.createElement('video');
@@ -268,7 +270,6 @@ function renderConverter(container, toolId) {
         const img = new Image();
         img.src = URL.createObjectURL(file);
 
-        progressText.innerText = "Loading GIF...";
         await new Promise(r => img.onload = r);
 
         canvas.width = img.width;
@@ -281,7 +282,6 @@ function renderConverter(container, toolId) {
 
         recorder.ondataavailable = e => chunks.push(e.data);
 
-        progressText.innerText = "Encoding video stream...";
         recorder.onstop = () => {
             const blob = new Blob(chunks, { type: 'video/mp4' }); // Output as MP4
             downloadBtn.href = URL.createObjectURL(blob);
@@ -296,6 +296,7 @@ function renderConverter(container, toolId) {
         // For a static GIF, 1 second is enough. For animated, we'd need to parse GIF frames.
         // For simplicity, we'll record for 3 seconds.
         setTimeout(() => recorder.stop(), 3000);
+        progressText.innerText = "Encoding video stream...";
     }
 }
 
@@ -306,12 +307,11 @@ function extractVideoId(url) {
 }
 
 function loadScript(src) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         if (document.querySelector(`script[src="${src}"]`)) return resolve();
         const script = document.createElement('script');
         script.src = src;
         script.onload = resolve;
-        script.onerror = reject;
         document.head.appendChild(script);
     });
 }
