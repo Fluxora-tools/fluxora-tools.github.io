@@ -1,0 +1,44 @@
+{
+    "home": {
+        "title": "Fluxora – Hızlı Dönüştürücü ve İndirme Araçları",
+        "description": "Ücretsiz resim dönüştürücü (PNG'den JPG'e) ve video indirme araçları. Hızlı ve güvenli.",
+        "h1": "Ücretsiz Online Dosya Araçları"
+    },
+    "tools": {
+        "png-to-jpg": {
+            "title": "PNG JPG Çevirme – Online ve Ücretsiz | Fluxora",
+            "description": "Hızlı PNG JPG çevirici. Resimlerinizi tarayıcıda anında dönüştürün.",
+            "h1": "PNG JPG Çevirme",
+            "content": "<p>PNG dosyalarınızı anında JPG formatına çevirin.</p><h2>Nasıl Kullanılır</h2><p>1. Dosyayı yükleyin.</p><p>2. JPG olarak indirin.</p>"
+        },
+        "jpg-to-png": {
+            "title": "JPG PNG Çevirme | Fluxora",
+            "description": "JPG fotoğrafları PNG formatına dönüştürün.",
+            "h1": "JPG PNG Çevirme",
+            "content": "<p>JPG dosyalarını kolayca PNG yapın.</p>"
+        },
+        "youtube-mp3": {
+            "title": "YouTube MP3 İndir | Fluxora",
+            "description": "YouTube videolarını MP3 olarak indirin.",
+            "h1": "YouTube MP3 İndir",
+            "content": "<p>Favori videolarınızın sesini indirin.</p>"
+        },
+        "pdf-to-txt": {
+            "title": "PDF TXT Çevirme | Fluxora",
+            "description": "PDF dosyalarından metinleri anında çıkarın. Tarayıcı tabanlı güvenli araç.",
+            "h1": "PDF Metin Çevirici",
+            "content": "<p>PDF dosyalarınızdaki yazıları kolayca TXT formatına dönüştürün.</p>"
+        },
+        "word-to-txt": {
+            "title": "Word TXT Çevirme | Fluxora",
+            "description": "Word (DOCX) belgelerini düz metin dosyasına çevirin.",
+            "h1": "Word Metin Çevirici",
+            "content": "<p>Word dosyalarınızın içerisindeki metni hızlıca alın.</p>"
+        }
+    },
+    "about": {
+        "title": "Hakkımızda | Fluxora",
+        "description": "Fluxora hakkında bilgi, gizlilik politikası ve yapımcılar.",
+        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Hakkımızda</h1><p>Fluxora, dosyalarınızı doğrudan tarayıcınızda hızlı ve güvenli bir şekilde işlemeniz için tasarlanmış ücretsiz bir platformdur.</p><h2>Gizlilik ve Güvenlik</h2><p>Gizliliğinize önem veriyoruz. Tüm işlemler <strong>istemci tarafında (tarayıcınızda)</strong> gerçekleşir. <strong>Dosyalarınız asla sunucularımıza yüklenmez.</strong> Bu, verilerinizin tamamen gizli kalmasını sağlar.</p><h2>Emeği Geçenler</h2><p>Tasarım ve Geliştirme: <span class='sys-id'>SYS_0xA7</span>.</p></div>"
+    }
+}

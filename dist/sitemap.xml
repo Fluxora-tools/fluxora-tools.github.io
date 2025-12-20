@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://fluxora.com/en/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/png-to-jpg/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-jpg-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/png-jpg-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-jpg-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/jpg-to-png/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-png-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/jpg-png-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-png-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/youtube-mp3-downloader/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/youtube-mp3-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/youtube-mp3-indir/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/youtube-mp3-indir/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/youtube-mp3-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/youtube-mp3-indir/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/pdf-to-txt/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pdf-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pdf-txt-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/pdf-txt-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pdf-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pdf-txt-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/word-to-txt/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/word-txt-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/word-txt-cevirme/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/word-txt-cevirme/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/en/about/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/about/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/about/"/>
+    </url>
+    <url>
+        <loc>https://fluxora.com/tr/about/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/about/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/about/"/>
+    </url>
+</urlset>

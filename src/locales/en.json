@@ -1,0 +1,44 @@
+{
+    "home": {
+        "title": "Fluxora – Fast Download & Convert Tools",
+        "description": "Free online tools to convert images (PNG to JPG, AVIF to PNG) and download videos. Fast, client-side, and secure.",
+        "h1": "Free Online File Tools"
+    },
+    "tools": {
+        "png-to-jpg": {
+            "title": "Convert PNG to JPG Online | Fluxora",
+            "description": "Fast and free PNG to JPG converter. Convert your images instantly in the browser without uploading.",
+            "h1": "PNG to JPG Converter",
+            "content": "<p>Use this free tool to convert your PNG images to JPG format instantly.</p><h2>How to use</h2><p>1. Upload your PNG.</p><p>2. Download the JPG.</p>"
+        },
+        "jpg-to-png": {
+            "title": "Convert JPG to PNG Online | Fluxora",
+            "description": "Convert JPG images to PNG format with transparency support. Free and fast.",
+            "h1": "JPG to PNG Converter",
+            "content": "<p>Easily convert JPG to PNG.</p>"
+        },
+        "youtube-mp3": {
+            "title": "YouTube MP3 Downloader | Fluxora",
+            "description": "Download MP3 audio from YouTube videos. Client-side based tool.",
+            "h1": "YouTube to MP3",
+            "content": "<p>Download audio from your favorite videos.</p>"
+        },
+        "pdf-to-txt": {
+            "title": "PDF to TXT Converter | Fluxora",
+            "description": "Extract text from PDF files instantly in your browser.",
+            "h1": "PDF to Text Converter",
+            "content": "<p>Extract plain text from your PDF documents securely.</p>"
+        },
+        "word-to-txt": {
+            "title": "Word to TXT Converter | Fluxora",
+            "description": "Convert Word documents (DOCX) to plain text.",
+            "h1": "Word to Text Converter",
+            "content": "<p>Get the text content from your Word files quickly.</p>"
+        }
+    },
+    "about": {
+        "title": "About Fluxora | Privacy & Credits",
+        "description": "Learn more about Fluxora, our privacy policy, and the team.",
+        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>About Fluxora</h1><p>Fluxora is a free, modern web platform designed to provide fast and secure file tools directly in your browser.</p><h2>Privacy & Security</h2><p>We prioritize your privacy. All processing happens <strong>client-side</strong> within your browser. <strong>No files are ever uploaded to our servers.</strong> This ensures your data remains completely private and secure.</p><h2>Credits</h2><p>Designed and Developed by <span class='sys-id'>SYS_0xA7</span>.</p><p>Powered by Open Source technologies.</p></div>"
+    }
+}
