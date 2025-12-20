@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderDownloader(container, toolId) {
-    let placeholderText = "Paste video URL here";
+    let placeholderText = "Paste URL here";
 
     if (toolId.includes('youtube')) {
         placeholderText = "Paste YouTube URL";
@@ -38,18 +38,19 @@ function renderDownloader(container, toolId) {
                 <div id="video-meta" style="display:flex; gap:20px; align-items:flex-start; margin-bottom:25px;">
                     <img id="video-thumb" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110" style="width:180px; height:100px; object-fit:cover; border-radius:10px; background:#1e293b;" />
                     <div>
-                        <h1 id="video-title" style="margin:0; font-size:1.1rem; color:white; font-weight:600;">Content Ready</h1>
-                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">Processing complete. Click the button below to download.</p>
+                        <h1 id="video-title" style="margin:0; font-size:1.1rem; color:white; font-weight:600;">Link Extracted</h1>
+                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">Please use the download button below.</p>
                     </div>
                 </div>
                 <div id="download-actions" style="display:flex; flex-direction:column; gap:12px;">
                     <!-- Actions will be injected here -->
                 </div>
+                <button id="reset-btn" class="btn btn-secondary" style="width:100%; margin-top:15px; border-top: 1px solid var(--border); padding-top: 15px;">New Search</button>
             </div>
 
             <div id="error-box" style="display:none; margin-top:30px; padding:20px; border-radius:12px; background:rgba(255, 100, 100, 0.1); border:1px solid rgba(255, 100, 100, 0.2); text-align:left;">
                 <p id="error-msg" style="color:#ff8888; font-size:0.9rem; margin-bottom:0; font-weight:bold;"></p>
-                <p style="color:var(--text-muted); font-size:0.8rem; margin-top:10px;">Common causes: Invalid URL, restricted video, or temporary server maintenance.</p>
+                <p style="color:var(--text-muted); font-size:0.8rem; margin-top:10px;">Common causes: Shared private link, restricted video, or server downtime. Try another link.</p>
             </div>
         </div>
     `;
@@ -72,46 +73,51 @@ function renderDownloader(container, toolId) {
         errorBox.style.display = 'none';
         fetchBtn.disabled = true;
 
-        let success = false;
-
         try {
             if (url.includes('youtube') || url.includes('youtu.be')) {
                 const vid = extractVideoId(url);
-                if (vid) {
-                    videoThumb.src = `https://img.youtube.com/vi/${vid}/mqdefault.jpg`;
-                    const iframeUrl = toolId.includes('mp3')
-                        ? `https://api.vevioz.com/@api/button/mp3/${vid}`
-                        : `https://api.vevioz.com/@api/button/videos/${vid}`;
+                if (!vid) throw new Error("Invalid YouTube URL");
 
-                    downloadActions.innerHTML = `
-                        <iframe src="${iframeUrl}" width="100%" height="60px" scrolling="no" style="border:none; border-radius:8px; background:rgba(255,255,255,0.05); margin-bottom: 10px;"></iframe>
-                        <button id="reset-btn" class="btn btn-secondary" style="width:100%;">Search Another Link</button>
-                    `;
-                    success = true;
-                }
+                videoThumb.src = `https://img.youtube.com/vi/${vid}/mqdefault.jpg`;
+                const isMp3 = toolId.includes('mp3');
+
+                // YouTube: Use direct button and secondary iframes for resilience
+                downloadActions.innerHTML = `
+                    <a href="https://api.vevioz.com/@api/button/${isMp3 ? 'mp3' : 'videos'}/${vid}" target="_blank" class="btn" style="width:100%; text-align:center; text-decoration:none; background:var(--primary); color:white;">Click to Prepare Download</a>
+                    <p style="font-size:0.75rem; color:var(--text-muted); text-align:center;">This will open a secure converter window.</p>
+                `;
+                resultArea.style.display = 'block';
             } else if (url.includes('pinterest') || url.includes('pin.it')) {
                 const scraped = await scrapePinterest(url);
                 if (scraped && scraped.url) {
                     videoThumb.src = scraped.thumb || videoThumb.src;
                     downloadActions.innerHTML = `
-                        <a href="${scraped.url}" target="_blank" class="btn" style="width:100%; text-align:center; text-decoration:none; display: block; background: var(--primary); color: white;">Download Video (Open in New Tab)</a>
-                        <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin: 0;">If it opens as playing video, right-click and "Save Video As".</p>
-                        <button id="reset-btn" class="btn btn-secondary" style="width:100%;">Search Another Link</button>
+                        <a href="${scraped.url}" target="_blank" download="pinterest_video.mp4" class="btn" style="width:100%; text-align:center; text-decoration:none; background:var(--primary); color:white;">Download Pinterest Video</a>
+                        <p style="font-size:0.75rem; color:var(--text-muted); text-align:center; margin:0;">If it plays in browser, right-click and 'Save Video As'.</p>
                     `;
-                    success = true;
+                    resultArea.style.display = 'block';
+                } else {
+                    // Try Cobalt Fallback for Pinterest
+                    const cobaltRes = await fetchFromCobalt('https://api.v0l.me/api/json', url, toolId);
+                    if (cobaltRes) {
+                        downloadActions.innerHTML = `<a href="${cobaltRes.url}" target="_blank" class="btn" style="width:100%; text-align:center; text-decoration:none; background:var(--primary); color:white;">Download Now</a>`;
+                        resultArea.style.display = 'block';
+                    } else {
+                        throw new Error("Could not extract media from this Pinterest link.");
+                    }
                 }
+            } else {
+                throw new Error("Unsupported URL format.");
             }
 
-            if (success) {
-                resultArea.style.display = 'block';
+            if (resultArea.style.display === 'block') {
                 document.getElementById('reset-btn').onclick = () => {
                     resultArea.style.display = 'none';
                     urlInput.value = '';
                     urlInput.focus();
                 };
-            } else {
-                throw new Error("Could not process this link. Please check if the URL is correct.");
             }
+
         } catch (e) {
             errorBox.style.display = 'block';
             errorMsg.innerText = "Error: " + e.message;
@@ -123,25 +129,34 @@ function renderDownloader(container, toolId) {
 
     async function scrapePinterest(pUrl) {
         try {
-            // Use cors-anywhere or allorigins for scraper
-            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(pUrl)}`;
-            const res = await fetch(proxyUrl);
-            const html = await res.text();
-
-            // Extract Video URL from Pinterest's page source
-            let videoUrl = html.match(/property="og:video" content="(.*?)"/)?.[1];
-            if (!videoUrl) {
-                videoUrl = html.match(/"v720P":\{"url":"(.*?)"/)?.[1] || html.match(/"V_720P":\{"url":"(.*?)"/)?.[1];
+            // Updated Scraper via multiple proxies
+            const proxies = [`https://corsproxy.io/?${encodeURIComponent(pUrl)}`, `https://api.allorigins.win/raw?url=${encodeURIComponent(pUrl)}`];
+            for (const proxy of proxies) {
+                try {
+                    const res = await fetch(proxy);
+                    const html = await res.text();
+                    let videoUrl = html.match(/property="og:video" content="(.*?)"/)?.[1] ||
+                        html.match(/"v720P":\{"url":"(.*?)"/)?.[1] ||
+                        html.match(/"V_720P":\{"url":"(.*?)"/)?.[1];
+                    const thumbUrl = html.match(/property="og:image" content="(.*?)"/)?.[1];
+                    if (videoUrl) return { url: videoUrl.replace(/\\u002F/g, '/'), thumb: thumbUrl };
+                } catch (pe) { }
             }
-            const thumbUrl = html.match(/property="og:image" content="(.*?)"/)?.[1];
-
-            if (videoUrl) {
-                return { url: videoUrl.replace(/\\u002F/g, '/'), thumb: thumbUrl };
-            }
-        } catch (err) {
-            console.error(err);
-        }
+        } catch (err) { }
         return null;
+    }
+
+    async function fetchFromCobalt(apiUrl, contentUrl, tid) {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: contentUrl, videoQuality: "1080", isAudioOnly: tid.includes('mp3') })
+            });
+            if (!response.ok) return null;
+            const data = await response.json();
+            return (data.url || data.picker?.[0]?.url) ? data : null;
+        } catch (e) { return null; }
     }
 
     fetchBtn.addEventListener('click', handleFetch);
@@ -154,13 +169,13 @@ function renderConverter(container, toolId) {
         <div class="converter-box" id="drop-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
             <i class="fas fa-file-video" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
             <h3>Click or Drag ${isToGif ? 'MP4' : 'GIF'} file</h3>
-            <p style="color: var(--text-muted); margin-top: 10px;">Max 50MB, 100% Secure & Local</p>
+            <p style="color: var(--text-muted); margin-top: 10px;">Max 50MB, Local Processing</p>
             <input type="file" id="file-input" style="display:none;" accept="${isToGif ? 'video/mp4' : 'image/gif'}" />
         </div>
         
         <div id="loader" style="display:none; margin:40px 0; text-align:center;">
             <div class="spinner"></div>
-            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Processing locally in your browser...</p>
+            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Converting in your browser...</p>
         </div>
 
         <div id="result-area" style="display:none; margin:40px 0; text-align:center;">
@@ -182,19 +197,15 @@ function renderConverter(container, toolId) {
 
     async function handleFile(file) {
         if (!file) return;
-        if (file.size > 50 * 1024 * 1024) { alert("File is too large (Max 50MB)"); return; }
+        if (file.size > 50 * 1024 * 1024) { alert("File too large (Max 50MB)"); return; }
         dropZone.style.display = 'none';
         loader.style.display = 'block';
 
         try {
-            if (isToGif) {
-                await convertMp4ToGif(file);
-            } else {
-                await convertGifToMp4(file);
-            }
+            if (isToGif) await convertMp4ToGif(file);
+            else await convertGifToMp4(file);
         } catch (e) {
-            console.error(e);
-            alert("Local conversion error. Please try a different file.");
+            alert("Processing error. Try a different file.");
             location.reload();
         }
     }
@@ -208,12 +219,12 @@ function renderConverter(container, toolId) {
 
         const canvas = document.getElementById('proc-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = 480;
-        canvas.height = (video.videoHeight / video.videoWidth) * 480;
+        canvas.width = 400; // Reduced for performance
+        canvas.height = (video.videoHeight / video.videoWidth) * 400;
 
-        const gif = new GIF({ workers: 2, quality: 10, width: canvas.width, height: canvas.height, workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js' });
-        const duration = Math.min(video.duration, 8);
-        const frames = 15;
+        const gif = new GIF({ workers: 2, quality: 15, width: canvas.width, height: canvas.height, workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js' });
+        const duration = Math.min(video.duration, 5); // Max 5s for speed
+        const frames = 10; // Reduced frames for 2x speed
 
         for (let i = 0; i < frames; i++) {
             video.currentTime = i * (duration / frames);
@@ -237,24 +248,19 @@ function renderConverter(container, toolId) {
         const img = new Image();
         img.src = URL.createObjectURL(file);
         await new Promise(r => img.onload = r);
-
-        canvas.width = img.width;
-        canvas.height = img.height;
+        canvas.width = img.width; canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
 
         const chunks = [];
-        const recorder = new MediaRecorder(canvas.captureStream(30), { mimeType: 'video/webm' });
+        const recorder = new MediaRecorder(canvas.captureStream(30));
         recorder.ondataavailable = e => chunks.push(e.data);
         recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'video/mp4' });
-            downloadBtn.href = URL.createObjectURL(blob);
+            downloadBtn.href = URL.createObjectURL(new Blob(chunks, { type: 'video/mp4' }));
             downloadBtn.download = "fluxora.mp4";
-            loader.style.display = 'none';
-            resultArea.style.display = 'block';
+            loader.style.display = 'none'; resultArea.style.display = 'block';
         };
         recorder.start();
-        setTimeout(() => recorder.stop(), 3000);
-        progressText.innerText = "Generating video file...";
+        setTimeout(() => recorder.stop(), 2000); // 2s is enough for local check
     }
 }
 
@@ -267,9 +273,7 @@ function extractVideoId(url) {
 function loadScript(src) {
     return new Promise((resolve) => {
         if (document.querySelector(`script[src="${src}"]`)) return resolve();
-        const script = document.createElement('script');
-        script.src = src;
-        script.onload = resolve;
-        document.head.appendChild(script);
+        const script = document.createElement('script'); script.src = src;
+        script.onload = resolve; document.head.appendChild(script);
     });
 }
