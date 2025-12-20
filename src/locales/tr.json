@@ -102,51 +102,51 @@
             "content": "<p>Videolarınızdan hızlıca GIF animasyonları oluşturun.</p>"
         },
         "json-formatter": {
-            "title": "JSON Düzenleyici | Fluxora",
+            "title": "JSON Formatter | Fluxora",
             "description": "Karmaşık JSON verilerini okunabilir ve düzenli hale getirin.",
-            "h1": "JSON Düzenleyici",
+            "h1": "JSON Formatter",
             "content": "<p>JSON kodunuzu yapıştırarak anında formatlayın.</p>"
         },
         "lorem-ipsum": {
-            "title": "Lorem Ipsum Oluşturucu | Fluxora",
+            "title": "Lorem Ipsum Generator | Fluxora",
             "description": "Tasarımlarınız için rastgele metinler oluşturun.",
-            "h1": "Lorem Ipsum Oluşturucu",
+            "h1": "Lorem Ipsum Generator",
             "content": "<p>İstediğiniz sayıda kelime veya paragraf Lorem Ipsum üretin.</p>"
         },
         "slug-generator": {
-            "title": "Slug Oluşturucu | Fluxora",
+            "title": "Slug Generator | Fluxora",
             "description": "Başlıkları URL uyumlu (slug) metne dönüştürün.",
-            "h1": "URL Slug Oluşturucu",
+            "h1": "Slug Generator",
             "content": "<p>Yazı başlıklarınızı SEO uyumlu URL'lere çevirin.</p>"
         },
         "markdown-to-html": {
-            "title": "Markdown HTML Çevirici | Fluxora",
+            "title": "Markdown to HTML | Fluxora",
             "description": "Markdown yazımlarını anında HTML koduna dönüştürün.",
-            "h1": "Markdown HTML Çevirici",
+            "h1": "Markdown to HTML",
             "content": "<p>Markdown metninizi HTML'e çevirerek web sayfalarında kullanın.</p>"
         },
         "qr-generator": {
-            "title": "Ücretsiz Karekod (QR) Oluşturucu | Fluxora",
+            "title": "QR Code Generator | Fluxora",
             "description": "Linkler ve metinler için anında QR kod oluşturun. Kayıt gerekmez.",
-            "h1": "QR Kod Oluşturucu",
+            "h1": "QR Code Generator",
             "content": "<p>Tarayıcınızda hızlıca QR karekod üretin ve indirin.</p>"
         },
         "password-generator": {
-            "title": "Güçlü Şifre Oluşturucu | Fluxora",
+            "title": "Password Generator | Fluxora",
             "description": "Kırılması zor, rastgele ve güvenli şifreler oluşturun.",
-            "h1": "Şifre Oluşturucu",
+            "h1": "Password Generator",
             "content": "<p>Hesaplarınız için güvenli şifreler yaratın.</p>"
         },
         "word-counter": {
-            "title": "Kelime ve Karakter Sayacı | Fluxora",
+            "title": "Word Counter | Fluxora",
             "description": "Metninizdeki kelime, harf ve paragraf sayısını ölçün.",
-            "h1": "Kelime Sayacı",
+            "h1": "Word Counter",
             "content": "<p>Yazılarınızın uzunluğunu ve detaylarını analiz edin.</p>"
         },
         "internet-speed-test": {
-            "title": "İnternet Hız Testi | Fluxora",
+            "title": "Internet Speed Test | Fluxora",
             "description": "İnternet bağlantı hızınızı ve ping değerinizi ölçün.",
-            "h1": "İnternet Hız Testi",
+            "h1": "Internet Speed Test",
             "content": "<p>Ağ bağlantınızın performansını hemen test edin.</p>"
         }
     },
