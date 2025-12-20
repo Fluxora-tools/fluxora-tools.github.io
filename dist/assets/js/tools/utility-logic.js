@@ -195,61 +195,57 @@ function renderSpeedTest(container) {
     document.getElementById('start-test').addEventListener('click', async () => {
         const btn = document.getElementById('start-test');
         btn.disabled = true;
-        btn.textContent = 'Testing...';
-
         const speedVal = document.getElementById('speed-val');
         const speedFill = document.getElementById('speed-fill');
         const pingText = document.getElementById('ping-text');
 
-        // Measure Ping
-        const startPing = performance.now();
+        // Reset UI
+        speedVal.textContent = '0.0';
+        speedFill.style.height = '0%';
+
         try {
-            await fetch('/assets/css/main.css?t=' + Date.now()); // Small file
-            const ping = Math.round(performance.now() - startPing);
-            pingText.textContent = `Ping: ${ping} ms`;
-        } catch {
-            pingText.textContent = 'Ping: Error';
-        }
+            // 1. Measure Ping (Reliable)
+            const pings = [];
+            for (let i = 0; i < 3; i++) {
+                const start = performance.now();
+                await fetch('https://www.google.com/favicon.ico', { mode: 'no-cors', cache: 'no-store' });
+                pings.push(performance.now() - start);
+            }
+            const avgPing = Math.round(pings.reduce((a, b) => a + b) / pings.length);
+            pingText.textContent = `Ping: ${avgPing} ms`;
 
-        // Measure Download (Mock using a slightly larger file or repeated fetch if needed, 
-        // strictly speaking direct JS speedtest needs a reliable large file. 
-        // Since we are static, we might not have a huge file. We will simulate/estimate.)
+            // 2. Measure Download (Real)
+            // Using a large file from a reliable CDN
+            const testUrl = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'; // ~600KB - we will loop it 10 times
+            const iterations = 8;
+            let totalBits = 0;
+            const startTime = performance.now();
 
-        // Real logic: Fetch a larger image (e.g. from Unsplash source or similar CND) to test download
-        // Warn: CORS might block random images. 
-        // Safest: Use a known CDN file allowed. 
-        // OR: Generate a large blob in memory? No that tests RAM.
-        // Let's use a public CDN file from a robust source (like Cloudflare speed test file if possible, or just a generic large JS lib).
+            for (let i = 0; i < iterations; i++) {
+                const res = await fetch(testUrl + '?cb=' + Math.random(), { cache: 'no-store' });
+                const blob = await res.blob();
+                totalBits += blob.size * 8;
 
-        const testFileUrl = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'; // ~600KB
-        const fileSizeBits = 600 * 1024 * 8; // approx bits
+                // Real-time update
+                const elapsed = (performance.now() - startTime) / 1000;
+                const currentMbps = (totalBits / elapsed / 1000000).toFixed(1);
+                speedVal.textContent = currentMbps;
+                speedFill.style.height = Math.min((parseFloat(currentMbps) / 100) * 100, 100) + '%';
+            }
 
-        const startTime = performance.now();
-        try {
-            await fetch(testFileUrl + '?t=' + Date.now());
-            const duration = (performance.now() - startTime) / 1000; // seconds
-            const bps = fileSizeBits / duration;
-            const mbps = (bps / 1000000).toFixed(2);
+            const totalDuration = (performance.now() - startTime) / 1000;
+            const finalMbps = (totalBits / totalDuration / 1000000).toFixed(1);
 
-            // Animation loop for effect
-            let current = 0;
-            const target = parseFloat(mbps);
-            const interval = setInterval(() => {
-                current += target / 20;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(interval);
-                    btn.disabled = false;
-                    btn.textContent = 'Test Again';
-                }
-                speedVal.textContent = current.toFixed(2);
-                speedFill.style.height = Math.min((current / 100) * 100, 100) + '%';
-            }, 50);
+            speedVal.textContent = finalMbps;
+            speedFill.style.height = Math.min((parseFloat(finalMbps) / 100) * 100, 100) + '%';
+            btn.textContent = 'Test Again';
 
         } catch (e) {
+            console.error(e);
             speedVal.textContent = "Err";
-            btn.disabled = false;
             btn.textContent = 'Retry';
+        } finally {
+            btn.disabled = false;
         }
     });
 }

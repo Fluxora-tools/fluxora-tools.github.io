@@ -74,13 +74,25 @@ ul {
 }
 
 .logo a {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    background: linear-gradient(to right, #fff, var(--text-muted));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s;
+}
+
+.logo a:hover {
+    filter: drop-shadow(0 0 8px var(--primary-glow));
 }
 
 .accent {
-    color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 main {

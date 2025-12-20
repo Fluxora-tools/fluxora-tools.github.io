@@ -33,8 +33,8 @@ function renderDownloader(container, toolId) {
             </div>
             
             <div id="loader" style="display:none; margin:30px 0;">
-                <div class="spinner" style="width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:var(--primary); border-radius:50%; animation: spin 1s linear infinite; margin:0 auto;"></div>
-                <p style="margin-top:15px; color:var(--text-muted);">Processing link...</p>
+                <div class="spinner"></div>
+                <p id="loader-text" style="margin-top:15px; color:var(--text-muted);">Processing link...</p>
             </div>
 
             <div id="result-area" style="display:none; margin-top:30px; background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid var(--border); text-align:left;">
@@ -53,6 +53,7 @@ function renderDownloader(container, toolId) {
         </div>
         <style>
             @keyframes spin { to { transform: rotate(360deg); } }
+            .spinner { width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:var(--primary); border-radius:50%; animation: spin 1s linear infinite; margin:0 auto; }
             .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); }
             .btn-secondary:hover { background: rgba(255,255,255,0.1); }
         </style>
@@ -61,6 +62,7 @@ function renderDownloader(container, toolId) {
     const fetchBtn = document.getElementById('fetch-btn');
     const urlInput = document.getElementById('url-input');
     const loader = document.getElementById('loader');
+    const loaderText = document.getElementById('loader-text');
     const resultArea = document.getElementById('result-area');
     const downloadLink = document.getElementById('download-link');
     const videoThumb = document.getElementById('video-thumb');
@@ -68,32 +70,63 @@ function renderDownloader(container, toolId) {
     async function handleFetch() {
         const url = urlInput.value.trim();
         if (!url) return;
+
         loader.style.display = 'block';
+        loaderText.innerText = "Connecting to extraction server...";
         resultArea.style.display = 'none';
         fetchBtn.disabled = true;
 
-        try {
-            const response = await fetch('https://api.cobalt.tools/api/json', {
-                method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url, videoQuality: "1080", isAudioOnly: toolId.includes('mp3') })
-            });
-            const data = await response.json();
-            if (data.url) {
-                videoThumb.src = url.includes('youtube') ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg` : '';
-                downloadLink.href = data.url;
-                resultArea.style.display = 'block';
-            } else {
-                alert("Error fetching content. Please check the URL.");
+        // Try multiple Cobalt instances if one fails (CORS/Rate limit)
+        const instances = [
+            'https://cobalt-api.v0l.me/api/json',
+            'https://cobalt.api.unblocked.lol/api/json'
+        ];
+
+        let success = false;
+        for (const instance of instances) {
+            try {
+                loaderText.innerText = `Fetching via ${new URL(instance).hostname}...`;
+                const response = await fetch(instance, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        url: url,
+                        videoQuality: "1080",
+                        isAudioOnly: toolId.includes('mp3'),
+                        filenamePattern: "pretty"
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.url || data.status === 'success' || data.status === 'stream') {
+                    const finalUrl = data.url || data.picker?.[0]?.url;
+                    if (finalUrl) {
+                        videoThumb.src = url.includes('youtube') || url.includes('youtu.be')
+                            ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg`
+                            : 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
+
+                        downloadLink.href = finalUrl;
+                        downloadLink.innerText = toolId.includes('mp3') ? "Download Audio" : "Download Video";
+                        resultArea.style.display = 'block';
+                        success = true;
+                        break;
+                    }
+                }
+            } catch (e) {
+                console.warn(`Instance ${instance} failed:`, e);
             }
-        } catch (e) {
-            console.error(e);
-            alert("Error fetching content.");
         }
-        finally {
-            loader.style.display = 'none';
-            fetchBtn.disabled = false;
+
+        if (!success) {
+            alert("Error: Extraction failed. The YouTube/Video servers might be blocking the request. Please try a different URL or try again later.");
         }
+
+        loader.style.display = 'none';
+        fetchBtn.disabled = false;
     }
 
     fetchBtn.addEventListener('click', handleFetch);
@@ -108,26 +141,23 @@ function renderDownloader(container, toolId) {
 function renderConverter(container, toolId) {
     const isToGif = toolId === 'mp4-to-gif';
     container.innerHTML = `
-        <div class="converter-box" style="width:100%; max-width:600px; background:rgba(255,255,255,0.02); border:2px dashed var(--border); border-radius:20px; padding:60px 20px; text-align:center; cursor:pointer;" id="drop-zone">
+        <div class="converter-box" id="drop-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.02);">
+            <i class="fas fa-file-video" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+            <h3>Click or Drag ${isToGif ? 'MP4' : 'GIF'} file</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Safe, fast, local conversion</p>
             <input type="file" id="file-input" style="display:none;" accept="${isToGif ? 'video/mp4' : 'image/gif'}" />
-            <i class="fas fa-file-video" style="font-size:3rem; color:var(--primary); opacity:0.5;"></i>
-            <h3 style="margin-top:20px;">Click or Drag ${isToGif ? 'MP4' : 'GIF'} here</h3>
-            <p style="color:var(--text-muted); margin-top:10px;">Max file size: 50MB</p>
         </div>
-        <div id="loader" style="display:none; margin-top:40px; text-align:center;">
-            <div class="spinner" style="width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:var(--primary); border-radius:50%; animation: spin 1s linear infinite; margin:0 auto;"></div>
-            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Converting in your browser...</p>
+        
+        <div id="loader" style="display:none; margin:40px 0; text-align:center;">
+            <div class="spinner"></div>
+            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Processing locally...</p>
         </div>
-        <div id="result-area" style="display:none; margin-top:40px; text-align:center;">
+
+        <div id="result-area" style="display:none; margin:40px 0; text-align:center;">
              <a id="download-btn" href="#" class="btn" style="padding:15px 40px;">Download Converted File</a>
-             <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin-left:auto; margin-right:auto;">Try Another</button>
+             <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin-left:auto; margin-right:auto;">New Task</button>
         </div>
         <canvas id="proc-canvas" style="display:none;"></canvas>
-        <style>
-            @keyframes spin { to { transform: rotate(360deg); } }
-            .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); }
-            .btn-secondary:hover { background: rgba(255,255,255,0.1); }
-        </style>
     `;
 
     const dropZone = document.getElementById('drop-zone');
@@ -175,9 +205,8 @@ function renderConverter(container, toolId) {
             }
         } catch (error) {
             console.error("Conversion error:", error);
-            alert("An error occurred during conversion. Please try again.");
-            loader.style.display = 'none';
-            dropZone.style.display = 'block'; // Show drop zone again
+            alert("Local conversion error. Try a smaller file.");
+            location.reload();
         }
     }
 
@@ -188,9 +217,7 @@ function renderConverter(container, toolId) {
         const video = document.createElement('video');
         video.src = URL.createObjectURL(file);
         video.muted = true;
-        video.preload = 'metadata';
-
-        await new Promise(resolve => video.onloadedmetadata = resolve);
+        await video.play();
 
         const canvas = document.getElementById('proc-canvas');
         const ctx = canvas.getContext('2d');
@@ -207,22 +234,22 @@ function renderConverter(container, toolId) {
             workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js'
         });
 
-        const duration = Math.min(video.duration, 10); // Limit to 10 seconds for GIF
-        const totalFrames = 30; // Fixed number of frames for client-side speed
-        const interval = duration / totalFrames;
+        const duration = Math.min(video.duration, 8); // Limit to 8 seconds for GIF
+        const frames = 15; // Fixed number of frames for client-side speed
+        const interval = duration / frames;
 
-        for (let i = 0; i < totalFrames; i++) {
+        for (let i = 0; i < frames; i++) {
             video.currentTime = i * interval;
             await new Promise(r => video.onseeked = r);
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            gif.addFrame(canvas, { copy: true, delay: (duration * 1000) / totalFrames });
-            progressText.innerText = `Extracting frame ${i + 1}/${totalFrames}...`;
+            gif.addFrame(ctx, { copy: true, delay: (duration * 1000) / frames });
+            progressText.innerText = `Processing Frame ${i + 1}/${frames}...`;
         }
 
         progressText.innerText = "Rendering GIF...";
         gif.on('finished', (blob) => {
             downloadBtn.href = URL.createObjectURL(blob);
-            downloadBtn.download = "fluxora_converted.gif";
+            downloadBtn.download = "fluxora.gif";
             loader.style.display = 'none';
             resultArea.style.display = 'block';
             URL.revokeObjectURL(video.src); // Clean up video URL
@@ -258,7 +285,7 @@ function renderConverter(container, toolId) {
         recorder.onstop = () => {
             const blob = new Blob(chunks, { type: 'video/mp4' }); // Output as MP4
             downloadBtn.href = URL.createObjectURL(blob);
-            downloadBtn.download = "fluxora_converted.mp4";
+            downloadBtn.download = "fluxora.mp4";
             loader.style.display = 'none';
             resultArea.style.display = 'block';
             URL.revokeObjectURL(img.src); // Clean up image URL
@@ -280,6 +307,7 @@ function extractVideoId(url) {
 
 function loadScript(src) {
     return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) return resolve();
         const script = document.createElement('script');
         script.src = src;
         script.onload = resolve;
