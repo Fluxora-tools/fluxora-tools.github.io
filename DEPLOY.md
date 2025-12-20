@@ -1,18 +1,23 @@
 # Fluxora Deployment Guide
 
-## 1. Push Code to GitHub
-Your local repository is already initialized and linked to your GitHub repository.
+### 1. Initialize & Push to GitHub
+Fluxora is configured to deploy to **GitHub Pages**.
 
-1. **Verify Remote**:
-   ```bash
-   git remote -v
-   # Should show: https://github.com/WolfGames156/Fluxora.git
-   ```
+1.  **Create Repository**:
+    *   Go to [GitHub New Repository](https://github.com/new).
+    *   **Owner**: `Fluxora-tools` (Organization)
+    *   **Repository Name**: `fluxora-tools.github.io`
+    *   **Public**: Yes
 
-2. **Push to GitHub**:
-   ```bash
-   git push -u origin main
-   ```
+2.  **Push Code**:
+    ```powershell
+    # If not already added:
+    git remote add origin https://github.com/Fluxora-tools/fluxora-tools.github.io.git
+    
+    # Push main branch
+    git branch -M main
+    git push -u origin main
+    ```
    *(Note: You may need to authenticate if this is the first time pushing).*
 
 ## 2. Deploy (Choose One)
