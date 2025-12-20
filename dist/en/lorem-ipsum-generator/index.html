@@ -8,8 +8,8 @@
     <meta name="description" content="Generate placeholder text for your designs.">
 
     <!-- Hreflang Tags -->
-    <link rel="alternate" hreflang="en" href="/en/lorem-ipsum-generator" />
-    <link rel="alternate" hreflang="tr" href="/tr/lorem-ipsum-olusturucu" />
+    <link rel="alternate" hreflang="en" href="/en/lorem-ipsum-generator/" />
+    <link rel="alternate" hreflang="tr" href="/tr/lorem-ipsum-olusturucu/" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/main.css">
@@ -24,21 +24,20 @@
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
-    {}
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"lorem-ipsum","operatingSystem":"Any","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://fluxora-tools.github.io/en/lorem-ipsum-generator"}
     </script>
 </head>
 
 <body class="dark-theme">
     <header class="navbar glass">
         <div class="logo">
-            <a href="/en/">
-                <img src="/assets/img/fluxora_logo.png" alt="Fluxora Logo"
-                    style="height: 40px; vertical-align: middle;">
+            <a href="/en/" style="text-decoration: none; color: white;">
+                Fluxora<span class="accent">Tools</span>
             </a>
         </div>
         <nav>
             <div class="lang-switch">
-                <a href="/tr/lorem-ipsum-olusturucu" class="btn-sm">TR</a>
+                <a href="/tr/lorem-ipsum-olusturucu/" class="btn-sm">TR</a>
             </div>
             <!-- Internal links can go here or in hamburger -->
         </nav>
@@ -47,20 +46,24 @@
     <main id="app">
         <!-- SEO Content Area -->
         <article style="max-width: 800px; margin: 60px auto 0; text-align: left; color: var(--text-muted);">
-            {{ content }}
+            <div class="tool-page" data-tool-id="lorem-ipsum">
+                            <h1>Lorem Ipsum Generator</h1>
+                            <div id="tool-interface">Loading Tool...</div>
+                            <article>undefined</article>
+                          </div>
 
             <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
 
             <!-- Auto-Generated Rich Content -->
             <section class="seo-rich-content">
-                <h3>{{ faq_title }}</h3>
+                <h3>Frequently Asked Questions</h3>
                 <div class="faq-item">
-                    <strong>{{ faq_q1 }}</strong>
-                    <p>{{ faq_a1 }}</p>
+                    <strong>Is Lorem Ipsum Generator free?</strong>
+                    <p>Yes, this tool is 100% free and works entirely in your browser.</p>
                 </div>
                 <div class="faq-item">
-                    <strong>{{ faq_q2 }}</strong>
-                    <p>{{ faq_a2 }}</p>
+                    <strong>Is it safe to use?</strong>
+                    <p>Absolutely. Fluxora processes files locally on your device for maximum privacy.</p>
                 </div>
             </section>
         </article>
@@ -70,8 +73,8 @@
         <div class="container">
             <p>&copy; 2025 Fluxora. Built by <span class="sys-id">SYS_0xA7</span>.</p>
             <div class="footer-links">
-                <a href="/en/about">About</a>
-                <a href="/en/privacy">Privacy</a>
+                <a href="/en/about/">About</a>
+                <a href="/en/privacy/">Privacy</a>
             </div>
         </div>
     </footer>

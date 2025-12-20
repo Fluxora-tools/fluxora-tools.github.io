@@ -162,6 +162,20 @@ async function build() {
         });
         ensureDir(path.join(langDir, 'about'));
         fs.writeFileSync(path.join(langDir, 'about/index.html'), aboutHtml);
+
+        // 4. Privacy Page
+        const privacyHtml = renderPage(layoutTemplate, {
+            lang,
+            title: locale.privacy ? locale.privacy.title : 'Privacy Policy',
+            description: locale.privacy ? locale.privacy.description : 'Privacy Policy',
+            content: locale.privacy ? locale.privacy.content : '<h1>Privacy Policy</h1>',
+            hreflang_tags: generateHreflang('privacy', lang),
+            switch_lang_url: getSwitchUrl('privacy', lang),
+            switch_lang_label: lang === 'en' ? 'TR' : 'EN',
+            json_ld: generateJsonLd('privacy', lang)
+        });
+        ensureDir(path.join(langDir, 'privacy'));
+        fs.writeFileSync(path.join(langDir, 'privacy/index.html'), privacyHtml);
     }
 
     // 3. About Page
@@ -253,15 +267,17 @@ function generateSitemap(tools, languages) {
         });
     });
 
-    // 3. About
+    // 3. About & Privacy
     languages.forEach(lang => {
-        xml += `
+        ['about', 'privacy'].forEach(page => {
+            xml += `
     <url>
-        <loc>${baseUrl}/${lang}/about/</loc>
+        <loc>${baseUrl}/${lang}/${page}/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
-        ${languages.map(l => `<xhtml:link rel="alternate" hreflang="${l}" href="${baseUrl}/${l}/about/"/>`).join('')}
+        ${languages.map(l => `<xhtml:link rel="alternate" hreflang="${l}" href="${baseUrl}/${l}/${page}/"/>`).join('')}
     </url>`;
+        });
     });
 
     xml += `
@@ -271,11 +287,18 @@ function generateSitemap(tools, languages) {
     console.log('Sitemap generated.');
 }
 
-// Render Helper
+// Render Helper (Handles optional spaces: {{ key }} or {{key}})
 function renderPage(template, data) {
     let html = template;
-    for (const key in data) {
-        html = html.replace(new RegExp(`{{${key}}}`, 'g'), data[key] || '');
+    const allKeys = ['lang', 'title', 'description', 'content', 'hreflang_tags', 'switch_lang_url', 'switch_lang_label', 'json_ld', 'extra_scripts', 'faq_title', 'faq_q1', 'faq_a1', 'faq_q2', 'faq_a2'];
+
+    // Merge provided data with defaults to avoid literal tags appearing
+    const finalData = {};
+    allKeys.forEach(k => finalData[k] = data[k] || '');
+
+    for (const key in finalData) {
+        const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g');
+        html = html.replace(regex, finalData[key]);
     }
     return html;
 }
@@ -285,7 +308,7 @@ function renderToolGrid(currentLang, tools) {
     return tools.map(t => {
         const slug = t.slug[currentLang];
         // In a real app, title comes from locale
-        return `<a href="/${currentLang}/${slug}" class="tool-card">
+        return `<a href="/${currentLang}/${slug}/" class="tool-card">
                     <h3>${t.id}</h3> <!-- Replace with localized name -->
                 </a>`;
     }).join('');
@@ -293,14 +316,13 @@ function renderToolGrid(currentLang, tools) {
 
 // Hreflang Helper
 function generateHreflang(pageId, currentLang) {
-    // Logic to generate <link rel="alternate" ...> for EN and TR
-    // Needs access to all slugs for this pageId
-    // Simplified:
     return CONFIG.languages.map(l => {
         let url = `/${l}/`; // Default home
-        if (pageId !== 'home') {
+        if (pageId === 'about' || pageId === 'privacy') {
+            url += `${pageId}/`;
+        } else if (pageId !== 'home') {
             const tool = TOOLS.find(t => t.id === pageId);
-            if (tool) url += tool.slug[l];
+            if (tool) url += `${tool.slug[l]}/`;
         }
         return `<link rel="alternate" hreflang="${l}" href="${url}" />`;
     }).join('\n    ');
@@ -310,8 +332,9 @@ function generateHreflang(pageId, currentLang) {
 function getSwitchUrl(pageId, currentLang) {
     const targetLang = currentLang === 'en' ? 'tr' : 'en';
     if (pageId === 'home') return `/${targetLang}/`;
+    if (pageId === 'about' || pageId === 'privacy') return `/${targetLang}/${pageId}/`;
     const tool = TOOLS.find(t => t.id === pageId);
-    return tool ? `/${targetLang}/${tool.slug[targetLang]}` : `/${targetLang}/`;
+    return tool ? `/${targetLang}/${tool.slug[targetLang]}/` : `/${targetLang}/`;
 }
 
 

@@ -1,267 +1,279 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>https://fluxora.com/en/</loc>
+        <loc>https://fluxora-tools.github.io/en/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/</loc>
+        <loc>https://fluxora-tools.github.io/tr/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/png-to-jpg/</loc>
+        <loc>https://fluxora-tools.github.io/en/png-to-jpg/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-jpg-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/png-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/png-jpg-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/png-jpg-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/png-jpg-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-jpg-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/png-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/png-jpg-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/jpg-to-png/</loc>
+        <loc>https://fluxora-tools.github.io/en/jpg-to-png/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-png-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/jpg-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/jpg-png-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/jpg-png-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/jpg-png-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-png-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/jpg-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/jpg-png-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/youtube-mp3-downloader/</loc>
+        <loc>https://fluxora-tools.github.io/en/youtube-mp3-downloader/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/youtube-mp3-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/youtube-mp3-indir/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/youtube-mp3-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/youtube-mp3-indir/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/youtube-mp3-indir/</loc>
+        <loc>https://fluxora-tools.github.io/tr/youtube-mp3-indir/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/youtube-mp3-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/youtube-mp3-indir/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/youtube-mp3-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/youtube-mp3-indir/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/pdf-to-txt/</loc>
+        <loc>https://fluxora-tools.github.io/en/pdf-to-txt/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pdf-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pdf-txt-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/pdf-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/pdf-txt-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/pdf-txt-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/pdf-txt-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pdf-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pdf-txt-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/pdf-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/pdf-txt-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/word-to-txt/</loc>
+        <loc>https://fluxora-tools.github.io/en/word-to-txt/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/word-txt-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/word-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/word-txt-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/word-txt-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/word-txt-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/word-txt-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/word-to-txt/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/word-txt-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/png-to-avif/</loc>
+        <loc>https://fluxora-tools.github.io/en/png-to-avif/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-avif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-avif-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/png-to-avif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/png-avif-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/png-avif-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/png-avif-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/png-to-avif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/png-avif-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/png-to-avif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/png-avif-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/avif-to-png/</loc>
+        <loc>https://fluxora-tools.github.io/en/avif-to-png/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/avif-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/avif-png-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/avif-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/avif-png-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/avif-png-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/avif-png-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/avif-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/avif-png-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/avif-to-png/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/avif-png-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/jpg-to-webp/</loc>
+        <loc>https://fluxora-tools.github.io/en/jpg-to-webp/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-webp/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-webp-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/jpg-to-webp/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/jpg-webp-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/jpg-webp-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/jpg-webp-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/jpg-to-webp/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/jpg-webp-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/jpg-to-webp/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/jpg-webp-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/webp-to-jpg/</loc>
+        <loc>https://fluxora-tools.github.io/en/webp-to-jpg/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/webp-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/webp-jpg-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/webp-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/webp-jpg-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/webp-jpg-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/webp-jpg-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/webp-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/webp-jpg-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/webp-to-jpg/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/webp-jpg-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/pinterest-downloader/</loc>
+        <loc>https://fluxora-tools.github.io/en/pinterest-downloader/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pinterest-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pinterest-video-indir/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/pinterest-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/pinterest-video-indir/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/pinterest-video-indir/</loc>
+        <loc>https://fluxora-tools.github.io/tr/pinterest-video-indir/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/pinterest-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/pinterest-video-indir/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/pinterest-downloader/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/pinterest-video-indir/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/gif-to-mp4/</loc>
+        <loc>https://fluxora-tools.github.io/en/gif-to-mp4/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/gif-to-mp4/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/gif-mp4-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/gif-to-mp4/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/gif-mp4-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/gif-mp4-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/gif-mp4-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/gif-to-mp4/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/gif-mp4-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/gif-to-mp4/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/gif-mp4-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/mp4-to-gif/</loc>
+        <loc>https://fluxora-tools.github.io/en/mp4-to-gif/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/mp4-to-gif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/mp4-gif-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/mp4-to-gif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/mp4-gif-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/mp4-gif-cevirme/</loc>
+        <loc>https://fluxora-tools.github.io/tr/mp4-gif-cevirme/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/mp4-to-gif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/mp4-gif-cevirme/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/mp4-to-gif/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/mp4-gif-cevirme/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/json-formatter/</loc>
+        <loc>https://fluxora-tools.github.io/en/json-formatter/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/json-formatter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/json-duzenleyici/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/json-formatter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/json-duzenleyici/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/json-duzenleyici/</loc>
+        <loc>https://fluxora-tools.github.io/tr/json-duzenleyici/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/json-formatter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/json-duzenleyici/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/json-formatter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/json-duzenleyici/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/lorem-ipsum-generator/</loc>
+        <loc>https://fluxora-tools.github.io/en/lorem-ipsum-generator/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/lorem-ipsum-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/lorem-ipsum-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/lorem-ipsum-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/lorem-ipsum-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/lorem-ipsum-olusturucu/</loc>
+        <loc>https://fluxora-tools.github.io/tr/lorem-ipsum-olusturucu/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/lorem-ipsum-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/lorem-ipsum-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/lorem-ipsum-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/lorem-ipsum-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/slug-generator/</loc>
+        <loc>https://fluxora-tools.github.io/en/slug-generator/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/slug-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/slug-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/slug-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/slug-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/slug-olusturucu/</loc>
+        <loc>https://fluxora-tools.github.io/tr/slug-olusturucu/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/slug-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/slug-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/slug-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/slug-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/markdown-to-html/</loc>
+        <loc>https://fluxora-tools.github.io/en/markdown-to-html/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/markdown-to-html/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/markdown-html-cevirici/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/markdown-to-html/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/markdown-html-cevirici/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/markdown-html-cevirici/</loc>
+        <loc>https://fluxora-tools.github.io/tr/markdown-html-cevirici/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/markdown-to-html/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/markdown-html-cevirici/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/markdown-to-html/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/markdown-html-cevirici/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/qr-code-generator/</loc>
+        <loc>https://fluxora-tools.github.io/en/qr-code-generator/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/qr-code-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/karekod-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/qr-code-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/karekod-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/karekod-olusturucu/</loc>
+        <loc>https://fluxora-tools.github.io/tr/karekod-olusturucu/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/qr-code-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/karekod-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/qr-code-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/karekod-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/password-generator/</loc>
+        <loc>https://fluxora-tools.github.io/en/password-generator/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/password-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/sifre-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/password-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/sifre-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/sifre-olusturucu/</loc>
+        <loc>https://fluxora-tools.github.io/tr/sifre-olusturucu/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/password-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/sifre-olusturucu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/password-generator/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/sifre-olusturucu/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/word-counter/</loc>
+        <loc>https://fluxora-tools.github.io/en/word-counter/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-counter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/kelime-sayaci/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/word-counter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/kelime-sayaci/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/kelime-sayaci/</loc>
+        <loc>https://fluxora-tools.github.io/tr/kelime-sayaci/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/word-counter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/kelime-sayaci/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/word-counter/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/kelime-sayaci/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/internet-speed-test/</loc>
+        <loc>https://fluxora-tools.github.io/en/internet-speed-test/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/internet-speed-test/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/internet-hiz-testi/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/internet-speed-test/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/internet-hiz-testi/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/internet-hiz-testi/</loc>
+        <loc>https://fluxora-tools.github.io/tr/internet-hiz-testi/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/internet-speed-test/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/internet-hiz-testi/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/internet-speed-test/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/internet-hiz-testi/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/en/about/</loc>
+        <loc>https://fluxora-tools.github.io/en/about/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/about/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/about/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/about/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/about/"/>
     </url>
     <url>
-        <loc>https://fluxora.com/tr/about/</loc>
+        <loc>https://fluxora-tools.github.io/en/privacy/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora.com/en/about/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora.com/tr/about/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/privacy/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/privacy/"/>
+    </url>
+    <url>
+        <loc>https://fluxora-tools.github.io/tr/about/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/about/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/about/"/>
+    </url>
+    <url>
+        <loc>https://fluxora-tools.github.io/tr/privacy/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://fluxora-tools.github.io/en/privacy/"/><xhtml:link rel="alternate" hreflang="tr" href="https://fluxora-tools.github.io/tr/privacy/"/>
     </url>
 </urlset>

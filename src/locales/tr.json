@@ -130,5 +130,10 @@
         "title": "Hakkımızda | Fluxora",
         "description": "Fluxora hakkında bilgi, gizlilik politikası ve yapımcılar.",
         "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Hakkımızda</h1><p>Fluxora, dosyalarınızı doğrudan tarayıcınızda hızlı ve güvenli bir şekilde işlemeniz için tasarlanmış ücretsiz bir platformdur.</p><h2>Gizlilik ve Güvenlik</h2><p>Gizliliğinize önem veriyoruz. Tüm işlemler <strong>istemci tarafında (tarayıcınızda)</strong> gerçekleşir. <strong>Dosyalarınız asla sunucularımıza yüklenmez.</strong> Bu, verilerinizin tamamen gizli kalmasını sağlar.</p><h2>Emeği Geçenler</h2><p>Tasarım ve Geliştirme: <span class='sys-id'>SYS_0xA7</span>.</p></div>"
+    },
+    "privacy": {
+        "title": "Gizlilik Politikası | Fluxora",
+        "description": "Gizlilik politikamız ve veri güvenliği hakkında bilgiler.",
+        "content": "<h1>Gizlilik Politikası</h1><p>Fluxora'da gizlilik en büyük önceliğimizdir. Bu platform <strong>sunucusuz (serverless)</strong> çalışır. Hiçbir verinizi toplamıyoruz veya saklamıyoruz. Tüm dosya dönüşümleri ve işlemler tarayıcınızda yerel olarak gerçekleşir.</p>"
     }
 }

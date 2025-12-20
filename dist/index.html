@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fluxora - Redirecting...</title>
+    <script>
+        var userLang = navigator.language || navigator.userLanguage; 
+        if (userLang.toLowerCase().includes('tr')) {
+            window.location.href = "/tr/";
+        } else {
+            window.location.href = "/en/";
+        }
+    </script>
+    <meta http-equiv="refresh" content="0;url=/en/">
+</head>
+<body style="background:#0f172a; color:white; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh;">
+    <p>Redirecting to your language...</p>
+</body>
+</html>

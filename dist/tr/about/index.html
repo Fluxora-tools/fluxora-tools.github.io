@@ -8,8 +8,8 @@
     <meta name="description" content="Fluxora hakkında bilgi, gizlilik politikası ve yapımcılar.">
 
     <!-- Hreflang Tags -->
-    <link rel="alternate" hreflang="en" href="/en/" />
-    <link rel="alternate" hreflang="tr" href="/tr/" />
+    <link rel="alternate" hreflang="en" href="/en/about/" />
+    <link rel="alternate" hreflang="tr" href="/tr/about/" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/main.css">
@@ -31,14 +31,13 @@
 <body class="dark-theme">
     <header class="navbar glass">
         <div class="logo">
-            <a href="/tr/">
-                <img src="/assets/img/fluxora_logo.png" alt="Fluxora Logo"
-                    style="height: 40px; vertical-align: middle;">
+            <a href="/tr/" style="text-decoration: none; color: white;">
+                Fluxora<span class="accent">Tools</span>
             </a>
         </div>
         <nav>
             <div class="lang-switch">
-                <a href="/en/" class="btn-sm">EN</a>
+                <a href="/en/about/" class="btn-sm">EN</a>
             </div>
             <!-- Internal links can go here or in hamburger -->
         </nav>
@@ -47,20 +46,20 @@
     <main id="app">
         <!-- SEO Content Area -->
         <article style="max-width: 800px; margin: 60px auto 0; text-align: left; color: var(--text-muted);">
-            {{ content }}
+            <div class='container' style='max-width:800px; padding: 40px 0;'><h1>Hakkımızda</h1><p>Fluxora, dosyalarınızı doğrudan tarayıcınızda hızlı ve güvenli bir şekilde işlemeniz için tasarlanmış ücretsiz bir platformdur.</p><h2>Gizlilik ve Güvenlik</h2><p>Gizliliğinize önem veriyoruz. Tüm işlemler <strong>istemci tarafında (tarayıcınızda)</strong> gerçekleşir. <strong>Dosyalarınız asla sunucularımıza yüklenmez.</strong> Bu, verilerinizin tamamen gizli kalmasını sağlar.</p><h2>Emeği Geçenler</h2><p>Tasarım ve Geliştirme: <span class='sys-id'>SYS_0xA7</span>.</p></div>
 
             <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
 
             <!-- Auto-Generated Rich Content -->
             <section class="seo-rich-content">
-                <h3>{{ faq_title }}</h3>
+                <h3></h3>
                 <div class="faq-item">
-                    <strong>{{ faq_q1 }}</strong>
-                    <p>{{ faq_a1 }}</p>
+                    <strong></strong>
+                    <p></p>
                 </div>
                 <div class="faq-item">
-                    <strong>{{ faq_q2 }}</strong>
-                    <p>{{ faq_a2 }}</p>
+                    <strong></strong>
+                    <p></p>
                 </div>
             </section>
         </article>
@@ -70,15 +69,15 @@
         <div class="container">
             <p>&copy; 2025 Fluxora. Built by <span class="sys-id">SYS_0xA7</span>.</p>
             <div class="footer-links">
-                <a href="/tr/about">About</a>
-                <a href="/tr/privacy">Privacy</a>
+                <a href="/tr/about/">About</a>
+                <a href="/tr/privacy/">Privacy</a>
             </div>
         </div>
     </footer>
 
     <!-- Core Scripts -->
     <script type="module" src="/assets/js/main.js"></script>
-    {{extra_scripts}}
+    
 </body>
 
 </html>

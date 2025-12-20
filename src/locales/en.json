@@ -130,5 +130,10 @@
         "title": "About Fluxora | Privacy & Credits",
         "description": "Learn more about Fluxora, our privacy policy, and the team.",
         "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>About Fluxora</h1><p>Fluxora is a free, modern web platform designed to provide fast and secure file tools directly in your browser.</p><h2>Privacy & Security</h2><p>We prioritize your privacy. All processing happens <strong>client-side</strong> within your browser. <strong>No files are ever uploaded to our servers.</strong> This ensures your data remains completely private and secure.</p><h2>Credits</h2><p>Designed and Developed by <span class='sys-id'>SYS_0xA7</span>.</p><p>Powered by Open Source technologies.</p></div>"
+    },
+    "privacy": {
+        "title": "Privacy Policy | Fluxora",
+        "description": "Our commitment to your privacy and data security.",
+        "content": "<h1>Privacy Policy</h1><p>At Fluxora, privacy is our top priority. This platform operates <strong>serverless</strong>. We do not collect or store any of your data. All file conversions and processing occur locally in your browser.</p>"
     }
 }
