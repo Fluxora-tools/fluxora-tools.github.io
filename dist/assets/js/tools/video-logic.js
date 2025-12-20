@@ -34,7 +34,7 @@ function renderDownloader(container, toolId) {
             
             <div id="loader" style="display:none; margin:30px 0;">
                 <div class="spinner"></div>
-                <p id="loader-text" style="margin-top:15px; color:var(--text-muted);">Searching for the best download server...</p>
+                <p id="loader-text" style="margin-top:15px; color:var(--text-muted); font-size: 0.9rem;">Connecting to global download network...</p>
             </div>
 
             <div id="result-area" style="display:none; margin-top:30px; background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid var(--border); text-align:left;">
@@ -42,13 +42,18 @@ function renderDownloader(container, toolId) {
                     <img id="video-thumb" src="" style="width:180px; height:100px; object-fit:cover; border-radius:10px; background:#1e293b;" />
                     <div>
                         <h4 id="video-title" style="margin:0; font-size:1.1rem; color:white;">Content Ready</h4>
-                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">The link has been extracted successfully.</p>
+                        <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">Processing complete. You can now download your file.</p>
                     </div>
                 </div>
                 <div style="display:flex; gap:10px;">
                     <a id="download-link" href="#" class="btn" style="flex:1; text-align:center; background:var(--primary); color:white; text-decoration:none;">Download</a>
                     <button id="reset-btn" class="btn btn-secondary" style="width:auto;">New Search</button>
                 </div>
+            </div>
+
+            <div id="error-box" style="display:none; margin-top:30px; padding:20px; border-radius:12px; background:rgba(255, 100, 100, 0.1); border:1px solid rgba(255, 100, 100, 0.2); text-align:left;">
+                <p id="error-msg" style="color:#ff8888; font-size:0.9rem; margin-bottom:0;"></p>
+                <p style="color:var(--text-muted); font-size:0.8rem; margin-top:10px;">Note: If you are seeing DNS errors, it might be due to your network blocking download services. Try using a VPN or changing your DNS to 1.1.1.1.</p>
             </div>
         </div>
         <style>
@@ -64,6 +69,8 @@ function renderDownloader(container, toolId) {
     const loader = document.getElementById('loader');
     const loaderText = document.getElementById('loader-text');
     const resultArea = document.getElementById('result-area');
+    const errorBox = document.getElementById('error-box');
+    const errorMsg = document.getElementById('error-msg');
     const downloadLink = document.getElementById('download-link');
     const videoThumb = document.getElementById('video-thumb');
 
@@ -73,59 +80,71 @@ function renderDownloader(container, toolId) {
 
         loader.style.display = 'block';
         resultArea.style.display = 'none';
+        errorBox.style.display = 'none';
         fetchBtn.disabled = true;
 
-        // More robust instance list (Updated for 2025)
+        // Expanded and verified list of Cobalt instances (January 2025)
         const instances = [
             'https://cobalt.hyra.sh/api/json',
+            'https://api.v0l.me/api/json',
             'https://im-special.v0l.me/api/json',
             'https://cobalt.api.unblocked.lol/api/json',
-            'https://api.cobalt.tools/api/json' // Keep as fallback
+            'https://api.cobalt.tools/api/json',
+            'https://cobalt.api.ryuugamine.org/api/json'
         ];
 
         let success = false;
+        let dnsErrors = 0;
+
         for (const instance of instances) {
             try {
                 loaderText.innerText = `Trying server: ${new URL(instance).hostname}...`;
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+
                 const response = await fetch(instance, {
                     method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         url: url,
                         videoQuality: "1080",
                         isAudioOnly: toolId.includes('mp3'),
                         filenamePattern: "pretty"
-                    })
+                    }),
+                    signal: controller.signal
                 });
+
+                clearTimeout(timeoutId);
 
                 if (!response.ok) continue;
 
                 const data = await response.json();
 
-                if (data.url || data.status === 'success' || data.status === 'stream') {
-                    const finalUrl = data.url || data.picker?.[0]?.url;
-                    if (finalUrl) {
-                        videoThumb.src = (url.includes('youtube') || url.includes('youtu.be'))
-                            ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg`
-                            : 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
+                if (data.url || data.picker?.[0]?.url) {
+                    const finalUrl = data.url || data.picker[0].url;
+                    videoThumb.src = (url.includes('youtube') || url.includes('youtu.be'))
+                        ? `https://img.youtube.com/vi/${extractVideoId(url)}/mqdefault.jpg`
+                        : 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
 
-                        downloadLink.href = finalUrl;
-                        downloadLink.innerText = toolId.includes('mp3') ? "Download Audio (MP3)" : "Download Video (MP4)";
-                        resultArea.style.display = 'block';
-                        success = true;
-                        break;
-                    }
+                    downloadLink.href = finalUrl;
+                    downloadLink.innerText = toolId.includes('mp3') ? "Download MP3" : "Download MP4";
+                    resultArea.style.display = 'block';
+                    success = true;
+                    break;
                 }
             } catch (e) {
-                console.warn(`Server ${instance} unreachable:`, e);
+                console.warn(`Server ${instance} failed:`, e);
+                if (e.name === 'TypeError') dnsErrors++;
             }
         }
 
         if (!success) {
-            alert("Error: All download servers are currently busy or blocking this request. Please check the URL or try again later.");
+            errorBox.style.display = 'block';
+            if (dnsErrors >= 3) {
+                errorMsg.innerText = "Error: All servers are unreachable. This is likely a DNS issue or your network is blocking these services.";
+            } else {
+                errorMsg.innerText = "Error: Extraction failed. The URL might be invalid or the video is restricted.";
+            }
         }
 
         loader.style.display = 'none';
