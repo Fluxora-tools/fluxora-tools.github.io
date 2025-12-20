@@ -102,8 +102,15 @@ function renderVideoTool(container, toolId) {
             await new Promise(r => video.onseeked = r);
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             gif.addFrame(ctx, { copy: true, delay: (duration * 1000) / frames });
-            progressText.innerText = `Processing: ${Math.round((i / frames) * 100)}%`;
+
+            const percent = Math.round((i / frames) * 100);
+            progressText.innerText = `İşleniyor: %${percent}`;
         }
+
+        gif.on('progress', (p) => {
+            const renderPercent = Math.round(p * 100);
+            progressText.innerText = `Oluşturuluyor: %${renderPercent}`;
+        });
 
         gif.on('finished', (blob) => {
             showResult(blob, "fluxora.gif", "image");
