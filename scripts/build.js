@@ -55,7 +55,9 @@ const TOOLS = [
     { id: 'qr-generator', slug: { en: 'qr-code-generator', tr: 'karekod-olusturucu' }, template: 'converter', type: 'utility' },
     { id: 'password-generator', slug: { en: 'password-generator', tr: 'sifre-olusturucu' }, template: 'converter', type: 'utility' },
     { id: 'word-counter', slug: { en: 'word-counter', tr: 'kelime-sayaci' }, template: 'converter', type: 'utility' },
-    { id: 'internet-speed-test', slug: { en: 'internet-speed-test', tr: 'internet-hiz-testi' }, template: 'converter', type: 'utility' }
+    { id: 'internet-speed-test', slug: { en: 'internet-speed-test', tr: 'internet-hiz-testi' }, template: 'converter', type: 'utility' },
+    { id: 'txt-to-docx', slug: { en: 'txt-to-docx', tr: 'txt-docx-cevirme' }, template: 'converter', type: 'document' },
+    { id: 'txt-to-pdf', slug: { en: 'txt-to-pdf', tr: 'txt-pdf-cevirme' }, template: 'converter', type: 'document' }
 ];
 
 const loadLocale = (lang) => {

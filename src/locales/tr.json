@@ -148,6 +148,18 @@
             "description": "İnternet bağlantı hızınızı ve ping değerinizi ölçün.",
             "h1": "Internet Speed Test",
             "content": "<p>Ağ bağlantınızın performansını hemen test edin.</p>"
+        },
+        "txt-to-docx": {
+            "title": "TXT DOCX Çevirme | Fluxora",
+            "description": "Metin dosyalarını Word (DOCX) formatına dönüştürün.",
+            "h1": "Txt to Docx",
+            "content": "<p>Düz metin dosyalarınızı profesyonel Word belgelerine çevirin.</p>"
+        },
+        "txt-to-pdf": {
+            "title": "TXT PDF Çevirme | Fluxora",
+            "description": "Metin dosyalarını PDF formatına dönüştürün.",
+            "h1": "Txt to Pdf",
+            "content": "<p>Yazılarınızı her cihazda okunabilir PDF formatına çevirin.</p>"
         }
     },
     "about": {

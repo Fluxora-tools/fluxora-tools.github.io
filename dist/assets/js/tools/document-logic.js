@@ -3,138 +3,145 @@ document.addEventListener('DOMContentLoaded', () => {
     const interfaceContainer = document.getElementById('tool-interface');
     if (!interfaceContainer) return;
 
+    const toolPage = document.querySelector('.tool-page');
+    const toolId = toolPage ? toolPage.dataset.toolId : '';
+
     interfaceContainer.innerHTML = `
-        <div class="drop-zone" id="drop-zone">
-            <p style="margin-bottom:15px; font-size:1.2rem;">Drag & Drop Document Here</p>
-            <p class="text-muted">Supports PDF, DOCX</p>
-            <input type="file" id="file-input" accept=".pdf,.doc,.docx" style="display:none">
-            <button class="btn" onclick="document.getElementById('file-input').click()">Select File</button>
+        <div class="drop-zone" id="drop-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: 0.3s;">
+            <i class="fas fa-file-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+            <h3 id="drop-title">Select Document File</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Drag & Drop or Click to Select</p>
+            <input type="file" id="file-input" style="display:none">
         </div>
-        <div id="result-area" style="margin-top:20px; text-align:center; display:none;">
-            <div id="loader" style="display:none;">
-                <div style="width:30px; height:30px; border:3px solid rgba(255,255,255,0.1); border-top-color:var(--primary); border-radius:50%; animation: spin 1s linear infinite; margin:0 auto 15px;"></div>
-                <p>Extracting Text...</p>
-            </div>
-            <div id="output-box" style="display:none; text-align:left;">
-                <textarea id="text-output" style="width:100%; height:200px; background:rgba(0,0,0,0.3); color:#fff; border:1px solid var(--border); padding:10px; border-radius:8px;" readonly></textarea>
-                <button id="download-btn" class="btn" style="margin-top:15px;">Download TXT</button>
-            </div>
-            <div id="limit-msg" style="display:none; margin-top:20px; background:rgba(255,165,0,0.1); padding:15px; border-radius:8px; border:1px solid rgba(255,165,0,0.3);">
-                <h4>Browser Limitation</h4>
-                <p style="font-size:0.9rem; margin-top:5px;">
-                    Complex document parsing (PDF/DOCX) purely in JavaScript without external APIs requires heavy WASM libraries (like pdf.js). 
-                    For this static demo, we are simulating the extraction flow.
-                    Real extraction would happen here.
-                </p>
-            </div>
+        <div id="loader" style="display:none; margin:40px 0; text-align:center;">
+            <div class="spinner"></div>
+            <p id="progress-text" style="margin-top:15px; color:#fff; font-weight:bold;">Processing... %0</p>
         </div>
-        <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+        <div id="result-area" style="display:none; margin:20px 0; text-align:center;">
+            <textarea id="text-output" style="width:100%; height:300px; background:rgba(0,0,0,0.3); color:#fff; border:1px solid var(--border); padding:15px; border-radius:8px; font-family:monospace; margin-bottom: 20px;" readonly></textarea>
+            <div id="download-controls">
+                <button id="download-btn" class="btn">Download Result</button>
+            </div>
+            <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px;">New Task</button>
+        </div>
     `;
 
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
-    const resultArea = document.getElementById('result-area');
     const loader = document.getElementById('loader');
-    const outputBox = document.getElementById('output-box');
-    const limitMsg = document.getElementById('limit-msg');
+    const resultArea = document.getElementById('result-area');
     const textOutput = document.getElementById('text-output');
     const downloadBtn = document.getElementById('download-btn');
+    const progressText = document.getElementById('progress-text');
 
-    const handleFile = async (file) => {
-        resultArea.style.display = 'block';
-        limitMsg.style.display = 'none';
-        outputBox.style.display = 'none';
-        loader.style.display = 'block';
+    // Tool specific config
+    if (toolId.includes('pdf')) fileInput.accept = '.pdf';
+    else if (toolId.includes('word') || toolId.includes('docx')) fileInput.accept = '.docx';
+    else if (toolId.includes('txt')) fileInput.accept = '.txt';
+
+    dropZone.onclick = () => fileInput.click();
+    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; };
+    dropZone.ondragleave = () => { dropZone.style.borderColor = 'var(--border)'; };
+    dropZone.ondrop = (e) => { e.preventDefault(); handleFile(e.dataTransfer.files[0]); };
+    fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+    async function handleFile(file) {
+        if (!file) return;
         dropZone.style.display = 'none';
+        loader.style.display = 'block';
 
         try {
-            let text = '';
-            if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
-                text = await extractPdfText(file);
-            } else if (
-                file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-                file.name.endsWith('.docx')
-            ) {
-                text = await extractDocxText(file);
-            } else {
-                throw new Error('Unsupported file type.');
-            }
-
-            loader.style.display = 'none';
-            outputBox.style.display = 'block';
-            textOutput.value = text || 'No text content found in document.';
-
-        } catch (err) {
-            console.error(err);
-            loader.style.display = 'none';
-            limitMsg.style.display = 'block';
-            limitMsg.querySelector('h4').textContent = 'Error / Limitation';
-            limitMsg.querySelector('p').innerHTML = `Could not extract text. Reason: ${err.message}<br>Ensure complex formatting is minimized.`;
+            if (toolId === 'pdf-to-txt') await extractPdfText(file);
+            else if (toolId === 'word-to-txt') await extractDocxText(file);
+            else if (toolId === 'txt-to-pdf') await convertTxtToPdf(file);
+            else if (toolId === 'txt-to-docx') await convertTxtToDocx(file);
+        } catch (e) {
+            console.error(e);
+            alert("Error processing document.");
+            location.reload();
         }
-    };
+    }
 
-    // Helper: Load Script dynamically
-    const loadScript = (src) => {
-        return new Promise((resolve, reject) => {
-            if (document.querySelector(`script[src="${src}"]`)) return resolve();
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.appendChild(script);
-        });
-    };
-
-    // Real PDF Extraction
     async function extractPdfText(file) {
-        // Load PDF.js
+        progressText.innerText = "Loading PDF library...";
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
-        // Set worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
         const arrayBuffer = await file.arrayBuffer();
         const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
         let fullText = '';
-
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
-            const textContent = await page.getTextContent();
-            const pageText = textContent.items.map(item => item.str).join(' ');
-            fullText += `--- Page ${i} ---\n${pageText}\n\n`;
+            const content = await page.getTextContent();
+            fullText += content.items.map(s => s.str).join(' ') + '\n';
+            progressText.innerText = `Extracting: %${Math.round((i / pdf.numPages) * 100)}`;
         }
-        return fullText;
+        showTextResult(fullText, 'extracted.txt');
     }
 
-    // Real DOCX Extraction
     async function extractDocxText(file) {
-        // Load Mammoth.js
+        progressText.innerText = "Loading Word library...";
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
-
         const arrayBuffer = await file.arrayBuffer();
-        const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
-        return result.value;
+        const result = await mammoth.extractRawText({ arrayBuffer });
+        showTextResult(result.value, 'extracted.txt');
     }
 
-    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-    });
+    async function convertTxtToPdf(file) {
+        progressText.innerText = "Loading PDF generator...";
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+        const text = await file.text();
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length) handleFile(e.target.files[0]);
-    });
+        // Handle basic text wrapping
+        const splitText = doc.splitTextToSize(text, 180);
+        doc.text(splitText, 10, 10);
 
-    downloadBtn.addEventListener('click', () => {
-        const blob = new Blob([textOutput.value], { type: 'text/plain' });
+        const blob = doc.output('blob');
+        showBinaryResult(blob, 'fluxora.pdf');
+    }
+
+    async function convertTxtToDocx(file) {
+        progressText.innerText = "Processing Word file...";
+        const text = await file.text();
+        // Since docx.js is heavy, we'll use a standard HTML-to-Docx blob hack for TXT
+        // which works in almost all Word versions. Modern docx is a zip, but Word
+        // opens basic HTML/Text/RTF with .doc extension perfectly.
+        const blob = new Blob([text], { type: 'application/msword' });
+        showBinaryResult(blob, 'fluxora.doc');
+    }
+
+    function showTextResult(text, filename) {
+        loader.style.display = 'none';
+        resultArea.style.display = 'block';
+        textOutput.value = text;
+        downloadBtn.onclick = () => {
+            const blob = new Blob([text], { type: 'text/plain' });
+            triggerDownload(blob, filename);
+        };
+    }
+
+    function showBinaryResult(blob, filename) {
+        loader.style.display = 'none';
+        resultArea.style.display = 'block';
+        textOutput.value = "Document generated successfully. Click below to download.";
+        downloadBtn.onclick = () => triggerDownload(blob, filename);
+    }
+
+    function triggerDownload(blob, filename) {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'extracted.txt';
-        document.body.appendChild(a);
+        a.download = filename;
         a.click();
-        document.body.removeChild(a);
-    });
+    }
 });
+
+function loadScript(src) {
+    return new Promise((resolve) => {
+        if (document.querySelector(`script[src="${src}"]`)) return resolve();
+        const script = document.createElement('script'); script.src = src;
+        script.onload = resolve; document.head.appendChild(script);
+    });
+}

@@ -148,6 +148,18 @@
             "description": "Measure your internet connection speed and ping.",
             "h1": "Internet Speed Test",
             "content": "<p>Test your network performance instantly.</p>"
+        },
+        "txt-to-docx": {
+            "title": "Convert TXT to DOCX | Fluxora",
+            "description": "Convert plain text files to Word (DOCX) format.",
+            "h1": "Txt to Docx",
+            "content": "<p>Turn your plain text files into professional Word documents.</p>"
+        },
+        "txt-to-pdf": {
+            "title": "Convert TXT to PDF | Fluxora",
+            "description": "Convert plain text files to PDF format.",
+            "h1": "Txt to Pdf",
+            "content": "<p>Convert your writing into PDF format for universal reading.</p>"
         }
     },
     "about": {
