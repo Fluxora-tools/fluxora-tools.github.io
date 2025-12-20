@@ -7,7 +7,7 @@ const CONFIG = {
     defaultLang: 'en',
     distDir: path.join(__dirname, '../dist'),
     srcDir: path.join(__dirname, '../src'),
-    baseUrl: 'https://fluxora.com' // Placeholder for sitemap
+    baseUrl: 'https://fluxora-tools.github.io'
 };
 
 // Tool Definitions (The core routes)
