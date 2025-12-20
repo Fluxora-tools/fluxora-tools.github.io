@@ -93,14 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ctx.drawImage(img, 0, 0);
 
-            // Determine generic output format based on tool ID logic
+            // Improved format detection logic
             let format = 'image/jpeg';
             let ext = 'jpg';
 
             if (toolId.includes('to-png')) { format = 'image/png'; ext = 'png'; }
             else if (toolId.includes('to-webp')) { format = 'image/webp'; ext = 'webp'; }
             else if (toolId.includes('to-avif')) { format = 'image/avif'; ext = 'avif'; }
-            else if (toolId.includes('to-jpg')) { format = 'image/jpeg'; ext = 'jpg'; }
+            else if (toolId.includes('to-bmp')) { format = 'image/bmp'; ext = 'bmp'; }
 
 
             canvas.toBlob((blob) => {
@@ -111,11 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `fluxora-converted.${ext}`;
-                document.body.appendChild(a);
+                a.download = `fluxora-${Date.now()}.${ext}`;
                 a.click();
-                document.body.removeChild(a);
-                statusMsg.textContent = 'Downloaded!';
+
+                statusMsg.textContent = 'Success! Download started.';
                 convertBtn.disabled = false;
             }, format, 0.9);
         };

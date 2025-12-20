@@ -1,4 +1,4 @@
-// Video Tool Logic - Ultimate Nuclear Reliability Edition (v5)
+// Video Logic Tool - Local Only
 document.addEventListener('DOMContentLoaded', () => {
     const interfaceContainer = document.getElementById('tool-interface');
     if (!interfaceContainer) return;
@@ -6,185 +6,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const toolPage = document.querySelector('.tool-page');
     const toolId = toolPage ? toolPage.dataset.toolId : '';
 
-    if (toolId.includes('downloader') || toolId.includes('mp3')) {
-        renderDownloader(interfaceContainer, toolId);
-    } else {
-        renderConverter(interfaceContainer, toolId);
-    }
+    renderVideoTool(interfaceContainer, toolId);
 });
 
-function renderDownloader(container, toolId) {
-    let placeholderText = "URL Yapıştırın";
-    if (toolId.includes('youtube')) placeholderText = "YouTube Linki Yapıştırın";
-    else if (toolId.includes('pinterest')) placeholderText = "Pinterest Linki Yapıştırın";
-
-    container.innerHTML = `
-        <div style="width:100%; max-width:600px; text-align:center;">
-            <div class="input-group" style="display:flex; gap:10px; margin-bottom:20px;">
-                <input type="text" id="url-input" placeholder="${placeholderText}" style="flex:1; background:rgba(255,255,255,0.05); border:1px solid var(--border); color:white; padding:12px; border-radius:8px;" />
-                <button id="fetch-btn" class="btn" style="width:auto; padding:0 30px; background: var(--primary);">İndir</button>
-            </div>
-            
-            <div id="loader" style="display:none; margin:30px 0;">
-                <div class="spinner"></div>
-                <p style="margin-top:15px; color:var(--text-muted); font-size: 0.9rem;">Sunucuya bağlanılıyor (Engeller aşılıyor)...</p>
-            </div>
-
-            <div id="result-area" style="display:none; margin-top:30px; background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid var(--border); text-align:center;">
-                <div id="video-meta" style="margin-bottom:25px;">
-                    <img id="video-thumb" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110" style="width:100%; max-width:300px; height:160px; object-fit:cover; border-radius:12px; border:1px solid var(--border); margin: 0 auto 15px;" />
-                    <h2 id="video-title" style="font-size:1.1rem; color:white; margin-bottom:5px;">İçerik Hazır</h2>
-                    <p style="font-size:0.85rem; color:var(--text-muted);">Aşağıdaki butonları kullanarak indirin.</p>
-                </div>
-                <div id="download-actions" style="display:grid; grid-template-columns: 1fr; gap:12px;">
-                    <!-- Dinamik Butonlar -->
-                </div>
-                <button id="reset-btn" class="btn btn-secondary" style="width:100%; margin-top:15px; font-size: 0.8rem; height: 40px;">Yeni Arama</button>
-            </div>
-
-            <div id="error-box" style="display:none; margin-top:30px; padding:20px; border-radius:12px; background:rgba(255, 100, 100, 0.1); border:1px solid rgba(255, 100, 100, 0.2); text-align:left;">
-                <p id="error-msg" style="color:#ff8888; font-size:0.9rem; margin-bottom:10px; font-weight:bold;"></p>
-                <div id="force-redirect" style="display:block;">
-                    <p style="color:white; font-size:0.85rem; margin-bottom:12px;">Tarayıcınız indirme sunucularına ulaşamıyor veya link engelli. <b>"Hızlı Çözüm"</b> butonu ile kesin indirin:</p>
-                    <a id="bypass-btn" href="javascript:void(0)" target="_blank" class="btn" style="width:100%; background:#ff0000; text-align:center; text-decoration:none; padding:15px 0; color:white; font-weight:bold; border:none; display:block;">KESİN ÇÖZÜM (ENGELİ AŞ)</a>
-                </div>
-            </div>
-        </div>
-    `;
-
-    const fetchBtn = document.getElementById('fetch-btn');
-    const urlInput = document.getElementById('url-input');
-    const loader = document.getElementById('loader');
-    const resultArea = document.getElementById('result-area');
-    const errorBox = document.getElementById('error-box');
-    const errorMsg = document.getElementById('error-msg');
-    const downloadActions = document.getElementById('download-actions');
-    const videoThumb = document.getElementById('video-thumb');
-    const bypassBtn = document.getElementById('bypass-btn');
-
-    async function handleFetch() {
-        const url = urlInput.value.trim();
-        if (!url) return;
-
-        loader.style.display = 'block';
-        resultArea.style.display = 'none';
-        errorBox.style.display = 'none';
-        fetchBtn.disabled = true;
-
-        // Reset Bypass Link
-        bypassBtn.onclick = null;
-        if (url.includes('youtube')) {
-            bypassBtn.href = `https://yt1s.com/en-mp3?q=${encodeURIComponent(url)}`;
-        } else if (url.includes('pinterest')) {
-            bypassBtn.href = `https://pinterestvideodownloader.com/?url=${encodeURIComponent(url)}`;
-        } else {
-            bypassBtn.href = `https://cobalt.tools`;
-        }
-
-        try {
-            let success = false;
-            const isMp3 = toolId.includes('mp3');
-
-            if (url.includes('youtube') || url.includes('youtu.be')) {
-                const vid = extractVideoId(url);
-                if (vid) {
-                    videoThumb.src = `https://img.youtube.com/vi/${vid}/mqdefault.jpg`;
-                    success = true;
-                    downloadActions.innerHTML = `
-                         <a href="https://loader.to/api/button/?url=${encodeURIComponent(url)}&f=${isMp3 ? 'mp3' : '1080'}" target="_blank" class="btn" style="background:#cc0000; color:white; text-decoration:none; text-align:center; padding:15px 0;">Sunucu 1 (MP3/MP4)</a>
-                         <a href="https://api.vevioz.com/@api/button/${isMp3 ? 'mp3' : 'videos'}/${vid}" target="_blank" class="btn btn-secondary" style="font-size:0.85rem; text-decoration:none; text-align:center; display:block; padding:10px 0;">Sunucu 2 (Yedek)</a>
-                    `;
-                }
-            } else if (url.includes('pinterest') || url.includes('pin.it')) {
-                const scraped = await scrapePinterest(url);
-                if (scraped && scraped.url) {
-                    videoThumb.src = scraped.thumb || videoThumb.src;
-                    downloadActions.innerHTML = `
-                        <a href="${scraped.url}" target="_blank" class="btn" style="background:#E60023; color:white; text-decoration:none; text-align:center; padding:15px 0; display:block;">Videoyu İndir (Yeni Sekme)</a>
-                        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:5px;">Eğer video açılırsa, sağ tıklayıp "Video Olarak Kaydet" deyin.</p>
-                    `;
-                    success = true;
-                } else {
-                    // Try a quick Cobalt API check if scraper fails
-                    const cobRes = await fetchFromCobalt('https://api.v0l.me/api/json', url, toolId);
-                    if (cobRes) {
-                        downloadActions.innerHTML = `<a href="${cobRes.url}" target="_blank" class="btn" style="background:#E60023; color:white; text-decoration:none; text-align:center; padding:15px 0; display:block;">İndirme Bağlantısı Hazır</a>`;
-                        success = true;
-                    }
-                }
-            }
-
-            if (success) {
-                resultArea.style.display = 'block';
-                document.getElementById('reset-btn').onclick = () => {
-                    resultArea.style.display = 'none'; urlInput.value = ''; urlInput.focus();
-                };
-            } else {
-                throw new Error("Link analiz edilemedi. Lütfen HIZLI ÇÖZÜM butonuna tıklayın.");
-            }
-
-        } catch (e) {
-            errorBox.style.display = 'block';
-            errorMsg.innerText = e.message;
-        }
-
-        loader.style.display = 'none';
-        fetchBtn.disabled = false;
-    }
-
-    async function scrapePinterest(pUrl) {
-        const proxies = [
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(pUrl)}`,
-            `https://corsproxy.io/?url=${encodeURIComponent(pUrl)}`
-        ];
-        for (const proxy of proxies) {
-            try {
-                const res = await fetch(proxy);
-                const html = await res.text();
-                // Common Pinterest Video URL Patterns
-                const v = html.match(/"v720P":\{"url":"(.*?)"/i) ||
-                    html.match(/property="og:video" content="(.*?)"/i) ||
-                    html.match(/"url":"(https:\/\/v1\.pinimg\.com\/videos\/.*?\.mp4)"/i);
-                const t = html.match(/property="og:image" content="(.*?)"/i);
-                if (v) return { url: v[1].replace(/\\u002F/g, '/'), thumb: t ? t[1] : null };
-            } catch (err) { }
-        }
-        return null;
-    }
-
-    async function fetchFromCobalt(apiUrl, contentUrl, tid) {
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: contentUrl, videoQuality: "1080", isAudioOnly: tid.includes('mp3') })
-            });
-            if (!response.ok) return null;
-            const data = await response.json();
-            return (data.url || data.picker?.[0]?.url) ? data : null;
-        } catch (e) { return null; }
-    }
-
-    fetchBtn.addEventListener('click', handleFetch);
-    urlInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleFetch(); });
-}
-
-function renderConverter(container, toolId) {
+function renderVideoTool(container, toolId) {
     const isToGif = toolId === 'mp4-to-gif';
+    const isFromGif = toolId === 'gif-to-mp4';
+    const isMute = toolId === 'video-mute';
+    const isToMp3 = toolId === 'video-to-mp3';
+
+    let acceptType = "video/mp4,video/webm";
+    let icon = "fa-file-video";
+    let title = "Select Video File";
+
+    if (isFromGif) {
+        acceptType = "image/gif";
+        icon = "fa-file-image";
+        title = "Select GIF File";
+    }
+
     container.innerHTML = `
-        <div class="converter-box" id="drop-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
-            <i class="fas fa-file-video" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
-            <h3>${isToGif ? 'MP4 Seçin' : 'GIF Seçin'}</h3>
-            <p style="color: var(--text-muted); margin-top: 10px;">Tamamen cihazınızda işlenir (Güvenli)</p>
-            <input type="file" id="file-input" style="display:none;" accept="${isToGif ? 'video/mp4' : 'image/gif'}" />
+        <div class="converter-box" id="drop-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: 0.3s;">
+            <i class="fas ${icon}" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+            <h3>${title}</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Safe, fast, 100% local processing</p>
+            <input type="file" id="file-input" style="display:none;" accept="${acceptType}" />
         </div>
+        
         <div id="loader" style="display:none; margin:40px 0; text-align:center;">
             <div class="spinner"></div>
-            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">İşleniyor...</p>
+            <p id="progress-text" style="margin-top:15px; color:var(--text-muted);">Converting in your browser...</p>
         </div>
+
         <div id="result-area" style="display:none; margin:40px 0; text-align:center;">
-             <a id="download-btn" href="javascript:void(0)" class="btn" style="padding:15px 40px; background: var(--primary); color:white; text-decoration:none;">Hemen İndir</a>
-             <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin: 0 auto;">Yeni İşlem</button>
+             <div id="preview-container" style="margin-bottom: 20px;"></div>
+             <a id="download-btn" href="#" class="btn" style="padding:15px 40px;">Download Result</a>
+             <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin-left:auto; margin-right:auto;">New Task</button>
         </div>
         <canvas id="proc-canvas" style="display:none;"></canvas>
     `;
@@ -192,8 +49,9 @@ function renderConverter(container, toolId) {
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
     const loader = document.getElementById('loader');
-    const downloadBtn = document.getElementById('download-btn');
     const resultArea = document.getElementById('result-area');
+    const downloadBtn = document.getElementById('download-btn');
+    const progressText = document.getElementById('progress-text');
 
     dropZone.onclick = () => fileInput.click();
     fileInput.onchange = (e) => handleFile(e.target.files[0]);
@@ -202,11 +60,15 @@ function renderConverter(container, toolId) {
         if (!file) return;
         dropZone.style.display = 'none';
         loader.style.display = 'block';
+
         try {
             if (isToGif) await convertMp4ToGif(file);
-            else await convertGifToMp4(file);
+            else if (isFromGif) await convertGifToMp4(file);
+            else if (isMute) await muteVideo(file);
+            else if (isToMp3) await extractAudio(file);
         } catch (e) {
-            alert("İşlem hatası occurred.");
+            console.error(e);
+            alert("Local processing error. Try a smaller file.");
             location.reload();
         }
     }
@@ -217,51 +79,129 @@ function renderConverter(container, toolId) {
         video.src = URL.createObjectURL(file);
         video.muted = true;
         await video.play();
+
         const canvas = document.getElementById('proc-canvas');
-        canvas.width = 300;
-        canvas.height = (video.videoHeight / video.videoWidth) * 300;
         const ctx = canvas.getContext('2d');
-        const gif = new GIF({ workers: 2, quality: 20, width: 300, height: canvas.height, workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js' });
-        const frames = 8;
-        const duration = Math.min(video.duration, 4);
+        canvas.width = 400;
+        canvas.height = (video.videoHeight / video.videoWidth) * 400;
+
+        const gif = new GIF({
+            workers: 2,
+            quality: 15,
+            width: canvas.width,
+            height: canvas.height,
+            workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js'
+        });
+
+        const duration = Math.min(video.duration, 5); // Limit for speed
+        const frames = 12;
+        const interval = duration / frames;
+
         for (let i = 0; i < frames; i++) {
-            video.currentTime = i * (duration / frames);
+            video.currentTime = i * interval;
             await new Promise(r => video.onseeked = r);
-            ctx.drawImage(video, 0, 0, 300, canvas.height);
-            gif.addFrame(ctx, { copy: true, delay: 200 });
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            gif.addFrame(ctx, { copy: true, delay: (duration * 1000) / frames });
+            progressText.innerText = `Processing: ${Math.round((i / frames) * 100)}%`;
         }
+
         gif.on('finished', (blob) => {
-            downloadBtn.href = URL.createObjectURL(blob);
-            downloadBtn.download = "fluxora.gif";
-            loader.style.display = 'none'; resultArea.style.display = 'block';
+            showResult(blob, "fluxora.gif", "image");
         });
         gif.render();
     }
 
     async function convertGifToMp4(file) {
         const canvas = document.getElementById('proc-canvas');
+        const ctx = canvas.getContext('2d');
         const img = new Image();
         img.src = URL.createObjectURL(file);
         await new Promise(r => img.onload = r);
-        canvas.width = img.width; canvas.height = img.height;
-        canvas.getContext('2d').drawImage(img, 0, 0);
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
         const chunks = [];
-        const recorder = new MediaRecorder(canvas.captureStream(30));
+        const stream = canvas.captureStream(30);
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+
         recorder.ondataavailable = e => chunks.push(e.data);
         recorder.onstop = () => {
-            downloadBtn.href = URL.createObjectURL(new Blob(chunks, { type: 'video/mp4' }));
-            downloadBtn.download = "fluxora.mp4";
-            loader.style.display = 'none'; resultArea.style.display = 'block';
+            const blob = new Blob(chunks, { type: 'video/mp4' });
+            showResult(blob, "fluxora.mp4", "video");
         };
-        recorder.start();
-        setTimeout(() => recorder.stop(), 1500);
-    }
-}
 
-function extractVideoId(url) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
+        recorder.start();
+        setTimeout(() => recorder.stop(), 3000);
+        progressText.innerText = "Encoding high-speed video...";
+    }
+
+    async function muteVideo(file) {
+        // Simple way to mute: just add a video element to result area but set muted
+        // To actually generate a file, we need to re-record or use FFmpeg for real stripping.
+        // For real client-side stripping without FFmpeg, we use MediaRecorder on a video stream with no audio tracks.
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.muted = true;
+        await video.play();
+
+        const chunks = [];
+        const stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
+        // Remove audio tracks from the stream
+        stream.getAudioTracks().forEach(track => stream.removeTrack(track));
+
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/mp4' });
+            showResult(blob, "muted.mp4", "video");
+        };
+
+        recorder.start();
+        video.onended = () => recorder.stop();
+        progressText.innerText = "Processing video (removing audio)...";
+    }
+
+    async function extractAudio(file) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        await video.play();
+
+        const chunks = [];
+        const stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
+        // Keep ONLY audio tracks
+        stream.getVideoTracks().forEach(track => stream.removeTrack(track));
+
+        const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'audio/mp3' });
+            showResult(blob, "extracted.mp3", "audio");
+        };
+
+        recorder.start();
+        video.onended = () => recorder.stop();
+        progressText.innerText = "Extracting audio track...";
+    }
+
+    function showResult(blob, filename, type) {
+        const url = URL.createObjectURL(blob);
+        downloadBtn.href = url;
+        downloadBtn.download = filename;
+
+        const previewContainer = document.getElementById('preview-container');
+        if (type === 'image') {
+            previewContainer.innerHTML = `<img src="${url}" style="max-width:100%; border-radius:10px; border:1px solid var(--border);" />`;
+        } else if (type === 'video') {
+            previewContainer.innerHTML = `<video src="${url}" controls style="max-width:100%; border-radius:10px; border:1px solid var(--border);"></video>`;
+        } else if (type === 'audio') {
+            previewContainer.innerHTML = `<audio src="${url}" controls style="width:100%; margin: 20px 0;"></audio>`;
+        }
+
+        loader.style.display = 'none';
+        resultArea.style.display = 'block';
+    }
 }
 
 function loadScript(src) {

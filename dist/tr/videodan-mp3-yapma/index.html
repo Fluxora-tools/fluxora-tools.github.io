@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Fluxora</title>
-    <meta name="description" content="Details about our privacy policy and data security.">
+    <title>Video'dan MP3 Yapma | Fluxora</title>
+    <meta name="description" content="Videolarınızdaki sesi MP3 olarak kaydedin.">
 
     <!-- Hreflang Tags -->
-    <link rel="alternate" hreflang="en" href="/en/privacy/" />
-    <link rel="alternate" hreflang="tr" href="/tr/privacy/" />
+    <link rel="alternate" hreflang="en" href="/en/video-to-mp3-converter/" />
+    <link rel="alternate" hreflang="tr" href="/tr/videodan-mp3-yapma/" />
 
     <!-- Styles -->
     <link rel="icon"
@@ -26,20 +26,20 @@
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
-    {}
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"video-to-mp3","operatingSystem":"Any","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://fluxora-tools.github.io/tr/videodan-mp3-yapma"}
     </script>
 </head>
 
 <body class="dark-theme">
     <header class="navbar glass">
         <div class="logo">
-            <a href="/en/" style="text-decoration: none; color: white;">
+            <a href="/tr/" style="text-decoration: none; color: white;">
                 Fluxora<span class="accent">Tools</span>
             </a>
         </div>
         <nav>
             <div class="lang-switch">
-                <a href="/tr/privacy/" class="btn-sm">TR</a>
+                <a href="/en/video-to-mp3-converter/" class="btn-sm">EN</a>
             </div>
             <!-- Internal links can go here or in hamburger -->
         </nav>
@@ -48,20 +48,24 @@
     <main id="app">
         <!-- SEO Content Area -->
         <article style="max-width: 800px; margin: 60px auto 0; text-align: left; color: var(--text-muted);">
-            <h1>Privacy Policy</h1><p>At Fluxora, privacy is our top priority. This platform operates <strong>serverless</strong>. We do not collect or store any of your data. All conversions and tools run locally in your browser.</p>
+            <div class="tool-page" data-tool-id="video-to-mp3">
+                            <h1>Video'dan MP3 Çevirme</h1>
+                            <div id="tool-interface">Loading Tool...</div>
+                            <article>undefined</article>
+                          </div>
 
             <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
 
             <!-- Auto-Generated Rich Content -->
             <section class="seo-rich-content">
-                <h3></h3>
+                <h3>Sıkça Sorulan Sorular</h3>
                 <div class="faq-item">
-                    <strong></strong>
-                    <p></p>
+                    <strong>Video'dan MP3 Çevirme ücretsiz mi?</strong>
+                    <p>Evet, bu araç tamamen ücretsizdir ve tarayıcınızda çalışır.</p>
                 </div>
                 <div class="faq-item">
-                    <strong></strong>
-                    <p></p>
+                    <strong>Kullanımı güvenli mi?</strong>
+                    <p>Kesinlikle. Fluxora dosyaları cihazınızda yerel olarak işler, maksimum gizlilik sağlar.</p>
                 </div>
             </section>
         </article>
@@ -71,15 +75,15 @@
         <div class="container">
             <p>&copy; 2025 Fluxora. Built by <span class="sys-id">SYS_0xA7</span>.</p>
             <div class="footer-links">
-                <a href="/en/about/">About</a>
-                <a href="/en/privacy/">Privacy</a>
+                <a href="/tr/about/">About</a>
+                <a href="/tr/privacy/">Privacy</a>
             </div>
         </div>
     </footer>
 
     <!-- Core Scripts -->
     <script type="module" src="/assets/js/main.js"></script>
-    
+    <script src="/assets/js/tools/video-logic.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
++document.addEventListener('DOMContentLoaded', () => {
     const interfaceContainer = document.getElementById('tool-interface');
     if (!interfaceContainer) return;
 
@@ -199,14 +199,13 @@ function renderSpeedTest(container) {
         const speedFill = document.getElementById('speed-fill');
         const pingText = document.getElementById('ping-text');
 
-        // Reset UI
         speedVal.textContent = '0.0';
         speedFill.style.height = '0%';
 
         try {
-            // 1. Measure Ping (Reliable)
+            // 1. Measure Ping
             const pings = [];
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 4; i++) {
                 const start = performance.now();
                 await fetch('https://www.google.com/favicon.ico', { mode: 'no-cors', cache: 'no-store' });
                 pings.push(performance.now() - start);
@@ -214,30 +213,50 @@ function renderSpeedTest(container) {
             const avgPing = Math.round(pings.reduce((a, b) => a + b) / pings.length);
             pingText.textContent = `Ping: ${avgPing} ms`;
 
-            // 2. Measure Download (Real)
-            // Using a large file from a reliable CDN
-            const testUrl = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'; // ~600KB - we will loop it 10 times
-            const iterations = 8;
-            let totalBits = 0;
+            // 2. Optimized Speed Test (Parallel Streams)
+            const testUrl = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'; // ~600KB
+            const concurrency = 12; // Parallel requests to saturate pipe
             const startTime = performance.now();
+            let totalLoaded = 0;
+            const duration = 6000; // 6 seconds test window
 
-            for (let i = 0; i < iterations; i++) {
-                const res = await fetch(testUrl + '?cb=' + Math.random(), { cache: 'no-store' });
-                const blob = await res.blob();
-                totalBits += blob.size * 8;
+            // Helper to download in loop
+            const downloadWorker = async () => {
+                while (performance.now() - startTime < duration) {
+                    const res = await fetch(testUrl + '?cb=' + Math.random(), { cache: 'no-store' });
+                    const reader = res.body.getReader();
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        totalLoaded += value.length;
 
-                // Real-time update
+                        // Break if time exceeded during read
+                        if (performance.now() - startTime > duration) break;
+                    }
+                }
+            };
+
+            // Start multiple workers
+            const workers = Array(concurrency).fill(0).map(() => downloadWorker());
+
+            // UI Update Interval
+            const uiInterval = setInterval(() => {
                 const elapsed = (performance.now() - startTime) / 1000;
-                const currentMbps = (totalBits / elapsed / 1000000).toFixed(1);
-                speedVal.textContent = currentMbps;
-                speedFill.style.height = Math.min((parseFloat(currentMbps) / 100) * 100, 100) + '%';
-            }
+                if (elapsed > 0) {
+                    const mbps = ((totalLoaded * 8) / elapsed / 1000000).toFixed(1);
+                    speedVal.textContent = mbps;
+                    speedFill.style.height = Math.min((parseFloat(mbps) / 1000) * 100, 100) + '%';
+                }
+            }, 200);
 
-            const totalDuration = (performance.now() - startTime) / 1000;
-            const finalMbps = (totalBits / totalDuration / 1000000).toFixed(1);
+            await Promise.all(workers);
+            clearInterval(uiInterval);
+
+            const finalElapsed = (performance.now() - startTime) / 1000;
+            const finalMbps = ((totalLoaded * 8) / finalElapsed / 1000000).toFixed(1);
 
             speedVal.textContent = finalMbps;
-            speedFill.style.height = Math.min((parseFloat(finalMbps) / 100) * 100, 100) + '%';
+            speedFill.style.height = Math.min((parseFloat(finalMbps) / 1000) * 100, 100) + '%';
             btn.textContent = 'Test Again';
 
         } catch (e) {

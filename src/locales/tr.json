@@ -1,8 +1,8 @@
 {
     "home": {
-        "title": "Fluxora – Hızlı Dönüştürücü ve İndirme Araçları",
-        "description": "Ücretsiz resim dönüştürücü (PNG'den JPG'e) ve video indirme araçları. Hızlı ve güvenli.",
-        "h1": "Ücretsiz Online Dosya Araçları"
+        "title": "Fluxora – Hızlı Dosya Çevirme ve Medya Araçları",
+        "description": "Ücretsiz resim dönüştürücü (WebP, PNG, JPG, BMP) ve video işlem araçları. Kayıt yok, %100 güvenli.",
+        "h1": "Ücretsiz ve Güvenli Dosya Araçları"
     },
     "tools": {
         "png-to-jpg": {
@@ -17,11 +17,41 @@
             "h1": "JPG PNG Çevirme",
             "content": "<p>JPG dosyalarını kolayca PNG yapın.</p>"
         },
-        "youtube-mp3": {
-            "title": "YouTube MP3 İndir | Fluxora",
-            "description": "YouTube videolarını MP3 olarak indirin.",
-            "h1": "YouTube MP3 İndir",
-            "content": "<p>Favori videolarınızın sesini indirin.</p>"
+        "webp-to-png": {
+            "title": "WebP PNG Çevirme | Fluxora",
+            "description": "WebP resimlerini PNG formatına dönüştürün.",
+            "h1": "WebP PNG Çevirme",
+            "content": "<p>WebP dosyalarınızı şeffaflık koruyarak PNG'ye çevirin.</p>"
+        },
+        "png-to-webp": {
+            "title": "PNG WebP Çevirme | Fluxora",
+            "description": "PNG resimlerini WebP formatına dönüştürün.",
+            "h1": "PNG WebP Çevirme",
+            "content": "<p>PNG dosyalarınızı WebP yaparak sitenizi hızlandırın.</p>"
+        },
+        "jpg-to-bmp": {
+            "title": "JPG BMP Çevirme | Fluxora",
+            "description": "JPG resimlerini BMP formatına dönüştürün.",
+            "h1": "JPG BMP Çevirme",
+            "content": "<p>JPG resimlerinizi yüksek kaliteli BMP formatına çevirin.</p>"
+        },
+        "bmp-to-jpg": {
+            "title": "BMP JPG Çevirme | Fluxora",
+            "description": "BMP resimlerini JPG formatına dönüştürün.",
+            "h1": "BMP JPG Çevirme",
+            "content": "<p>BMP dosyalarını daha küçük boyutlu JPG formatına çevirin.</p>"
+        },
+        "video-to-mp3": {
+            "title": "Video'dan MP3 Yapma | Fluxora",
+            "description": "Videolarınızdaki sesi MP3 olarak kaydedin.",
+            "h1": "Video'dan MP3 Çevirme",
+            "content": "<p>Yerel video dosyalarınızdan ses parçasını anında çıkarın.</p>"
+        },
+        "video-mute": {
+            "title": "Video Sesi Silme | Fluxora",
+            "description": "Videonun sesini kapatın ve sessiz video oluşturun.",
+            "h1": "Video Sesi Kapatma",
+            "content": "<p>Videonuzdaki ses kaydını tamamen silerek sessiz bir dosya oluşturun.</p>"
         },
         "pdf-to-txt": {
             "title": "PDF TXT Çevirme | Fluxora",
@@ -34,12 +64,6 @@
             "description": "Word (DOCX) belgelerini düz metin dosyasına çevirin.",
             "h1": "Word Metin Çevirici",
             "content": "<p>Word dosyalarınızın içerisindeki metni hızlıca alın.</p>"
-        },
-        "pinterest-downloader": {
-            "title": "Pinterest Video İndir | Fluxora",
-            "description": "Pinterest videolarını ve GIFlerini ücretsiz indirin. Hızlı Pinterest indirici.",
-            "h1": "Pinterest Video İndir",
-            "content": "<p>Pinterest videolarını cihazınıza kaydedin.</p>"
         },
         "png-to-avif": {
             "title": "PNG AVIF Çevirme | Fluxora",
@@ -61,45 +85,45 @@
         },
         "webp-to-jpg": {
             "title": "WebP JPG Çevirme | Fluxora",
-            "description": "WebP dosyalarını JPG formatına dönüştürün.",
+            "description": "WebP dosyalarını JPG formatına çevirin.",
             "h1": "WebP JPG Çevirici",
-            "content": "<p>WebP resimlerini standart JPG yapın.</p>"
+            "content": "<p>WebP dosyalarınızı uyumlu JPG formatına dönüştürün.</p>"
         },
         "gif-to-mp4": {
             "title": "GIF MP4 Çevirme | Fluxora",
-            "description": "GIF animasyonlarını MP4 video formatına dönüştürün.",
-            "h1": "GIF MP4 Dönüştürücü",
-            "content": "<p>GIF dosyalarını videoya çevirin.</p>"
+            "description": "GIF animasyonlarını MP4 formatına dönüştürün.",
+            "h1": "GIF MP4 Çevirici",
+            "content": "<p>GIF dosyalarını video formatına çevirerek boyutlarını küçültün.</p>"
         },
         "mp4-to-gif": {
             "title": "MP4 GIF Çevirme | Fluxora",
-            "description": "MP4 videolarını animasyonlu GIF yapın.",
-            "h1": "MP4 GIF Yapma",
-            "content": "<p>Videolarınızdan anında GIF oluşturun.</p>"
+            "description": "MP4 videolarını GIF formatına dönüştürün.",
+            "h1": "MP4 GIF Çevirici",
+            "content": "<p>Videolarınızdan hızlıca GIF animasyonları oluşturun.</p>"
         },
         "json-formatter": {
-            "title": "JSON Düzenleyici ve Sıkıştırıcı | Fluxora",
-            "description": "JSON verilerini düzenleyin, doğrulayın veya sıkıştırın.",
+            "title": "JSON Düzenleyici | Fluxora",
+            "description": "Karmaşık JSON verilerini okunabilir ve düzenli hale getirin.",
             "h1": "JSON Düzenleyici",
-            "content": "<p>JSON verilerinizi anında okunaklı hale getirin.</p>"
+            "content": "<p>JSON kodunuzu yapıştırarak anında formatlayın.</p>"
         },
         "lorem-ipsum": {
             "title": "Lorem Ipsum Oluşturucu | Fluxora",
-            "description": "Tasarım projeleriniz için rastgele metin üretin.",
+            "description": "Tasarımlarınız için rastgele metinler oluşturun.",
             "h1": "Lorem Ipsum Oluşturucu",
-            "content": "<p>Projeleriniz için mıcır metin oluşturun.</p>"
+            "content": "<p>İstediğiniz sayıda kelime veya paragraf Lorem Ipsum üretin.</p>"
         },
         "slug-generator": {
-            "title": "URL Slug Oluşturucu | Fluxora",
-            "description": "Metinleri SEO uyumlu URL yapısına çevirin.",
-            "h1": "Slug Oluşturucu",
-            "content": "<p>Yazılarınızı link yapısına uygun hale getirin.</p>"
+            "title": "Slug Oluşturucu | Fluxora",
+            "description": "Başlıkları URL uyumlu (slug) metne dönüştürün.",
+            "h1": "URL Slug Oluşturucu",
+            "content": "<p>Yazı başlıklarınızı SEO uyumlu URL'lere çevirin.</p>"
         },
         "markdown-to-html": {
             "title": "Markdown HTML Çevirici | Fluxora",
-            "description": "Markdown formatını HTML koduna çevirin.",
+            "description": "Markdown yazımlarını anında HTML koduna dönüştürün.",
             "h1": "Markdown HTML Çevirici",
-            "content": "<p>Markdown yazılarınızı HTML'e dönüştürün.</p>"
+            "content": "<p>Markdown metninizi HTML'e çevirerek web sayfalarında kullanın.</p>"
         },
         "qr-generator": {
             "title": "Ücretsiz Karekod (QR) Oluşturucu | Fluxora",

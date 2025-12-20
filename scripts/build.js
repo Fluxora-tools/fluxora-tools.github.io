@@ -25,12 +25,6 @@ const TOOLS = [
         type: 'image'
     },
     {
-        id: 'youtube-mp3',
-        slug: { en: 'youtube-mp3-downloader', tr: 'youtube-mp3-indir' },
-        template: 'downloader',
-        type: 'video'
-    },
-    {
         id: 'pdf-to-txt',
         slug: { en: 'pdf-to-txt', tr: 'pdf-txt-cevirme' },
         template: 'converter',
@@ -42,16 +36,21 @@ const TOOLS = [
         template: 'converter',
         type: 'document'
     },
-    // New Images
+    // Images
     { id: 'png-to-avif', slug: { en: 'png-to-avif', tr: 'png-avif-cevirme' }, template: 'converter', type: 'image' },
     { id: 'avif-to-png', slug: { en: 'avif-to-png', tr: 'avif-png-cevirme' }, template: 'converter', type: 'image' },
     { id: 'jpg-to-webp', slug: { en: 'jpg-to-webp', tr: 'jpg-webp-cevirme' }, template: 'converter', type: 'image' },
     { id: 'webp-to-jpg', slug: { en: 'webp-to-jpg', tr: 'webp-jpg-cevirme' }, template: 'converter', type: 'image' },
-    // New Video/Downloader
-    { id: 'pinterest-downloader', slug: { en: 'pinterest-downloader', tr: 'pinterest-video-indir' }, template: 'downloader', type: 'video' },
+    { id: 'webp-to-png', slug: { en: 'webp-to-png', tr: 'webp-png-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'png-to-webp', slug: { en: 'png-to-webp', tr: 'png-webp-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'jpg-to-bmp', slug: { en: 'jpg-to-bmp', tr: 'jpg-bmp-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'bmp-to-jpg', slug: { en: 'bmp-to-jpg', tr: 'bmp-jpg-cevirme' }, template: 'converter', type: 'image' },
+    // Video Utility Tools (100% Client Side)
     { id: 'gif-to-mp4', slug: { en: 'gif-to-mp4', tr: 'gif-mp4-cevirme' }, template: 'converter', type: 'video' },
     { id: 'mp4-to-gif', slug: { en: 'mp4-to-gif', tr: 'mp4-gif-cevirme' }, template: 'converter', type: 'video' },
-    // Developer Tools (Real & Easy)
+    { id: 'video-to-mp3', slug: { en: 'video-to-mp3-converter', tr: 'videodan-mp3-yapma' }, template: 'converter', type: 'video' },
+    { id: 'video-mute', slug: { en: 'mute-video', tr: 'video-sesi-silme' }, template: 'converter', type: 'video' },
+    // Developer Tools
     { id: 'json-formatter', slug: { en: 'json-formatter', tr: 'json-duzenleyici' }, template: 'converter', type: 'dev' },
     { id: 'lorem-ipsum', slug: { en: 'lorem-ipsum-generator', tr: 'lorem-ipsum-olusturucu' }, template: 'converter', type: 'dev' },
     { id: 'slug-generator', slug: { en: 'slug-generator', tr: 'slug-olusturucu' }, template: 'converter', type: 'dev' },

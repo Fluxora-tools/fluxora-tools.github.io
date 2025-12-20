@@ -76,7 +76,8 @@ ul {
 .logo a {
     font-size: 1.8rem;
     font-weight: 800;
-    letter-spacing: -1.5px;
+    letter-spacing: -0.5px;
+    padding: 0 4px;
     background: linear-gradient(to right, #fff, var(--text-muted));
     -webkit-background-clip: text;
     background-clip: text;

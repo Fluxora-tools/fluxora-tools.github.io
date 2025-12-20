@@ -1,8 +1,8 @@
 {
     "home": {
-        "title": "Fluxora – Fast Download & Convert Tools",
-        "description": "Free online tools to convert images (PNG to JPG, AVIF to PNG) and download videos. Fast, client-side, and secure.",
-        "h1": "Free Online File Tools"
+        "title": "Fluxora – Fast File Conversion & Media Tools",
+        "description": "Free online tools to convert images (WebP, PNG, JPG, BMP) and process videos. No registration, 100% secure.",
+        "h1": "Free and Secure File Tools"
     },
     "tools": {
         "png-to-jpg": {
@@ -17,11 +17,41 @@
             "h1": "JPG to PNG Converter",
             "content": "<p>Easily convert JPG to PNG.</p>"
         },
-        "youtube-mp3": {
-            "title": "YouTube MP3 Downloader | Fluxora",
-            "description": "Download MP3 audio from YouTube videos. Client-side based tool.",
-            "h1": "YouTube to MP3",
-            "content": "<p>Download audio from your favorite videos.</p>"
+        "webp-to-png": {
+            "title": "Convert WebP to PNG Online | Fluxora",
+            "description": "Free and fast WebP to PNG converter.",
+            "h1": "WebP to PNG Converter",
+            "content": "<p>Convert WebP files to PNG while keeping transparency.</p>"
+        },
+        "png-to-webp": {
+            "title": "Convert PNG to WebP Online | Fluxora",
+            "description": "Convert PNG images to WebP for better web performance.",
+            "h1": "PNG to WebP Converter",
+            "content": "<p>Speed up your website by converting PNG to WebP.</p>"
+        },
+        "jpg-to-bmp": {
+            "title": "Convert JPG to BMP Online | Fluxora",
+            "description": "Free JPG to BMP converter.",
+            "h1": "JPG to BMP Converter",
+            "content": "<p>Convert JPG images to high-quality BMP format.</p>"
+        },
+        "bmp-to-jpg": {
+            "title": "Convert BMP to JPG Online | Fluxora",
+            "description": "Free BMP to JPG converter.",
+            "h1": "BMP to JPG Converter",
+            "content": "<p>Convert BMP files to compressed JPG format.</p>"
+        },
+        "video-to-mp3": {
+            "title": "Video to MP3 Converter | Fluxora",
+            "description": "Extract audio from your videos as MP3 files.",
+            "h1": "Video to MP3 Converter",
+            "content": "<p>Extract the audio track from your local video files instantly.</p>"
+        },
+        "video-mute": {
+            "title": "Mute Video Online | Fluxora",
+            "description": "Remove audio from your videos to make them silent.",
+            "h1": "Mute Video Tool",
+            "content": "<p>Remove the audio track from your video file completely.</p>"
         },
         "pdf-to-txt": {
             "title": "PDF to TXT Converter | Fluxora",
@@ -34,12 +64,6 @@
             "description": "Convert Word documents (DOCX) to plain text.",
             "h1": "Word to Text Converter",
             "content": "<p>Get the text content from your Word files quickly.</p>"
-        },
-        "pinterest-downloader": {
-            "title": "Pinterest Video Downloader | Fluxora",
-            "description": "Download Pinterest videos and GIFs instantly. Free online tool.",
-            "h1": "Pinterest Downloader",
-            "content": "<p>Save your favorite Pinterest videos and GIFs.</p>"
         },
         "png-to-avif": {
             "title": "Convert PNG to AVIF Online | Fluxora",
@@ -61,79 +85,79 @@
         },
         "webp-to-jpg": {
             "title": "Convert WebP to JPG Online | Fluxora",
-            "description": "Convert WebP images back to JPG format instantly.",
+            "description": "Convert WebP images to standard JPG format.",
             "h1": "WebP to JPG Converter",
-            "content": "<p>Turn WebP files into universally supported JPGs.</p>"
+            "content": "<p>Make your WebP files compatible with more apps by converting to JPG.</p>"
         },
         "gif-to-mp4": {
             "title": "Convert GIF to MP4 Online | Fluxora",
-            "description": "Convert animated GIFs to MP4 video format.",
+            "description": "Free GIF to MP4 converter. Reduce file size by converting animation to video.",
             "h1": "GIF to MP4 Converter",
-            "content": "<p>Turn GIFs into shareable video files.</p>"
+            "content": "<p>Convert GIF animations to efficient MP4 videos.</p>"
         },
         "mp4-to-gif": {
             "title": "Convert MP4 to GIF Online | Fluxora",
-            "description": "Create animated GIFs from MP4 videos.",
+            "description": "Convert MP4 videos to GIF animations instantly.",
             "h1": "MP4 to GIF Converter",
-            "content": "<p>Make GIFs from your videos easily.</p>"
+            "content": "<p>Quickly create GIF animations from your browser-native videos.</p>"
         },
         "json-formatter": {
-            "title": "JSON Formatter & Minifier | Fluxora",
-            "description": "Format, validate, and minify JSON data online.",
+            "title": "JSON Formatter | Fluxora",
+            "description": "Format and beautify your JSON data for easier reading.",
             "h1": "JSON Formatter",
-            "content": "<p>Beautify or minify your JSON data instantly.</p>"
+            "content": "<p>Paste your JSON and get a formatted version instantly.</p>"
         },
         "lorem-ipsum": {
             "title": "Lorem Ipsum Generator | Fluxora",
-            "description": "Generate placeholder text for your designs.",
+            "description": "Generate random placeholder text for your designs.",
             "h1": "Lorem Ipsum Generator",
-            "content": "<p>Create dummy text for your projects.</p>"
+            "content": "<p>Generate words or paragraphs of Lorem Ipsum text.</p>"
         },
         "slug-generator": {
             "title": "URL Slug Generator | Fluxora",
-            "description": "Create SEO-friendly URL slugs from text strings.",
-            "h1": "Slug Generator",
-            "content": "<p>Convert text into clean URL slugs.</p>"
+            "description": "Convert titles into SEO-friendly URL slugs.",
+            "h1": "URL Slug Generator",
+            "content": "<p>Transform text into clean, URL compatible strings.</p>"
         },
         "markdown-to-html": {
             "title": "Markdown to HTML Converter | Fluxora",
-            "description": "Convert Markdown text to raw HTML code.",
+            "description": "Convert Markdown text to HTML code.",
             "h1": "Markdown to HTML",
-            "content": "<p>Preview and convert Markdown to HTML.</p>"
+            "content": "<p>Turn your Markdown into ready-to-use HTML code.</p>"
         },
         "qr-generator": {
             "title": "Free QR Code Generator | Fluxora",
-            "description": "Create custom QR codes for URLs, text, and more. Instant & Private.",
+            "description": "Create QR codes for links and text instantly. No registration needed.",
             "h1": "QR Code Generator",
-            "content": "<p>Generate high-quality QR codes instantly in your browser.</p>"
+            "content": "<p>Generate and download QR codes quickly in your browser.</p>"
         },
         "password-generator": {
             "title": "Strong Password Generator | Fluxora",
-            "description": "Create secure, random passwords to protect your accounts.",
+            "description": "Create hard-to-crack, random, and secure passwords.",
             "h1": "Password Generator",
-            "content": "<p>Generate strong, unhackable passwords locally.</p>"
+            "content": "<p>Make your accounts more secure with strong passwords.</p>"
         },
         "word-counter": {
             "title": "Word & Character Counter | Fluxora",
-            "description": "Count words, characters, and paragraphs in real-time.",
-            "h1": "Word Counter Tool",
-            "content": "<p>Analyze your text for length and density.</p>"
+            "description": "Count words, characters, and paragraphs in your text.",
+            "h1": "Word Counter",
+            "content": "<p>Analyze the length and details of your writing.</p>"
         },
         "internet-speed-test": {
             "title": "Internet Speed Test | Fluxora",
-            "description": "Check your internet connection ping and download speed.",
+            "description": "Measure your internet connection speed and ping.",
             "h1": "Internet Speed Test",
-            "content": "<p>Measure your network latency and speed quickly.</p>"
+            "content": "<p>Test your network performance instantly.</p>"
         }
     },
     "about": {
-        "title": "About Fluxora | Privacy & Credits",
-        "description": "Learn more about Fluxora, our privacy policy, and the team.",
-        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>About Fluxora</h1><p>Fluxora is a free, modern web platform designed to provide fast and secure file tools directly in your browser.</p><h2>Privacy & Security</h2><p>We prioritize your privacy. All processing happens <strong>client-side</strong> within your browser. <strong>No files are ever uploaded to our servers.</strong> This ensures your data remains completely private and secure.</p><h2>Credits</h2><p>Designed and Developed by <span class='sys-id'>SYS_0xA7</span>.</p><p>Powered by Open Source technologies.</p></div>"
+        "title": "About Us | Fluxora",
+        "description": "Information about Fluxora, privacy policy, and credits.",
+        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>About Us</h1><p>Fluxora is a free platform designed for quick and secure file processing directly in your browser.</p><h2>Privacy & Security</h2><p>We value your privacy. All processing happens <strong>client-side (in your browser)</strong>. <strong>Your files are never uploaded to our servers.</strong> This ensures your data remains completely private.</p><h2>Credits</h2><p>Design & Development: <span class='sys-id'>SYS_0xA7</span>.</p></div>"
     },
     "privacy": {
         "title": "Privacy Policy | Fluxora",
-        "description": "Our commitment to your privacy and data security.",
-        "content": "<h1>Privacy Policy</h1><p>At Fluxora, privacy is our top priority. This platform operates <strong>serverless</strong>. We do not collect or store any of your data. All file conversions and processing occur locally in your browser.</p>"
+        "description": "Details about our privacy policy and data security.",
+        "content": "<h1>Privacy Policy</h1><p>At Fluxora, privacy is our top priority. This platform operates <strong>serverless</strong>. We do not collect or store any of your data. All conversions and tools run locally in your browser.</p>"
     }
 }
