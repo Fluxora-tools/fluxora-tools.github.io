@@ -40,14 +40,14 @@ function renderDownloader(container, toolId) {
 
             <div id="result-area" style="display:none; margin-top:30px; background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid var(--border); text-align:left;">
                 <div id="video-meta" style="display:flex; gap:20px; align-items:flex-start; margin-bottom:25px;">
-                    <img id="video-thumb" src="" style="width:180px; height:100px; object-fit:cover; border-radius:10px; background:#1e293b;" />
+                    <img id="video-thumb" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110" style="width:180px; height:100px; object-fit:cover; border-radius:10px; background:#1e293b;" />
                     <div>
                         <h4 id="video-title" style="margin:0; font-size:1.1rem; color:white;">Content Ready</h4>
                         <p id="video-info" style="margin:8px 0 0; font-size:0.85rem; color:var(--text-muted);">The file is ready for download.</p>
                     </div>
                 </div>
                 <div style="display:flex; gap:10px;">
-                    <a id="download-link" href="#" class="btn" style="flex:1; text-align:center; background:var(--primary); color:white; text-decoration:none;">Download Now</a>
+                    <a id="download-link" href="#" class="btn" style="flex:1; text-align:center; background:var(--primary); color:white; text-decoration:none;" target="_blank">Download Now</a>
                     <button id="reset-btn" class="btn btn-secondary" style="width:auto;">New Search</button>
                 </div>
             </div>
@@ -56,7 +56,7 @@ function renderDownloader(container, toolId) {
                 <p id="error-msg" style="color:#ff8888; font-size:0.9rem; margin-bottom:0; font-weight:bold;"></p>
                 <p style="color:var(--text-muted); font-size:0.85rem; margin-top:10px; line-height:1.4;">
                     <strong>Why is this happening?</strong><br>
-                    Your network or ISP (Internet Service Provider) is blocking access to media extraction servers. 
+                    Your network or ISP is blocking media extraction servers. 
                 </p>
                 <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
                     <span style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:4px; font-size:0.75rem;">Try VPN</span>
@@ -93,59 +93,63 @@ function renderDownloader(container, toolId) {
         errorBox.style.display = 'none';
         fetchBtn.disabled = true;
 
-        const instances = [
-            'https://cobalt.hyra.sh/api/json',
-            'https://api.v0l.me/api/json',
-            'https://im-special.v0l.me/api/json',
-            'https://cobalt.api.unblocked.lol/api/json',
-            'https://api.cobalt.tools/api/json',
-            'https://cobalt.api.ryuugamine.org/api/json',
-            'https://co.wuk.sh/api/json', // Added
-            'https://cobalt.qex.pw/api/json', // Added
-            'https://cobalt.y2mate.app/api/json' // Added
-        ];
-
         let success = false;
 
-        // Step 1: Try Direct Connections
-        for (const instance of instances) {
+        // Specialized Scraping for Pinterest (Bypasses Cobalt/DNS blocks)
+        if (url.includes('pinterest.com') || url.includes('pin.it')) {
+            loaderText.innerText = "Directly scraping Pinterest...";
             try {
-                loaderText.innerText = `Connecting: ${new URL(instance).hostname}...`;
-                const data = await fetchFromCobalt(instance, url, toolId);
-                if (data) {
-                    showResult(data, url, toolId);
+                const scrapedData = await scrapePinterest(url);
+                if (scrapedData) {
+                    showResult(scrapedData, url);
                     success = true;
-                    break;
                 }
-            } catch (e) {
-                console.warn(`Direct fail for ${instance}:`, e);
-            }
+            } catch (e) { console.warn("Pinterest scraping failed, falling back to Cobalt..."); }
         }
 
-        // Step 2: Try Tunnelled Connections (Fallbacks for DNS blocks)
+        // Cobalt Fallback / YouTube Logic
         if (!success) {
-            proxyWarning.style.display = 'block';
-            const tunnelProxies = [
-                'https://api.allorigins.win/raw?url=',
-                'https://corsproxy.io/?'
+            const instances = [
+                'https://api.v0l.me/api/json',
+                'https://im-special.v0l.me/api/json',
+                'https://co.wuk.sh/api/json',
+                'https://cobalt.hyra.sh/api/json',
+                'https://cobalt.api.unblocked.lol/api/json'
             ];
 
-            for (const proxy of tunnelProxies) {
-                for (const instance of instances) {
-                    try {
-                        loaderText.innerText = `Bypassing filter via ${new URL(proxy).hostname}...`;
-                        const tunnelUrl = proxy + encodeURIComponent(instance);
-                        const data = await fetchFromCobalt(tunnelUrl, url, toolId);
-                        if (data) {
-                            showResult(data, url, toolId);
-                            success = true;
-                            break;
-                        }
-                    } catch (e) {
-                        console.warn(`Tunnel fail for ${proxy}${instance}:`, e);
+            // Direct Attempt
+            for (const instance of instances) {
+                try {
+                    loaderText.innerText = `Connecting: ${new URL(instance).hostname}...`;
+                    const data = await fetchFromCobalt(instance, url, toolId);
+                    if (data) {
+                        showResult(data, url);
+                        success = true;
+                        break;
                     }
+                } catch (e) {
+                    console.warn(`Direct fail for ${instance}:`, e);
                 }
-                if (success) break;
+            }
+
+            // Tunnelled Attempt (If direct fails)
+            if (!success) {
+                proxyWarning.style.display = 'block';
+                const tunnelProxies = ['https://api.allorigins.win/raw?url=', 'https://cors-anywhere.herokuapp.com/'];
+                for (const proxy of tunnelProxies) {
+                    for (const instance of instances) {
+                        try {
+                            loaderText.innerText = `By-passing via tunnel...`;
+                            const data = await fetchFromCobalt(proxy + encodeURIComponent(instance), url, toolId);
+                            if (data) {
+                                showResult(data, url);
+                                success = true;
+                                break;
+                            }
+                        } catch (e) { }
+                    }
+                    if (success) break;
+                }
             }
         }
 
@@ -158,45 +162,50 @@ function renderDownloader(container, toolId) {
         fetchBtn.disabled = false;
     }
 
+    async function scrapePinterest(pUrl) {
+        // Use AllOrigins (GET) to fetch HTML - 100% CORS/DNS safe
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(pUrl)}`;
+        const res = await fetch(proxyUrl);
+        const html = await res.text();
+
+        // Find Video URL in Meta tags or JSON
+        let videoUrl = html.match(/property="og:video" content="(.*?)"/)?.[1];
+        if (!videoUrl) {
+            videoUrl = html.match(/"v720P":\{"url":"(.*?)"/)?.[1] || html.match(/"V_720P":\{"url":"(.*?)"/)?.[1];
+        }
+
+        if (videoUrl) {
+            const thumbUrl = html.match(/property="og:image" content="(.*?)"/)?.[1];
+            return { url: videoUrl.replace(/\\u002F/g, '/'), thumb: thumbUrl };
+        }
+        return null;
+    }
+
     async function fetchFromCobalt(apiUrl, contentUrl, tid) {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
         try {
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    url: contentUrl,
-                    videoQuality: "1080",
-                    isAudioOnly: tid.includes('mp3'),
-                    filenamePattern: "pretty"
-                }),
+                body: JSON.stringify({ url: contentUrl, videoQuality: "1080", isAudioOnly: tid.includes('mp3') }),
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
             if (!response.ok) return null;
             const data = await response.json();
             return (data.url || data.picker?.[0]?.url) ? data : null;
-        } catch (e) {
-            throw e;
-        }
+        } catch (e) { throw e; }
     }
 
-    function showResult(data, origUrl, tid) {
-        const finalUrl = data.url || data.picker[0].url;
-
-        // Thumbnail logic
+    function showResult(data, origUrl) {
+        const finalUrl = data.url || data.picker?.[0]?.url;
         if (origUrl.includes('youtube') || origUrl.includes('youtu.be')) {
             videoThumb.src = `https://img.youtube.com/vi/${extractVideoId(origUrl)}/mqdefault.jpg`;
-        } else if (origUrl.includes('pinterest') && data.picker?.[0]?.thumb) {
-            videoThumb.src = data.picker[0].thumb;
         } else {
-            videoThumb.src = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
+            videoThumb.src = data.thumb || data.picker?.[0]?.thumb || 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&h=110';
         }
-
         downloadLink.href = finalUrl;
-        downloadLink.innerText = tid.includes('mp3') ? "Download Audio" : "Download Video";
         resultArea.style.display = 'block';
     }
 
@@ -292,9 +301,8 @@ function renderConverter(container, toolId) {
         const canvas = document.getElementById('proc-canvas');
         const ctx = canvas.getContext('2d');
 
-        const targetWidth = 480;
-        canvas.width = targetWidth;
-        canvas.height = (video.videoHeight / video.videoWidth) * targetWidth;
+        canvas.width = 480;
+        canvas.height = (video.videoHeight / video.videoWidth) * 480;
 
         const gif = new GIF({
             workers: 2,
@@ -322,10 +330,6 @@ function renderConverter(container, toolId) {
             downloadBtn.download = "fluxora.gif";
             loader.style.display = 'none';
             resultArea.style.display = 'block';
-        });
-
-        gif.on('progress', (p) => {
-            progressText.innerText = `Rendering GIF: ${(p * 100).toFixed(0)}%`;
         });
 
         gif.render();
