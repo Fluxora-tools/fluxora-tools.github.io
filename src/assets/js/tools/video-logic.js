@@ -318,9 +318,9 @@ function renderVideoTool(container, toolId, s, isTR) {
                     return;
                 }
 
-                // Verify extraction capability
-                if (typeof mp4box.setExtractionConfig !== 'function') {
-                    console.warn("setExtractionConfig missing, falling back to slow mute");
+                // Correct method name is setExtractionOptions
+                if (typeof mp4box.setExtractionOptions !== 'function') {
+                    console.warn("setExtractionOptions missing, falling back to slow mute");
                     processVideoSlow(file);
                     return;
                 }
@@ -339,7 +339,7 @@ function renderVideoTool(container, toolId, s, isTR) {
                 };
 
                 outMp4.addTrack(trackOptions);
-                mp4box.setExtractionConfig(videoTrack.id, null, { nb_samples: videoTrack.nb_samples });
+                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: videoTrack.nb_samples });
 
                 let samplesCount = 0;
                 mp4box.onSamples = function (id, user, samples) {
