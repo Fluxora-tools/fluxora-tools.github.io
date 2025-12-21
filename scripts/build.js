@@ -153,7 +153,9 @@ async function build() {
     }
 
     // 4. Root Redirect Page
-    const rootIndexHtml = `<!DOCTYPE html><html><head><title>Fluxora</title><script>
+    const rootIndexHtml = `<!DOCTYPE html><html><head><title>Fluxora</title>
+        <meta name="msvalidate.01" content="1EF443F57933E45D9492EFEF952589CA" />
+        <script>
         var userLang = navigator.language || navigator.userLanguage; 
         window.location.href = userLang.toLowerCase().includes('tr') ? "/tr/" : "/en/";
     </script><meta http-equiv="refresh" content="0;url=/en/"></head><body></body></html>`;

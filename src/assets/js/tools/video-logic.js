@@ -290,9 +290,14 @@ function renderVideoTool(container, toolId, s, isTR) {
             const depth = window.location.pathname.split('/').length - 2;
             const navUp = depth > 0 ? '../'.repeat(depth) : '';
             const mp4boxSrc = `${navUp}assets/js/libs/mp4box.all.min.js`;
-            await loadScript(mp4boxSrc).catch(() => loadScript('https://cdn.jsdelivr.net/npm/mp4box@0.5.2/dist/mp4box.all.min.js'));
+            // Try local first, then stable CDN
+            await loadScript(mp4boxSrc).catch(() => loadScript('https://unpkg.com/mp4box@0.5.2/dist/mp4box.all.min.js'));
         } catch (e) {
             console.warn("MP4Box load fail, falling back to slow mute");
+            return await processVideoSlow(file);
+        }
+
+        if (typeof MP4Box === 'undefined') {
             return await processVideoSlow(file);
         }
 
@@ -310,6 +315,13 @@ function renderVideoTool(container, toolId, s, isTR) {
                 if (!videoTrack) {
                     alert(isTR ? "Hata: Video kanalı bulunamadı." : "Error: No video track found.");
                     location.reload();
+                    return;
+                }
+
+                // Verify extraction capability
+                if (typeof mp4box.setExtractionConfig !== 'function') {
+                    console.warn("setExtractionConfig missing, falling back to slow mute");
+                    processVideoSlow(file);
                     return;
                 }
 

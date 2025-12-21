@@ -1,292 +1,292 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://fluxora-tools.github.io/en/</loc>
+    <loc>https://fluxora.pages.dev/en/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/about/</loc>
+    <loc>https://fluxora.pages.dev/en/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/privacy/</loc>
+    <loc>https://fluxora.pages.dev/en/privacy/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/</loc>
+    <loc>https://fluxora.pages.dev/tr/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/about/</loc>
+    <loc>https://fluxora.pages.dev/tr/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/privacy/</loc>
+    <loc>https://fluxora.pages.dev/tr/privacy/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/png-to-jpg/</loc>
+    <loc>https://fluxora.pages.dev/en/png-to-jpg/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/png-jpg-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/png-jpg-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/jpg-to-png/</loc>
+    <loc>https://fluxora.pages.dev/en/jpg-to-png/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/jpg-png-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/jpg-png-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/pdf-to-txt/</loc>
+    <loc>https://fluxora.pages.dev/en/pdf-to-txt/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/pdf-txt-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/pdf-txt-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/word-to-txt/</loc>
+    <loc>https://fluxora.pages.dev/en/word-to-txt/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/word-txt-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/word-txt-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/png-to-avif/</loc>
+    <loc>https://fluxora.pages.dev/en/png-to-avif/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/png-avif-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/png-avif-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/avif-to-png/</loc>
+    <loc>https://fluxora.pages.dev/en/avif-to-png/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/avif-png-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/avif-png-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/jpg-to-webp/</loc>
+    <loc>https://fluxora.pages.dev/en/jpg-to-webp/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/jpg-webp-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/jpg-webp-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/webp-to-jpg/</loc>
+    <loc>https://fluxora.pages.dev/en/webp-to-jpg/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/webp-jpg-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/webp-jpg-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/webp-to-png/</loc>
+    <loc>https://fluxora.pages.dev/en/webp-to-png/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/webp-png-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/webp-png-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/png-to-webp/</loc>
+    <loc>https://fluxora.pages.dev/en/png-to-webp/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/png-webp-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/png-webp-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/jpg-to-bmp/</loc>
+    <loc>https://fluxora.pages.dev/en/jpg-to-bmp/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/jpg-bmp-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/jpg-bmp-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/bmp-to-jpg/</loc>
+    <loc>https://fluxora.pages.dev/en/bmp-to-jpg/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/bmp-jpg-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/bmp-jpg-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/gif-to-mp4/</loc>
+    <loc>https://fluxora.pages.dev/en/gif-to-mp4/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/gif-mp4-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/gif-mp4-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/mp4-to-gif/</loc>
+    <loc>https://fluxora.pages.dev/en/mp4-to-gif/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/mp4-gif-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/mp4-gif-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/video-to-mp3-converter/</loc>
+    <loc>https://fluxora.pages.dev/en/video-to-mp3-converter/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/videodan-mp3-yapma/</loc>
+    <loc>https://fluxora.pages.dev/tr/videodan-mp3-yapma/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/mute-video/</loc>
+    <loc>https://fluxora.pages.dev/en/mute-video/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/video-sesi-silme/</loc>
+    <loc>https://fluxora.pages.dev/tr/video-sesi-silme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/json-formatter/</loc>
+    <loc>https://fluxora.pages.dev/en/json-formatter/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/json-duzenleyici/</loc>
+    <loc>https://fluxora.pages.dev/tr/json-duzenleyici/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/lorem-ipsum-generator/</loc>
+    <loc>https://fluxora.pages.dev/en/lorem-ipsum-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/lorem-ipsum-olusturucu/</loc>
+    <loc>https://fluxora.pages.dev/tr/lorem-ipsum-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/slug-generator/</loc>
+    <loc>https://fluxora.pages.dev/en/slug-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/slug-olusturucu/</loc>
+    <loc>https://fluxora.pages.dev/tr/slug-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/markdown-to-html/</loc>
+    <loc>https://fluxora.pages.dev/en/markdown-to-html/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/markdown-html-cevirici/</loc>
+    <loc>https://fluxora.pages.dev/tr/markdown-html-cevirici/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/qr-code-generator/</loc>
+    <loc>https://fluxora.pages.dev/en/qr-code-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/karekod-olusturucu/</loc>
+    <loc>https://fluxora.pages.dev/tr/karekod-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/password-generator/</loc>
+    <loc>https://fluxora.pages.dev/en/password-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/sifre-olusturucu/</loc>
+    <loc>https://fluxora.pages.dev/tr/sifre-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/word-counter/</loc>
+    <loc>https://fluxora.pages.dev/en/word-counter/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/kelime-sayaci/</loc>
+    <loc>https://fluxora.pages.dev/tr/kelime-sayaci/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/internet-speed-test/</loc>
+    <loc>https://fluxora.pages.dev/en/internet-speed-test/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/internet-hiz-testi/</loc>
+    <loc>https://fluxora.pages.dev/tr/internet-hiz-testi/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/txt-to-docx/</loc>
+    <loc>https://fluxora.pages.dev/en/txt-to-docx/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/txt-docx-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/txt-docx-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/en/txt-to-pdf/</loc>
+    <loc>https://fluxora.pages.dev/en/txt-to-pdf/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora-tools.github.io/tr/txt-pdf-cevirme/</loc>
+    <loc>https://fluxora.pages.dev/tr/txt-pdf-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
