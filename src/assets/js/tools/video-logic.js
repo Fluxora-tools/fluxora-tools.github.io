@@ -116,19 +116,24 @@ function renderVideoTool(container, toolId, s) {
 
     async function convertToGif(file) {
         // Dynamic path detection for assets
-        const pathPrefix = (window.location.pathname.includes('/tr/') || window.location.pathname.includes('/en/')) ? '../' : '';
-        const gifSrc = `${pathPrefix}assets/js/libs/gif.js`;
-        const workerSrc = `${pathPrefix}assets/js/libs/gif.worker.js`;
+        // Assume standard structure: /pages/tools/ -> ../../assets
+        // Or root: / -> assets/
+        // Simple heuristic: check if we are deep
+        const depth = window.location.pathname.split('/').length - 2;
+        const navUp = depth > 0 ? '../'.repeat(depth) : '';
+
+        // Default to local/relative
+        let workerSrc = `${navUp}assets/js/libs/gif.worker.js`;
+        const localGifSrc = `${navUp}assets/js/libs/gif.js`;
 
         try {
-            await loadScript(gifSrc);
+            // Validate local existence first (HEAD request or try load)
+            await loadScript(localGifSrc);
         } catch (e) {
-            console.warn("Local GIF lib not found, trying CDN fallback...");
-            try {
-                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js');
-            } catch (e2) {
-                throw new Error("Failed to load GIF library. Check assets/js/libs folder.");
-            }
+            console.warn("Local GIF lib not found/failed, switching to CDN...", e);
+            // FALLBACK TO CDN FOR BOTH
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js');
+            workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js';
         }
 
         const objUrl = URL.createObjectURL(file);
@@ -145,7 +150,8 @@ function renderVideoTool(container, toolId, s) {
         });
 
         const canvas = document.getElementById('proc-canvas');
-        const ctx = canvas.getContext('2d');
+        // Optimization: willReadFrequently
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
         const scale = 320;
 
         const aspect = (video.videoHeight > 0 && video.videoWidth > 0)
@@ -226,24 +232,109 @@ function renderVideoTool(container, toolId, s) {
     async function processStream(file) {
         progressText.innerText = isTR ? "Hazırlanıyor..." : "Preparing...";
         video.src = URL.createObjectURL(file);
+        video.muted = false; // Important: Unmute source so we can capture audio
 
         await new Promise((resolve, reject) => {
             video.onloadeddata = resolve;
-            video.onerror = reject;
-            setTimeout(resolve, 2000); // Failsafe
+            video.onerror = () => reject("Video Load Error");
+            setTimeout(resolve, 3000); // Failsafe
         });
 
-        await video.play();
-        const stream = video.captureStream();
-        if (isMute) stream.getAudioTracks().forEach(t => stream.removeTrack(t));
-        if (isToMp3) stream.getVideoTracks().forEach(t => stream.removeTrack(t));
+        // Volume Hack: Set volume to 1.0 but mute the element via property to avoid hearing it, 
+        // while still allowing captureStream to capture audio? 
+        // Actually, for captureStream, the video MUST play.
+        // We use the 1px hack, so it's fine.
+        video.volume = 1.0;
+
+        try {
+            await video.play();
+        } catch (e) {
+            console.warn("Autoplay block?", e);
+        }
+
+        let stream;
+        try {
+            // MozCaptureStream for Firefox, captureStream for others
+            stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
+        } catch (e) {
+            throw new Error("Screen capture not supported in this browser.");
+        }
+
+        // Feature Logic
+        let mimeType = 'video/webm;codecs=vp9';
+
+        if (isMute) {
+            // Remove audio tracks from the stream
+            const audioTracks = stream.getAudioTracks();
+            audioTracks.forEach(track => {
+                stream.removeTrack(track);
+                track.stop(); // Stop the track
+            });
+            mimeType = 'video/webm;codecs=vp9';
+            if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm';
+        }
+        else if (isToMp3) {
+            // Remove video tracks
+            const videoTracks = stream.getVideoTracks();
+            videoTracks.forEach(track => {
+                stream.removeTrack(track);
+                track.stop();
+            });
+
+            // Check if audio exists
+            if (stream.getAudioTracks().length === 0) {
+                video.pause();
+                throw new Error(isTR ? "Videoda ses bulunamadı." : "No audio found in video.");
+            }
+
+            // Audio mime types
+            if (MediaRecorder.isTypeSupported('audio/webm')) mimeType = 'audio/webm';
+            else if (MediaRecorder.isTypeSupported('audio/ogg')) mimeType = 'audio/ogg';
+            else mimeType = ''; // Default
+        }
 
         const chunks = [];
-        const recorder = new MediaRecorder(stream, { mimeType: isToMp3 ? 'audio/webm' : 'video/webm' });
-        recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = () => showResult(new Blob(chunks), isToMp3 ? "audio.mp3" : "muted.mp4", isToMp3 ? "audio" : "video");
+        let recorder;
+
+        try {
+            recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+        } catch (e) {
+            throw new Error("MediaRecorder Error: " + e.message);
+        }
+
+        recorder.ondataavailable = e => {
+            if (e.data && e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: mimeType || 'video/webm' });
+            // Determine extension
+            let ext = "mp4";
+            let type = "video";
+            if (isToMp3) {
+                ext = "mp3"; // It's actually WEBM audio, but we name it mp3 for user convenience
+                type = "audio";
+            } else if (isMute) {
+                ext = "mp4";
+                type = "video";
+            }
+            showResult(blob, `fluxora.${ext}`, type);
+        };
+
         recorder.start();
-        video.onended = () => recorder.stop();
+
+        // Timeout watchdog for super long videos
+        const checkEnd = setInterval(() => {
+            if (video.ended) {
+                clearInterval(checkEnd);
+                recorder.stop();
+            }
+        }, 500);
+
+        video.onended = () => {
+            clearInterval(checkEnd);
+            if (recorder.state !== 'inactive') recorder.stop();
+        };
     }
 
     function showResult(blob, filename, type) {
