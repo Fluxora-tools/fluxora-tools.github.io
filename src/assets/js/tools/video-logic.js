@@ -330,21 +330,24 @@ function renderVideoTool(container, toolId, s, isTR) {
                     type: videoTrack.type,
                     timescale: videoTrack.timescale,
                     duration: videoTrack.duration,
-                    width: videoTrack.video.width,
-                    height: videoTrack.video.height,
+                    width: videoTrack.video ? videoTrack.video.width : 500,
+                    height: videoTrack.video ? videoTrack.video.height : 500,
                     nb_samples: videoTrack.nb_samples,
                     codec: videoTrack.codec,
-                    avcConfig: videoTrack.avcConfig,
-                    hevcConfig: videoTrack.hevcConfig
+                    description: videoTrack.description || null
                 };
 
-                outMp4.addTrack(trackOptions);
-                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: videoTrack.nb_samples });
+                const outTrackId = outMp4.addTrack(trackOptions);
+                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: 100 });
 
                 let samplesCount = 0;
                 mp4box.onSamples = function (id, user, samples) {
+                    if (id !== videoTrack.id) return;
+
                     samples.forEach(sample => {
-                        outMp4.addSample(id, sample.data, {
+                        if (!sample || !sample.data) return;
+
+                        outMp4.addSample(outTrackId, sample.data, {
                             dts: sample.dts,
                             pts: sample.pts,
                             duration: sample.duration,
@@ -355,8 +358,18 @@ function renderVideoTool(container, toolId, s, isTR) {
                     });
 
                     if (samplesCount >= videoTrack.nb_samples) {
-                        const blob = new Blob([outMp4.getBuffer()], { type: 'video/mp4' });
-                        showResult(blob, "fluxora_muted.mp4", "video");
+                        try {
+                            const buffer = outMp4.getBuffer();
+                            if (buffer) {
+                                const blob = new Blob([buffer], { type: 'video/mp4' });
+                                showResult(blob, "fluxora_muted.mp4", "video");
+                            } else {
+                                throw new Error("Muxing failed - no buffer");
+                            }
+                        } catch (muxError) {
+                            console.error("Muxing Error:", muxError);
+                            processVideoSlow(file);
+                        }
                     }
                 };
                 mp4box.start();
