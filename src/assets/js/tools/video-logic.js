@@ -211,129 +211,155 @@ function renderVideoTool(container, toolId, s, isTR) {
     }
 
     async function convertToMp4(file) {
-        progressText.innerText = isTR ? "GIF Çözümleniyor..." : "Decoding GIF...";
+        progressText.innerText = isTR ? "GIF MP4'e Çevriliyor..." : "Converting GIF to MP4...";
         const img = new Image();
         img.src = URL.createObjectURL(file);
         await new Promise((r, j) => { img.onload = r; img.onerror = j; });
 
         const canvas = document.getElementById('proc-canvas');
         canvas.width = img.width; canvas.height = img.height;
-        canvas.getContext('2d').drawImage(img, 0, 0);
+        const ctx = canvas.getContext('2d');
+
+        // Loop to force stream activity
+        let active = true;
+        function drawLoop() {
+            if (!active) return;
+            ctx.drawImage(img, 0, 0);
+            requestAnimationFrame(drawLoop);
+        }
+        drawLoop();
 
         const chunks = [];
-        const stream = canvas.captureStream(25);
+        const stream = canvas.captureStream(30); // 30 FPS
         const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-        recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = () => showResult(new Blob(chunks), "fluxora.mp4", "video");
+
+        recorder.ondataavailable = e => {
+            if (e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onstop = () => {
+            active = false;
+            showResult(new Blob(chunks), "fluxora.mp4", "video");
+        };
+
         recorder.start();
-        setTimeout(() => recorder.stop(), 3000);
+
+        // Record for 5 seconds (generic duration for static conversion)
+        // Note: Real GIF to MP4 client-side with animation requires parsing, which is heavy. 
+        // This converts the GIF (likely static frame if naive) to a video file.
+        // If users want full animation, we'd need a parser. But fixing the 0s bug first.
+        let duration = 5000;
+
+        // Simulate progress
+        let p = 0;
+        const iv = setInterval(() => {
+            p += 2;
+            if (p > 95) p = 95;
+            progressText.innerText = (isTR ? "Dönüştürülüyor" : "Converting") + ` %${p}`;
+        }, 100);
+
+        setTimeout(() => {
+            clearInterval(iv);
+            recorder.stop();
+        }, duration);
     }
 
     async function processStream(file) {
         progressText.innerText = isTR ? "Hazırlanıyor..." : "Preparing...";
         video.src = URL.createObjectURL(file);
-        video.muted = false; // Important: Unmute source so we can capture audio
+
+        // 1. Silent Processing Setup
+        // We use Web Audio API to route audio to the Recorder but NOT to the destination (speakers).
+        // This solves "hearing the video" while allowing "recording the audio".
+
+        let audioContext, sourceNode, destNode;
+        let stream;
 
         await new Promise((resolve, reject) => {
             video.onloadeddata = resolve;
             video.onerror = () => reject("Video Load Error");
-            setTimeout(resolve, 3000); // Failsafe
+            setTimeout(resolve, 3000);
         });
 
-        // Volume Hack: Set volume to 1.0 but mute the element via property to avoid hearing it, 
-        // while still allowing captureStream to capture audio? 
-        // Actually, for captureStream, the video MUST play.
-        // We use the 1px hack, so it's fine.
-        video.volume = 1.0;
-
-        try {
-            await video.play();
-        } catch (e) {
-            console.warn("Autoplay block?", e);
-        }
-
-        let stream;
-        try {
-            // MozCaptureStream for Firefox, captureStream for others
-            stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
-        } catch (e) {
-            throw new Error("Screen capture not supported in this browser.");
-        }
-
-        // Feature Logic
-        let mimeType = 'video/webm;codecs=vp9';
-
         if (isMute) {
-            // Remove audio tracks from the stream
-            const audioTracks = stream.getAudioTracks();
-            audioTracks.forEach(track => {
-                stream.removeTrack(track);
-                track.stop(); // Stop the track
+            // Simplest way to mute: just mute the video.
+            // CaptureStream will capture video frames, audio tracks will be silent/empty.
+            video.muted = true;
+            try { await video.play(); } catch (e) { }
+
+            // Capture from video element
+            stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
+
+            // Explicitly remove audio tracks to be sure
+            stream.getAudioTracks().forEach(t => {
+                stream.removeTrack(t);
+                t.stop();
             });
-            mimeType = 'video/webm;codecs=vp9';
-            if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm';
+
+        } else if (isToMp3) {
+            // For MP3 (Audio Extraction), we want to CAPTURE audio but NOT HEAR it.
+            video.muted = false; // logic requires it to be unmuted
+
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            sourceNode = audioContext.createMediaElementSource(video);
+            destNode = audioContext.createMediaStreamDestination();
+
+            // Connect Video -> Destination (Recorder)
+            // DO NOT Connect Video -> audioContext.destination (Speakers)
+            sourceNode.connect(destNode);
+
+            try { await video.play(); } catch (e) { }
+
+            // Use the clean audio stream from Web Audio API
+            stream = destNode.stream;
+        } else { // Default video processing (not mute, not to mp3)
+            video.muted = false; // Ensure audio is available for capture
+            try { await video.play(); } catch (e) { }
+            stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
         }
-        else if (isToMp3) {
-            // Remove video tracks
-            const videoTracks = stream.getVideoTracks();
-            videoTracks.forEach(track => {
-                stream.removeTrack(track);
-                track.stop();
-            });
 
-            // Check if audio exists
-            if (stream.getAudioTracks().length === 0) {
-                video.pause();
-                throw new Error(isTR ? "Videoda ses bulunamadı." : "No audio found in video.");
-            }
-
-            // Audio mime types
+        // Mime Type Logic
+        let mimeType = '';
+        if (isToMp3) {
             if (MediaRecorder.isTypeSupported('audio/webm')) mimeType = 'audio/webm';
             else if (MediaRecorder.isTypeSupported('audio/ogg')) mimeType = 'audio/ogg';
-            else mimeType = ''; // Default
+        } else {
+            mimeType = 'video/webm;codecs=vp9';
+            if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm';
         }
 
         const chunks = [];
         let recorder;
-
         try {
             recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
         } catch (e) {
-            throw new Error("MediaRecorder Error: " + e.message);
+            throw new Error("Recorder Err: " + e.message);
         }
 
-        recorder.ondataavailable = e => {
-            if (e.data && e.data.size > 0) chunks.push(e.data);
-        };
+        recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
 
         recorder.onstop = () => {
             const blob = new Blob(chunks, { type: mimeType || 'video/webm' });
-            // Determine extension
-            let ext = "mp4";
-            let type = "video";
-            if (isToMp3) {
-                ext = "mp3"; // It's actually WEBM audio, but we name it mp3 for user convenience
-                type = "audio";
-            } else if (isMute) {
-                ext = "mp4";
-                type = "video";
-            }
+            let ext = isToMp3 ? "mp3" : "mp4";
+            let type = isToMp3 ? "audio" : "video";
             showResult(blob, `fluxora.${ext}`, type);
+
+            // Cleanup
+            if (audioContext) audioContext.close();
         };
 
         recorder.start();
 
-        // Timeout watchdog for super long videos
         const checkEnd = setInterval(() => {
             if (video.ended) {
                 clearInterval(checkEnd);
-                recorder.stop();
+                if (recorder.state === 'recording') recorder.stop();
             }
         }, 500);
 
         video.onended = () => {
             clearInterval(checkEnd);
-            if (recorder.state !== 'inactive') recorder.stop();
+            if (recorder.state === 'recording') recorder.stop();
         };
     }
 
