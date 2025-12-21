@@ -41,9 +41,10 @@ function renderVideoTool(container, toolId, s) {
              <a id="download-btn" href="#" class="btn" style="padding:15px 40px; background:var(--primary); color:#fff; text-decoration:none; border-radius:8px; font-weight:bold;">İndir</a>
              <button onclick="location.reload()" class="btn btn-secondary" style="margin-top:20px; display:block; margin-left:auto; margin-right:auto;">Yeni Dosya</button>
         </div>
-        <video id="worker-video" style="display:none;" muted playsinline></video>
+        <video id="worker-video" style="position:fixed; bottom:0; right:0; width:1px; height:1px; opacity:0.01; pointer-events:none; z-index:-1;" muted playsinline></video>
         <canvas id="proc-canvas" style="display:none;"></canvas>
     `;
+
 
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
@@ -53,40 +54,96 @@ function renderVideoTool(container, toolId, s) {
     const progressText = document.getElementById('progress-text');
     const video = document.getElementById('worker-video');
 
+    // Drag & Drop Handling
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false); // Prevent global drop
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    dropZone.addEventListener('dragenter', () => {
+        dropZone.style.borderColor = 'var(--primary)';
+        dropZone.style.background = 'rgba(255,255,255,0.05)';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.borderColor = 'var(--border)';
+        dropZone.style.background = 'rgba(255,255,255,0.02)';
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        dropZone.style.borderColor = 'var(--border)';
+        dropZone.style.background = 'rgba(255,255,255,0.02)';
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFile(files[0]);
+    });
+
     dropZone.onclick = () => fileInput.click();
     fileInput.onchange = (e) => handleFile(e.target.files[0]);
 
     async function handleFile(file) {
         if (!file) return;
+
+        // Validation
+        if (isToGif && !file.type.startsWith('video/')) {
+            alert(isTR ? "Lütfen bir video dosyası seçin." : "Please select a video file.");
+            return;
+        }
+        if (isFromGif && file.type !== 'image/gif') {
+            alert(isTR ? "Lütfen bir GIF dosyası seçin." : "Please select a GIF file.");
+            return;
+        }
+
         dropZone.style.display = 'none';
         loader.style.display = 'block';
+        progressText.innerText = s.preparing;
 
         try {
             if (isToGif) await convertToGif(file);
             else if (isFromGif) await convertToMp4(file);
             else await processStream(file);
         } catch (e) {
-            console.error(e);
-            alert(s.error);
+            console.error("Conversion Failed:", e);
+            alert(s.error + "\nDetail: " + e.message);
             location.reload();
         }
     }
 
     async function convertToGif(file) {
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.js');
+        try {
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.js');
+        } catch (e) {
+            throw new Error("Failed to load GIF library. Check connection.");
+        }
+
         const objUrl = URL.createObjectURL(file);
         video.src = objUrl;
 
-        await new Promise(r => {
-            video.onloadeddata = r;
-            setTimeout(r, 2000); // Fail-safe
+        await new Promise((resolve, reject) => {
+            if (video.readyState >= 2) resolve();
+            video.onloadeddata = resolve;
+            video.onerror = () => reject("Video Load Error");
+            setTimeout(() => {
+                if (video.readyState >= 2) resolve();
+                else reject("Video Timeout - Codec issue or file corrupt?");
+            }, 5000);
         });
 
         const canvas = document.getElementById('proc-canvas');
         const ctx = canvas.getContext('2d');
         const scale = 320;
+
+        const aspect = (video.videoHeight > 0 && video.videoWidth > 0)
+            ? (video.videoHeight / video.videoWidth)
+            : 0.5625;
+
         canvas.width = scale;
-        canvas.height = (video.videoHeight / video.videoWidth) * scale || 180;
+        canvas.height = aspect * scale;
 
         const gif = new GIF({
             workers: 2,
@@ -96,37 +153,53 @@ function renderVideoTool(container, toolId, s) {
             workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js'
         });
 
-        // The "Nuclear" Playback Method (As fast as FFmpeg)
-        video.playbackRate = 4.0; // Process 4x faster
-        video.play();
+        // "Nuclear" Playback Method - Optimized
+        video.playbackRate = 4.0;
+        video.muted = true;
 
-        const captureTimer = setInterval(() => {
-            if (video.ended || video.currentTime >= 10) { // Max 10s for browser safety
-                clearInterval(captureTimer);
-                video.pause();
-                progressText.innerText = s.rendering + " %95";
-                gif.render();
-                return;
-            }
+        await video.play();
 
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            gif.addFrame(ctx, { copy: true, delay: 100 });
+        return new Promise((resolve, reject) => {
+            const captureTimer = setInterval(() => {
+                // Check if stuck
+                if (video.currentTime === 0 && !video.paused) {
+                    // Attempt escape
+                    video.currentTime = 0.1;
+                }
 
-            const pct = Math.min(Math.round((video.currentTime / Math.min(video.duration, 10)) * 100), 99);
-            progressText.innerText = `${s.capturing} %${pct}`;
-        }, 120);
+                if (video.ended || video.currentTime >= video.duration || video.currentTime >= 60) {
+                    clearInterval(captureTimer);
+                    video.pause();
+                    progressText.innerText = s.rendering;
+                    gif.render();
+                    return;
+                }
 
-        gif.on('finished', (blob) => {
-            URL.revokeObjectURL(objUrl);
-            showResult(blob, "fluxora.gif", "image");
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                gif.addFrame(ctx, { copy: true, delay: 100 });
+
+                const currentTime = video.currentTime || 0;
+                const duration = video.duration || 10;
+                const pct = Math.min(Math.round((currentTime / Math.min(duration, 60)) * 100), 99);
+                progressText.innerText = `${s.capturing} %${pct}`;
+            }, 120);
+
+            gif.on('finished', (blob) => {
+                URL.revokeObjectURL(objUrl);
+                showResult(blob, "fluxora.gif", "image");
+                resolve();
+            });
+
+            gif.on('abort', () => reject("GIF Render Aborted"));
         });
     }
 
     async function convertToMp4(file) {
-        progressText.innerText = "İşleniyor...";
+        progressText.innerText = isTR ? "GIF Çözümleniyor..." : "Decoding GIF...";
         const img = new Image();
         img.src = URL.createObjectURL(file);
-        await new Promise(r => img.onload = r);
+        await new Promise((r, j) => { img.onload = r; img.onerror = j; });
+
         const canvas = document.getElementById('proc-canvas');
         canvas.width = img.width; canvas.height = img.height;
         canvas.getContext('2d').drawImage(img, 0, 0);
@@ -141,8 +214,15 @@ function renderVideoTool(container, toolId, s) {
     }
 
     async function processStream(file) {
-        progressText.innerText = "İşleniyor...";
+        progressText.innerText = isTR ? "Hazırlanıyor..." : "Preparing...";
         video.src = URL.createObjectURL(file);
+
+        await new Promise((resolve, reject) => {
+            video.onloadeddata = resolve;
+            video.onerror = reject;
+            setTimeout(resolve, 2000); // Failsafe
+        });
+
         await video.play();
         const stream = video.captureStream();
         if (isMute) stream.getAudioTracks().forEach(t => stream.removeTrack(t));
@@ -170,9 +250,11 @@ function renderVideoTool(container, toolId, s) {
 }
 
 function loadScript(src) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         if (document.querySelector(`script[src="${src}"]`)) return resolve();
         const script = document.createElement('script'); script.src = src;
-        script.onload = resolve; document.head.appendChild(script);
+        script.onload = resolve;
+        script.onerror = () => reject(new Error(`Script load failed: ${src}`));
+        document.head.appendChild(script);
     });
 }
