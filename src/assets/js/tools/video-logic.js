@@ -330,15 +330,15 @@ function renderVideoTool(container, toolId, s, isTR) {
                     type: videoTrack.type,
                     timescale: videoTrack.timescale,
                     duration: videoTrack.duration,
-                    width: videoTrack.video ? videoTrack.video.width : 500,
-                    height: videoTrack.video ? videoTrack.video.height : 500,
                     nb_samples: videoTrack.nb_samples,
                     codec: videoTrack.codec,
+                    width: videoTrack.video ? videoTrack.video.width : 0,
+                    height: videoTrack.video ? videoTrack.video.height : 0,
                     description: videoTrack.description || null
                 };
 
                 const outTrackId = outMp4.addTrack(trackOptions);
-                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: 100 });
+                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: 50 });
 
                 let samplesCount = 0;
                 mp4box.onSamples = function (id, user, samples) {
@@ -351,8 +351,8 @@ function renderVideoTool(container, toolId, s, isTR) {
                             dts: sample.dts,
                             pts: sample.pts,
                             duration: sample.duration,
-                            description: sample.description,
-                            is_sync: sample.is_sync
+                            is_sync: sample.is_sync,
+                            description: sample.description
                         });
                         samplesCount++;
                     });
@@ -360,11 +360,11 @@ function renderVideoTool(container, toolId, s, isTR) {
                     if (samplesCount >= videoTrack.nb_samples) {
                         try {
                             const buffer = outMp4.getBuffer();
-                            if (buffer) {
+                            if (buffer && buffer.byteLength > 100) {
                                 const blob = new Blob([buffer], { type: 'video/mp4' });
                                 showResult(blob, "fluxora_muted.mp4", "video");
                             } else {
-                                throw new Error("Muxing failed - no buffer");
+                                throw new Error("Muxing failed - buffer invalid");
                             }
                         } catch (muxError) {
                             console.error("Muxing Error:", muxError);

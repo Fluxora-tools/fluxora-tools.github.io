@@ -214,53 +214,49 @@ function renderSpeedTest(container) {
             pingText.textContent = `Ping: ${avgPing} ms`;
 
             // 2. High-Performance Speed Test (Gigabit-Ready)
-            // Use multiple CDNs to bypass browser per-domain connection limits (usually 6)
-            // Use larger files to allow TCP window scaling to reach full speed
             const targets = [
-                'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', // Cloudflare
-                'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js', // Google
-                'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js', // JSDelivr
-                'https://unpkg.com/react@17/umd/react.production.min.js', // Unpkg
-                'https://code.jquery.com/jquery-3.6.0.min.js' // jQuery CDN
+                'https://speed.cloudflare.com/__down?bytes=50000000',
+                'https://speed.cloudflare.com/__down?bytes=25000000',
+                'https://speed.cloudflare.com/__down?bytes=10000000'
             ];
 
-            // Generate a pool of workers targeting random hosts to balance load
-            const concurrency = 20;
+            const concurrency = 32;
+            const duration = 8000;
             const startTime = performance.now();
             let totalLoaded = 0;
-            const duration = 10000; // 10 seconds for accurate high-speed average
 
             const downloadWorker = async () => {
                 while (performance.now() - startTime < duration) {
-                    // Pick a random target to spread load across domains
                     const target = targets[Math.floor(Math.random() * targets.length)];
                     try {
-                        // Request with random query param to prevent caching
-                        const res = await fetch(target + '?cb=' + Math.random(), { cache: 'no-store' });
+                        const controller = new AbortController();
+                        const res = await fetch(target + '&cb=' + Math.random(), {
+                            cache: 'no-store',
+                            signal: controller.signal
+                        });
                         const reader = res.body.getReader();
+
                         while (true) {
                             const { done, value } = await reader.read();
                             if (done) break;
                             totalLoaded += value.length;
-                            if (performance.now() - startTime > duration) break;
+                            if (performance.now() - startTime > duration) {
+                                controller.abort();
+                                break;
+                            }
                         }
-                    } catch (err) {
-                        // Ignore individual network errors (e.g. aborts) to keep test running
-                    }
+                    } catch (err) { }
                 }
             };
 
             const workers = Array(concurrency).fill(0).map(() => downloadWorker());
 
             const uiInterval = setInterval(() => {
-                const now = performance.now();
-                const elapsed = (now - startTime) / 1000;
+                const elapsed = (performance.now() - startTime) / 1000;
                 if (elapsed > 0) {
-                    // Calculate instantaneous speed more accurately? 
-                    // For now, cumulative average is standard for these web tests
                     const mbps = ((totalLoaded * 8) / elapsed / 1000000).toFixed(1);
                     speedVal.textContent = mbps;
-                    const pct = Math.min((parseFloat(mbps) / 1000) * 100, 100); // Scale to 1000Mbps
+                    const pct = Math.min((parseFloat(mbps) / 1000) * 100, 100);
                     speedFill.style.height = pct + '%';
                 }
             }, 100);
