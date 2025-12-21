@@ -44,8 +44,8 @@ function renderVideoTool(container, toolId, s) {
         <video id="worker-video" style="position:fixed; bottom:0; right:0; width:1px; height:1px; opacity:0.01; pointer-events:none; z-index:-1;" muted playsinline></video>
         <canvas id="proc-canvas" style="display:none;"></canvas>
     `;
-
-
+    /* 
+     */
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
     const loader = document.getElementById('loader');
@@ -115,10 +115,20 @@ function renderVideoTool(container, toolId, s) {
     }
 
     async function convertToGif(file) {
+        // Dynamic path detection for assets
+        const pathPrefix = (window.location.pathname.includes('/tr/') || window.location.pathname.includes('/en/')) ? '../' : '';
+        const gifSrc = `${pathPrefix}assets/js/libs/gif.js`;
+        const workerSrc = `${pathPrefix}assets/js/libs/gif.worker.js`;
+
         try {
-            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.js');
+            await loadScript(gifSrc);
         } catch (e) {
-            throw new Error("Failed to load GIF library. Check connection.");
+            console.warn("Local GIF lib not found, trying CDN fallback...");
+            try {
+                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js');
+            } catch (e2) {
+                throw new Error("Failed to load GIF library. Check assets/js/libs folder.");
+            }
         }
 
         const objUrl = URL.createObjectURL(file);
@@ -150,7 +160,7 @@ function renderVideoTool(container, toolId, s) {
             quality: 30,
             width: canvas.width,
             height: canvas.height,
-            workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js_fixed/0.2.0/gif.worker.js'
+            workerScript: workerSrc
         });
 
         // "Nuclear" Playback Method - Optimized
