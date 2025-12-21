@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
         done: isTR ? "İndirmeye Hazır!" : "Ready to Download!"
     };
 
-    renderVideoTool(container, toolId, s);
+    renderVideoTool(container, toolId, s, isTR);
 });
 
-function renderVideoTool(container, toolId, s) {
+function renderVideoTool(container, toolId, s, isTR) {
     const isToGif = toolId === 'mp4-to-gif';
     const isFromGif = toolId === 'gif-to-mp4';
     const isMute = toolId === 'video-mute';
