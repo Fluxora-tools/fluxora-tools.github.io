@@ -359,7 +359,7 @@ function renderVideoTool(container, toolId, s, isTR) {
                         showResult(blob, "fluxora_muted.mp4", "video");
                     }
                 };
-                mp4box.extract();
+                mp4box.start();
             };
 
             mp4box.onError = function (e) {
