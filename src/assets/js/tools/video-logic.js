@@ -216,45 +216,50 @@ function renderVideoTool(container, toolId, s, isTR) {
         const objUrl = URL.createObjectURL(file);
         img.src = objUrl;
 
+        // MUST attach to DOM for some browsers to animate GIFs properly
+        img.style.position = 'fixed';
+        img.style.left = '-10000px';
+        img.style.top = '-10000px';
+        img.style.width = '1px';
+        img.style.height = '1px';
+        document.body.appendChild(img);
+
         await new Promise((r, j) => {
             img.onload = r;
             img.onerror = () => j(new Error("GIF Load Error"));
         });
 
         const canvas = document.getElementById('proc-canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
+        canvas.width = img.naturalWidth || 500;
+        canvas.height = img.naturalHeight || 500;
         const ctx = canvas.getContext('2d');
-
-        // Start drawing immediately
-        ctx.drawImage(img, 0, 0);
 
         const chunks = [];
         const stream = canvas.captureStream(30);
         const recorder = new MediaRecorder(stream, {
             mimeType: 'video/webm;codecs=vp9',
-            videoBitsPerSecond: 5000000
+            videoBitsPerSecond: 8000000
         });
 
         recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
 
         return new Promise((resolve) => {
             recorder.onstop = () => {
-                const blob = new Blob(chunks, { type: 'video/mp4' }); // Label as mp4 for user
+                const blob = new Blob(chunks, { type: 'video/mp4' });
                 showResult(blob, "fluxora.mp4", "video");
                 URL.revokeObjectURL(objUrl);
+                document.body.removeChild(img);
                 resolve();
             };
 
             recorder.start();
 
-            // Loop to keep stream alive and frames fresh
             let start = Date.now();
-            const duration = 4000; // Fixed 4s for static-ish GIFs or simple loops
+            const duration = 5000; // 5s recording for GIFs
 
             const interval = setInterval(() => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
                 const elapsed = Date.now() - start;
                 const pct = Math.min(Math.round((elapsed / duration) * 100), 99);
@@ -264,7 +269,7 @@ function renderVideoTool(container, toolId, s, isTR) {
                     clearInterval(interval);
                     recorder.stop();
                 }
-            }, 100);
+            }, 33); // ~30 FPS
         });
     }
 
@@ -279,7 +284,7 @@ function renderVideoTool(container, toolId, s, isTR) {
     }
 
     async function muteVideoInstant(file) {
-        progressText.innerText = isTR ? "Sessize Alınıyor (Anlık)..." : "Muting (Instant)...";
+        progressText.innerText = isTR ? "Anlık Sessize Alınıyor..." : "Muting (Instant)...";
 
         try {
             const depth = window.location.pathname.split('/').length - 2;
@@ -300,51 +305,48 @@ function renderVideoTool(container, toolId, s, isTR) {
 
             mp4box.onReady = function (info) {
                 const outMp4 = MP4Box.createFile();
+                let videoTrack = info.tracks.find(t => t.type === 'video');
 
-                // Add only video tracks. Skip audio tracks.
-                let videoTrackId = -1;
-                info.tracks.forEach(track => {
-                    if (track.type === 'video') {
-                        videoTrackId = track.id;
-                        outMp4.addTrack({
-                            id: track.id,
-                            type: track.type,
-                            timescale: track.timescale,
-                            duration: track.duration,
-                            width: track.video.width,
-                            height: track.video.height,
-                            nb_samples: track.nb_samples,
-                            codec: track.codec,
-                            avcConfig: track.avcConfig,
-                            hevcConfig: track.hevcConfig
-                        });
-                    }
-                });
-
-                if (videoTrackId === -1) {
+                if (!videoTrack) {
                     alert(isTR ? "Hata: Video kanalı bulunamadı." : "Error: No video track found.");
                     location.reload();
                     return;
                 }
 
-                // Extraction logic for remuxing
-                mp4box.setExtractionConfig(videoTrackId, null, { nb_samples: 100000 });
+                const trackOptions = {
+                    id: videoTrack.id,
+                    type: videoTrack.type,
+                    timescale: videoTrack.timescale,
+                    duration: videoTrack.duration,
+                    width: videoTrack.video.width,
+                    height: videoTrack.video.height,
+                    nb_samples: videoTrack.nb_samples,
+                    codec: videoTrack.codec,
+                    avcConfig: videoTrack.avcConfig,
+                    hevcConfig: videoTrack.hevcConfig
+                };
 
+                outMp4.addTrack(trackOptions);
+                mp4box.setExtractionConfig(videoTrack.id, null, { nb_samples: videoTrack.nb_samples });
+
+                let samplesCount = 0;
                 mp4box.onSamples = function (id, user, samples) {
                     samples.forEach(sample => {
-                        outMp4.addSample(videoTrackId, sample.data, {
+                        outMp4.addSample(id, sample.data, {
                             dts: sample.dts,
                             pts: sample.pts,
                             duration: sample.duration,
                             description: sample.description,
                             is_sync: sample.is_sync
                         });
+                        samplesCount++;
                     });
 
-                    const blob = new Blob([outMp4.getBuffer()], { type: 'video/mp4' });
-                    showResult(blob, "fluxora_muted.mp4", "video");
+                    if (samplesCount >= videoTrack.nb_samples) {
+                        const blob = new Blob([outMp4.getBuffer()], { type: 'video/mp4' });
+                        showResult(blob, "fluxora_muted.mp4", "video");
+                    }
                 };
-
                 mp4box.extract();
             };
 
@@ -352,16 +354,14 @@ function renderVideoTool(container, toolId, s, isTR) {
                 console.error("MP4Box Error:", e);
                 processVideoSlow(file);
             };
-
             mp4box.appendBuffer(arrayBuffer);
             mp4box.flush();
         };
-
         reader.readAsArrayBuffer(file);
     }
 
     async function processVideoSlow(file) {
-        progressText.innerText = isTR ? "İşleniyor..." : "Processing...";
+        progressText.innerText = isTR ? "İşleniyor (Yavaş)..." : "Processing (Slow)...";
         video.src = URL.createObjectURL(file);
         video.muted = true;
 
@@ -445,17 +445,35 @@ function renderVideoTool(container, toolId, s, isTR) {
         processChunk();
     }
 
-
     function showResult(blob, filename, type) {
         loader.style.display = 'none';
         resultArea.style.display = 'block';
-        const url = URL.createObjectURL(blob);
-        downloadBtn.href = url;
+        downloadBtn.href = URL.createObjectURL(blob);
         downloadBtn.download = filename;
-        const pc = document.getElementById('preview-container');
-        if (type === 'image') pc.innerHTML = `<img src="${url}" style="max-width:100%; border-radius:10px;" />`;
-        else if (type === 'video') pc.innerHTML = `<video src="${url}" controls style="max-width:100%; border-radius:10px;"></video>`;
-        else pc.innerHTML = `<audio src="${url}" controls style="width:100%"></audio>`;
+
+        const previewContainer = document.getElementById('preview-container');
+        previewContainer.innerHTML = '';
+
+        if (type === 'image') {
+            const previewImg = new Image();
+            previewImg.src = downloadBtn.href;
+            previewImg.style.maxWidth = '100%';
+            previewImg.style.borderRadius = '8px';
+            previewContainer.appendChild(previewImg);
+        } else if (type === 'video') {
+            const previewVideo = document.createElement('video');
+            previewVideo.src = downloadBtn.href;
+            previewVideo.controls = true;
+            previewVideo.style.maxWidth = '100%';
+            previewVideo.style.borderRadius = '8px';
+            previewContainer.appendChild(previewVideo);
+        } else if (type === 'audio') {
+            const previewAudio = document.createElement('audio');
+            previewAudio.src = downloadBtn.href;
+            previewAudio.controls = true;
+            previewAudio.style.width = '100%';
+            previewContainer.appendChild(previewAudio);
+        }
     }
 }
 
