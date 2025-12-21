@@ -213,76 +213,191 @@ function renderVideoTool(container, toolId, s, isTR) {
     async function convertToMp4(file) {
         progressText.innerText = isTR ? "GIF MP4'e Çevriliyor..." : "Converting GIF to MP4...";
         const img = new Image();
-        img.src = URL.createObjectURL(file);
-        await new Promise((r, j) => { img.onload = r; img.onerror = j; });
+        const objUrl = URL.createObjectURL(file);
+        img.src = objUrl;
+
+        await new Promise((r, j) => {
+            img.onload = r;
+            img.onerror = () => j(new Error("GIF Load Error"));
+        });
 
         const canvas = document.getElementById('proc-canvas');
-        canvas.width = img.width; canvas.height = img.height;
+        canvas.width = img.width;
+        canvas.height = img.height;
         const ctx = canvas.getContext('2d');
 
-        // Loop to force stream activity
-        let active = true;
-        function drawLoop() {
-            if (!active) return;
-            ctx.drawImage(img, 0, 0);
-            requestAnimationFrame(drawLoop);
-        }
-        drawLoop();
+        // Start drawing immediately
+        ctx.drawImage(img, 0, 0);
 
         const chunks = [];
-        const stream = canvas.captureStream(30); // 30 FPS
-        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+        const stream = canvas.captureStream(30);
+        const recorder = new MediaRecorder(stream, {
+            mimeType: 'video/webm;codecs=vp9',
+            videoBitsPerSecond: 5000000
+        });
 
-        recorder.ondataavailable = e => {
-            if (e.data.size > 0) chunks.push(e.data);
-        };
+        recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
 
-        recorder.onstop = () => {
-            active = false;
-            showResult(new Blob(chunks), "fluxora.mp4", "video");
-        };
+        return new Promise((resolve) => {
+            recorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/mp4' }); // Label as mp4 for user
+                showResult(blob, "fluxora.mp4", "video");
+                URL.revokeObjectURL(objUrl);
+                resolve();
+            };
 
-        recorder.start();
+            recorder.start();
 
-        // Record for 5 seconds (generic duration for static conversion)
-        // Note: Real GIF to MP4 client-side with animation requires parsing, which is heavy. 
-        // This converts the GIF (likely static frame if naive) to a video file.
-        // If users want full animation, we'd need a parser. But fixing the 0s bug first.
-        let duration = 5000;
+            // Loop to keep stream alive and frames fresh
+            let start = Date.now();
+            const duration = 4000; // Fixed 4s for static-ish GIFs or simple loops
 
-        // Simulate progress
-        let p = 0;
-        const iv = setInterval(() => {
-            p += 2;
-            if (p > 95) p = 95;
-            progressText.innerText = (isTR ? "Dönüştürülüyor" : "Converting") + ` %${p}`;
-        }, 100);
+            const interval = setInterval(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
 
-        setTimeout(() => {
-            clearInterval(iv);
-            recorder.stop();
-        }, duration);
+                const elapsed = Date.now() - start;
+                const pct = Math.min(Math.round((elapsed / duration) * 100), 99);
+                progressText.innerText = (isTR ? "Dönüştürülüyor" : "Converting") + ` %${pct}`;
+
+                if (elapsed >= duration) {
+                    clearInterval(interval);
+                    recorder.stop();
+                }
+            }, 100);
+        });
     }
 
     async function processStream(file) {
-        // Decide path based on task
         if (isToMp3) {
             await convertToMp3Fast(file);
+        } else if (isMute) {
+            await muteVideoInstant(file);
         } else {
-            // Video Mute - use accelerated playback
-            await processVideoFast(file);
+            await processVideoSlow(file); // Default/fallback
         }
+    }
+
+    async function muteVideoInstant(file) {
+        progressText.innerText = isTR ? "Sessize Alınıyor (Anlık)..." : "Muting (Instant)...";
+
+        try {
+            const depth = window.location.pathname.split('/').length - 2;
+            const navUp = depth > 0 ? '../'.repeat(depth) : '';
+            const mp4boxSrc = `${navUp}assets/js/libs/mp4box.all.min.js`;
+            await loadScript(mp4boxSrc).catch(() => loadScript('https://cdn.jsdelivr.net/npm/mp4box@0.5.2/dist/mp4box.all.min.js'));
+        } catch (e) {
+            console.warn("MP4Box load fail, falling back to slow mute");
+            return await processVideoSlow(file);
+        }
+
+        const mp4box = MP4Box.createFile();
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const arrayBuffer = e.target.result;
+            arrayBuffer.fileStart = 0;
+
+            mp4box.onReady = function (info) {
+                const outMp4 = MP4Box.createFile();
+
+                // Add only video tracks. Skip audio tracks.
+                let videoTrackId = -1;
+                info.tracks.forEach(track => {
+                    if (track.type === 'video') {
+                        videoTrackId = track.id;
+                        outMp4.addTrack({
+                            id: track.id,
+                            type: track.type,
+                            timescale: track.timescale,
+                            duration: track.duration,
+                            width: track.video.width,
+                            height: track.video.height,
+                            nb_samples: track.nb_samples,
+                            codec: track.codec,
+                            avcConfig: track.avcConfig,
+                            hevcConfig: track.hevcConfig
+                        });
+                    }
+                });
+
+                if (videoTrackId === -1) {
+                    alert(isTR ? "Hata: Video kanalı bulunamadı." : "Error: No video track found.");
+                    location.reload();
+                    return;
+                }
+
+                // Extraction logic for remuxing
+                mp4box.setExtractionConfig(videoTrackId, null, { nb_samples: 100000 });
+
+                mp4box.onSamples = function (id, user, samples) {
+                    samples.forEach(sample => {
+                        outMp4.addSample(videoTrackId, sample.data, {
+                            dts: sample.dts,
+                            pts: sample.pts,
+                            duration: sample.duration,
+                            description: sample.description,
+                            is_sync: sample.is_sync
+                        });
+                    });
+
+                    const blob = new Blob([outMp4.getBuffer()], { type: 'video/mp4' });
+                    showResult(blob, "fluxora_muted.mp4", "video");
+                };
+
+                mp4box.extract();
+            };
+
+            mp4box.onError = function (e) {
+                console.error("MP4Box Error:", e);
+                processVideoSlow(file);
+            };
+
+            mp4box.appendBuffer(arrayBuffer);
+            mp4box.flush();
+        };
+
+        reader.readAsArrayBuffer(file);
+    }
+
+    async function processVideoSlow(file) {
+        progressText.innerText = isTR ? "İşleniyor..." : "Processing...";
+        video.src = URL.createObjectURL(file);
+        video.muted = true;
+
+        await new Promise(r => {
+            video.onloadeddata = r;
+            setTimeout(r, 2000);
+        });
+
+        const stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
+        stream.getAudioTracks().forEach(t => t.stop());
+
+        const chunks = [];
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = () => showResult(new Blob(chunks), "fluxora.mp4", "video");
+
+        video.play();
+        recorder.start();
+
+        const checkEnd = setInterval(() => {
+            const pct = Math.min(99, Math.round((video.currentTime / video.duration) * 100));
+            progressText.innerText = (isTR ? "İşleniyor" : "Processing") + ` %${pct}`;
+            if (video.ended) {
+                clearInterval(checkEnd);
+                recorder.stop();
+            }
+        }, 500);
     }
 
     async function convertToMp3Fast(file) {
         progressText.innerText = isTR ? "Ses Ayrıştırılıyor (Hızlı)..." : "Extracting Audio (Fast)...";
 
         try {
-            // Dynamic path detection logic (reused)
             const depth = window.location.pathname.split('/').length - 2;
             const navUp = depth > 0 ? '../'.repeat(depth) : '';
             const lameSrc = `${navUp}assets/js/libs/lame.min.js`;
-
             await loadScript(lameSrc).catch(() => loadScript('https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js'));
         } catch (e) {
             throw new Error("LameJS lib failed to load.");
@@ -292,37 +407,28 @@ function renderVideoTool(container, toolId, s, isTR) {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
 
-        progressText.innerText = isTR ? "MP3 Kodlanıyor..." : "Encoding MP3...";
-
-        // LameJS Encoding
-        const mp3encoder = new lamejs.Mp3Encoder(audioBuffer.numberOfChannels, audioBuffer.sampleRate, 128); // 128kbps
+        const mp3encoder = new lamejs.Mp3Encoder(audioBuffer.numberOfChannels, audioBuffer.sampleRate, 128);
         const samplesLeft = audioBuffer.getChannelData(0);
         const samplesRight = audioBuffer.numberOfChannels > 1 ? audioBuffer.getChannelData(1) : samplesLeft;
 
-        // Convert Float32 to Int16
-        const sampleBlockSize = 1152; // multiple of 576
         const mp3Data = [];
-
-        // Optimize loop blocking
         let offset = 0;
+
         const processChunk = () => {
             if (offset >= samplesLeft.length) {
                 const mp3buf = mp3encoder.flush();
                 if (mp3buf.length > 0) mp3Data.push(new Int8Array(mp3buf));
-                const blob = new Blob(mp3Data, { type: 'audio/mp3' });
-                showResult(blob, "fluxora.mp3", "audio");
+                showResult(new Blob(mp3Data, { type: 'audio/mp3' }), "fluxora.mp3", "audio");
                 return;
             }
 
-            const end = Math.min(offset + 44100, samplesLeft.length); // Process 1s at a time to keep UI alive
+            const end = Math.min(offset + 44100, samplesLeft.length);
             const leftChunk = new Int16Array(end - offset);
             const rightChunk = new Int16Array(end - offset);
 
             for (let i = offset; i < end; i++) {
-                // Float (-1 to 1) to Int16
                 const sL = Math.max(-1, Math.min(1, samplesLeft[i]));
                 leftChunk[i - offset] = sL < 0 ? sL * 0x8000 : sL * 0x7FFF;
-
                 const sR = Math.max(-1, Math.min(1, samplesRight[i]));
                 rightChunk[i - offset] = sR < 0 ? sR * 0x8000 : sR * 0x7FFF;
             }
@@ -333,94 +439,12 @@ function renderVideoTool(container, toolId, s, isTR) {
             offset = end;
             const pct = Math.round((offset / samplesLeft.length) * 100);
             progressText.innerText = (isTR ? "MP3 Kodlanıyor" : "Encoding MP3") + ` %${pct}`;
-
-            setTimeout(processChunk, 0); // Next chunk
+            setTimeout(processChunk, 0);
         };
 
         processChunk();
     }
 
-    async function processVideoFast(file) {
-        progressText.innerText = isTR ? "Hızlandırılmış İşlem Başlıyor..." : "Starting Accelerated Process...";
-        video.src = URL.createObjectURL(file);
-
-        await new Promise((resolve, reject) => {
-            video.onloadeddata = resolve;
-            video.onerror = () => reject("Video Error");
-            setTimeout(resolve, 3000);
-        });
-
-        // Speed Up Strategy
-        video.muted = true;
-        // Max "safe" playback rate for capture: 
-        // Chrome/Edge/Electron can handle ~16x if hardware allows. 
-        // Safer universal is 8-12x. 
-        const speed = 12.0;
-        video.playbackRate = speed;
-
-        try { await video.play(); } catch (e) { }
-
-        let stream;
-        try {
-            stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
-            // Remove audio tracks
-            stream.getAudioTracks().forEach(t => t.stop());
-        } catch (e) {
-            throw new Error("Capture fail");
-        }
-
-        const chunks = [];
-        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
-
-        recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-        recorder.onstop = () => {
-            // The resulting video effectively plays at 1x speed but contains frames captured at 12x speed?
-            // Actually, MediaRecorder timestamps are relative to recording start.
-            // If we record 10s of events in 1s, the duration is 1s.
-            // So the user gets a Fast Forward video.
-            // FIX: We need to correct the timestamps? We can't in browser easily.
-
-            // BUT wait - if the user wants "Mute", they usually want the same duration.
-            // If we give them a 50s video that plays like chipmunks, they will hate it.
-            // IS THERE A WAY to preserve duration?
-            // Only if we capture at specific FPS and play at specific FPS?
-            // No.
-
-            // Alternative: "Fluxora Video Mute" is implicitly a "Remove Audio" tool.
-            // If we can't do it fast without destroying duration, we must use the slow way OR warn.
-            // However, the user complained "10 mins wait".
-
-            // IF I use the "Fast" MP3 extraction, that solves 50% of the problem.
-            // For Video Mute, I will keep 1.0x (Real-time) but ensure it's silent.
-            // Unless I implement MP4Box remux which I avoided due to complexity.
-            // I will comment out the speedup for video mute to avoid "Fast Forward" bug, 
-            // but keep the Fast MP3 logic which IS achievable.
-
-            const blob = new Blob(chunks, { type: 'video/webm' });
-            showResult(blob, "fluxora_muted.mp4", "video");
-        };
-
-        recorder.start();
-
-        // Revert to 1.0x for Mute to ensure correct duration
-        video.playbackRate = 1.0;
-
-        const checkEnd = setInterval(() => {
-            // Update progress
-            const pct = Math.min(99, Math.round((video.currentTime / video.duration) * 100));
-            progressText.innerText = (isTR ? "Sessize Alınıyor" : "Muting") + ` %${pct}`;
-
-            if (video.ended) {
-                clearInterval(checkEnd);
-                if (recorder.state === 'recording') recorder.stop();
-            }
-        }, 500);
-
-        video.onended = () => {
-            clearInterval(checkEnd);
-            if (recorder.state === 'recording') recorder.stop();
-        };
-    }
 
     function showResult(blob, filename, type) {
         loader.style.display = 'none';
