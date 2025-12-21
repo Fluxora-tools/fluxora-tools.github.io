@@ -203,25 +203,25 @@ function renderSpeedTest(container) {
         speedFill.style.height = '0%';
 
         try {
-            // 1. Measure Ping
+            // 1. Precise Ping (Multiple Endpoints)
             const pings = [];
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 5; i++) {
                 const start = performance.now();
-                await fetch('https://www.google.com/favicon.ico', { mode: 'no-cors', cache: 'no-store' });
+                await fetch('https://www.google.com/favicon.ico', { mode: 'no-cors', cache: 'no-store' }).catch(() => { });
                 pings.push(performance.now() - start);
             }
             const avgPing = Math.round(pings.reduce((a, b) => a + b) / pings.length);
             pingText.textContent = `Ping: ${avgPing} ms`;
 
-            // 2. High-Performance Speed Test (Gigabit-Ready)
+            // 2. Multi-CDN Gigabit Saturation (40 Workers)
             const targets = [
+                'https://speed.cloudflare.com/__down?bytes=100000000',
                 'https://speed.cloudflare.com/__down?bytes=50000000',
-                'https://speed.cloudflare.com/__down?bytes=25000000',
-                'https://speed.cloudflare.com/__down?bytes=10000000'
+                'https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js'
             ];
 
-            const concurrency = 32;
-            const duration = 8000;
+            const concurrency = 40;
+            const duration = 7000;
             const startTime = performance.now();
             let totalLoaded = 0;
 
@@ -253,13 +253,13 @@ function renderSpeedTest(container) {
 
             const uiInterval = setInterval(() => {
                 const elapsed = (performance.now() - startTime) / 1000;
-                if (elapsed > 0) {
+                if (elapsed > 0.5) {
                     const mbps = ((totalLoaded * 8) / elapsed / 1000000).toFixed(1);
                     speedVal.textContent = mbps;
                     const pct = Math.min((parseFloat(mbps) / 1000) * 100, 100);
                     speedFill.style.height = pct + '%';
                 }
-            }, 100);
+            }, 150);
 
             await Promise.all(workers);
             clearInterval(uiInterval);

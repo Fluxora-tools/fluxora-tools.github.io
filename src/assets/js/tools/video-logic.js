@@ -338,7 +338,7 @@ function renderVideoTool(container, toolId, s, isTR) {
                 };
 
                 const outTrackId = outMp4.addTrack(trackOptions);
-                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: 50 });
+                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: 1000 }); // Larger chunks
 
                 let samplesCount = 0;
                 mp4box.onSamples = function (id, user, samples) {
@@ -358,20 +358,36 @@ function renderVideoTool(container, toolId, s, isTR) {
                     });
 
                     if (samplesCount >= videoTrack.nb_samples) {
-                        try {
-                            const buffer = outMp4.getBuffer();
-                            if (buffer && buffer.byteLength > 100) {
-                                const blob = new Blob([buffer], { type: 'video/mp4' });
-                                showResult(blob, "fluxora_muted.mp4", "video");
-                            } else {
-                                throw new Error("Muxing failed - buffer invalid");
-                            }
-                        } catch (muxError) {
-                            console.error("Muxing Error:", muxError);
-                            processVideoSlow(file);
-                        }
+                        finalizeMute();
                     }
                 };
+
+                let finalizeTimeout = null;
+                function finalizeMute() {
+                    if (finalizeTimeout) clearTimeout(finalizeTimeout);
+                    try {
+                        const buffer = outMp4.getBuffer();
+                        if (buffer && buffer.byteLength > 1000) {
+                            // Check for basic MP4 structure
+                            const view = new DataView(buffer);
+                            if (view.getUint32(4) === 0x66747970) { // 'ftyp'
+                                const blob = new Blob([buffer], { type: 'video/mp4' });
+                                showResult(blob, "fluxora_muted.mp4", "video");
+                                return;
+                            }
+                        }
+                        throw new Error("Muxing integrity check failed");
+                    } catch (muxError) {
+                        console.warn("Instant mute failed, triggering Turbo Fallback", muxError);
+                        processVideoSlow(file);
+                    }
+                }
+
+                // Safety timeout: if samples stop coming but we have many, try to finalize
+                finalizeTimeout = setTimeout(() => {
+                    if (samplesCount > 0) finalizeMute();
+                }, 3000);
+
                 mp4box.start();
             };
 
@@ -379,6 +395,7 @@ function renderVideoTool(container, toolId, s, isTR) {
                 console.error("MP4Box Error:", e);
                 processVideoSlow(file);
             };
+
             mp4box.appendBuffer(arrayBuffer);
             mp4box.flush();
         };
