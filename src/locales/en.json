@@ -1,21 +1,27 @@
 {
     "home": {
-        "title": "Fluxora – Fast File Conversion & Media Tools",
-        "description": "Free online tools to convert images (WebP, PNG, JPG, BMP) and process videos. No registration, 100% secure.",
-        "h1": "Free and Secure File Tools"
+        "title": "Fluxora – Fastest Online File Conversion & Media Tools",
+        "description": "Free online tools to convert images (WebP, PNG, JPG, BMP) and instant video processing tools. No registration, 100% secure and browser-based.",
+        "h1": "Fast, Secure and 100% Free File Tools"
     },
+    "total_operations": "Total Operations",
+    "faq_title": "Frequently Asked Questions",
     "tools": {
         "png-to-jpg": {
-            "title": "Convert PNG to JPG Online | Fluxora",
-            "description": "Fast and free PNG to JPG converter. Convert your images instantly in the browser without uploading.",
+            "title": "Convert PNG to JPG Online (Free & Secure) – Fluxora",
+            "description": "The best way to convert your PNG to JPG in seconds. 100% free, secure and easy to use!",
             "h1": "PNG to JPG Converter",
-            "content": "<p>Use this free tool to convert your PNG images to JPG format instantly.</p><h2>How to use</h2><p>1. Upload your PNG.</p><p>2. Download the JPG.</p>"
+            "content": "<p>Convert your PNG images to high-quality JPG format instantly. All processing happens in your browser; your files are never uploaded to any server.</p>",
+            "faq_q1": "Does converting PNG to JPG lose quality?",
+            "faq_a1": "Fluxora uses high-quality compression algorithms to maintain the best possible image quality.",
+            "faq_q2": "Are my files safe?",
+            "faq_a2": "100% safe. Processing is browser-based, so your data never leaves your device."
         },
         "jpg-to-png": {
-            "title": "Convert JPG to PNG Online | Fluxora",
+            "title": "Convert JPG to PNG Online (Transparency Support) | Fluxora",
             "description": "Convert JPG images to PNG format with transparency support. Free and fast.",
             "h1": "JPG to PNG Converter",
-            "content": "<p>Easily convert JPG to PNG.</p>"
+            "content": "<p>Easily convert JPG to PNG and take advantage of transparency features.</p>"
         },
         "webp-to-png": {
             "title": "Convert WebP to PNG Online | Fluxora",
@@ -48,10 +54,14 @@
             "content": "<p>Extract the audio track from your local video files instantly.</p>"
         },
         "video-mute": {
-            "title": "Mute Video Online | Fluxora",
-            "description": "Remove audio from your videos to make them silent.",
-            "h1": "Mute Video Tool",
-            "content": "<p>Remove the audio track from your video file completely.</p>"
+            "title": "Mute Video Online (Instant & Free) | Fluxora",
+            "description": "Remove audio from your video instantly and create a silent video. Super fast processing with one click.",
+            "h1": "Instant Video Muting Tool",
+            "content": "<p>Remove the audio track from your video file in milliseconds. Thanks to Fluxora's specialized technology, you don't have to wait for re-encoding.</p>",
+            "faq_q1": "How long does it take to mute a video?",
+            "faq_a1": "With Fluxora, this process is instant for MP4 files. There is no waiting time.",
+            "faq_q2": "Will the video quality be affected?",
+            "faq_a2": "No, the audio track is simply stripped away without touching the video stream."
         },
         "pdf-to-txt": {
             "title": "PDF to TXT Converter | Fluxora",
@@ -144,10 +154,14 @@
             "content": "<p>Analyze the length and details of your writing.</p>"
         },
         "internet-speed-test": {
-            "title": "Internet Speed Test | Fluxora",
-            "description": "Measure your internet connection speed and ping.",
-            "h1": "Internet Speed Test",
-            "content": "<p>Test your network performance instantly.</p>"
+            "title": "Internet Speed Test (1000 Mbps Gigabit Supported) | Fluxora",
+            "description": "Measure your internet connection speed, ping, and jitter with maximum accuracy. Optimized for gigabit connections.",
+            "h1": "Precision Internet Speed Test",
+            "content": "<p>Test your network performance instantly. Our advanced measurement algorithms ensure minimal error even at speeds of 1 Gbps and above.</p>",
+            "faq_q1": "How accurate is the speed test?",
+            "faq_a1": "Thanks to multiple CDNs and parallel download workers, it accurately reflects your nearest server capacity.",
+            "faq_q2": "I have gigabit internet, can I see 1000 Mbps?",
+            "faq_a2": "Yes, Fluxora is optimized to measure gigabit and higher speeds."
         },
         "txt-to-docx": {
             "title": "Convert TXT to DOCX | Fluxora",

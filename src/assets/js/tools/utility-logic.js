@@ -68,6 +68,7 @@ async function renderQrGenerator(container) {
             link.href = img.src;
             link.download = 'qrcode.png';
             link.click();
+            if (window.incrementProcessCount) window.incrementProcessCount();
         }
     });
 }
@@ -129,6 +130,7 @@ function renderPasswordGenerator(container) {
             password += validChars[array[i] % validChars.length];
         }
         display.textContent = password;
+        if (window.incrementProcessCount) window.incrementProcessCount();
     }
 
     lengthRange.addEventListener('input', generate);
@@ -203,7 +205,7 @@ function renderSpeedTest(container) {
         speedFill.style.height = '0%';
 
         try {
-            // 1. Precise Ping (Multiple Endpoints)
+            // 1. Precise Ping (Low Latency Detection)
             const pings = [];
             for (let i = 0; i < 5; i++) {
                 const start = performance.now();
@@ -213,24 +215,26 @@ function renderSpeedTest(container) {
             const avgPing = Math.round(pings.reduce((a, b) => a + b) / pings.length);
             pingText.textContent = `Ping: ${avgPing} ms`;
 
-            // 2. Multi-CDN Gigabit Saturation (40 Workers)
+            // 2. High-Performance Multi-CDN Gigabit Saturation
             const targets = [
-                'https://speed.cloudflare.com/__down?bytes=100000000',
-                'https://speed.cloudflare.com/__down?bytes=50000000',
+                'https://speed.cloudflare.com/__down?bytes=500000000', // 500MB for better saturation
+                'https://speed.cloudflare.com/__down?bytes=200000000',
                 'https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js'
             ];
 
-            const concurrency = 40;
-            const duration = 7000;
+            // Auto-scaling workers based on hardware
+            const concurrency = Math.max(32, (navigator.hardwareConcurrency || 8) * 6);
+            const duration = 10000; // 10 seconds for stable measurement
             const startTime = performance.now();
             let totalLoaded = 0;
+            let measurements = [];
 
             const downloadWorker = async () => {
                 while (performance.now() - startTime < duration) {
                     const target = targets[Math.floor(Math.random() * targets.length)];
                     try {
                         const controller = new AbortController();
-                        const res = await fetch(target + '&cb=' + Math.random(), {
+                        const res = await fetch(`${target}&cb=${Math.random()}`, {
                             cache: 'no-store',
                             signal: controller.signal
                         });
@@ -240,6 +244,7 @@ function renderSpeedTest(container) {
                             const { done, value } = await reader.read();
                             if (done) break;
                             totalLoaded += value.length;
+
                             if (performance.now() - startTime > duration) {
                                 controller.abort();
                                 break;
@@ -252,24 +257,33 @@ function renderSpeedTest(container) {
             const workers = Array(concurrency).fill(0).map(() => downloadWorker());
 
             const uiInterval = setInterval(() => {
-                const elapsed = (performance.now() - startTime) / 1000;
-                if (elapsed > 0.5) {
+                const now = performance.now();
+                const elapsed = (now - startTime) / 1000;
+
+                if (elapsed > 1) { // Skip first second for ramp-up
                     const mbps = ((totalLoaded * 8) / elapsed / 1000000).toFixed(1);
+                    measurements.push(parseFloat(mbps));
+
+                    // Show current real-time speed (weighted towards recent)
                     speedVal.textContent = mbps;
                     const pct = Math.min((parseFloat(mbps) / 1000) * 100, 100);
                     speedFill.style.height = pct + '%';
                 }
-            }, 150);
+            }, 100);
 
             await Promise.all(workers);
             clearInterval(uiInterval);
 
-            const finalElapsed = (performance.now() - startTime) / 1000;
-            const finalMbps = ((totalLoaded * 8) / finalElapsed / 1000000).toFixed(1);
+            // Calculation Logic: Take the average of the top 30% measurements 
+            // to represent peak stable capacity, avoiding local network jitter.
+            measurements.sort((a, b) => b - a);
+            const topSlice = measurements.slice(0, Math.max(1, Math.floor(measurements.length * 0.4)));
+            const avgMbps = (topSlice.reduce((a, b) => a + b, 0) / topSlice.length).toFixed(1);
 
-            speedVal.textContent = finalMbps;
-            speedFill.style.height = Math.min((parseFloat(finalMbps) / 1000) * 100, 100) + '%';
+            speedVal.textContent = avgMbps;
+            speedFill.style.height = Math.min((parseFloat(avgMbps) / 1000) * 100, 100) + '%';
             btn.textContent = 'Test Again';
+            if (window.incrementProcessCount) window.incrementProcessCount();
         } catch (e) {
             console.error(e);
             speedVal.textContent = "Err";

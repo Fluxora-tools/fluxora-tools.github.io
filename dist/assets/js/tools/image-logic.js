@@ -98,6 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 a.download = `fluxora-${Date.now()}.${ext}`;
                 a.click();
 
+                if (window.incrementProcessCount) window.incrementProcessCount();
+
                 loader.style.display = 'none';
                 previewArea.style.display = 'block';
                 statusMsg.textContent = 'Success! Download started.';

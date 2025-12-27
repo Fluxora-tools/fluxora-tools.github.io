@@ -4,24 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Fluxora">
     <meta name="msvalidate.01" content="1EF443F57933E45D9492EFEF952589CA" />
+
     <title>URL Slug Generator | Fluxora</title>
     <meta name="description" content="Convert titles into SEO-friendly URL slugs.">
+    <link rel="canonical" href="https://fluxora.pages.dev/en/slug-generator/">
+
+    <!-- Social Media Meta Tags -->
+    <meta property="og:title" content="URL Slug Generator | Fluxora">
+    <meta property="og:description" content="Convert titles into SEO-friendly URL slugs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fluxora.pages.dev/en/slug-generator/">
+    <meta property="og:image" content="https://fluxora.pages.dev/assets/img/og-image.png">
+    <meta property="og:site_name" content="Fluxora">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="URL Slug Generator | Fluxora">
+    <meta name="twitter:description" content="Convert titles into SEO-friendly URL slugs.">
+    <meta name="twitter:image" content="https://fluxora.pages.dev/assets/img/og-image.png">
 
     <!-- Hreflang Tags -->
-    <link rel="alternate" hreflang="en" href="/en/slug-generator/" />
-    <link rel="alternate" hreflang="tr" href="/tr/slug-olusturucu/" />
+    <link rel="alternate" hreflang="en" href="https://fluxora.pages.dev/en/slug-generator/" />
+    <link rel="alternate" hreflang="tr" href="https://fluxora.pages.dev/tr/slug-olusturucu/" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/img/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <!-- Styles -->
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔄</text></svg>">
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/components.css">
     <link rel="stylesheet" href="/assets/css/animations.css">
 
-    <!-- Fonts -->
+    <!-- Performance & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -40,7 +63,7 @@
         </div>
         <nav>
             <div class="lang-switch">
-                <a href="/tr/slug-olusturucu/" class="btn-sm">TR</a>
+                <a href="https://fluxora.pages.dev/tr/slug-olusturucu/" class="btn-sm">TR</a>
             </div>
             <!-- Internal links can go here or in hamburger -->
         </nav>
@@ -61,7 +84,7 @@
 
             <!-- Auto-Generated Rich Content -->
             <section class="seo-rich-content">
-                <h3></h3>
+                <h3>Frequently Asked Questions</h3>
                 <div class="faq-item">
                     <strong></strong>
                     <p></p>
@@ -76,6 +99,20 @@
 
     <footer class="footer">
         <div class="container">
+            <!-- Premium Counter Section -->
+            <div class="counter-container" style="margin-bottom: 30px; display: inline-block;">
+                <div class="glass-counter"
+                    style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px 30px; border-radius: 50px; display: flex; align-items: center; gap: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(10px);">
+                    <i class="fas fa-chart-line" style="color: var(--primary); font-size: 1.2rem;"></i>
+                    <div style="text-align: left;">
+                        <span id="process-count-label"
+                            style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Total Operations</span>
+                        <span id="process-count-val"
+                            style="font-size: 1.5rem; font-weight: bold; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2);">0</span>
+                    </div>
+                </div>
+            </div>
+
             <p>&copy; 2025 Fluxora. Built by <span class="sys-id">SYS_0xA7</span>.</p>
             <div class="footer-links">
                 <a href="/en/about/">About</a>
@@ -85,6 +122,7 @@
     </footer>
 
     <!-- Core Scripts -->
+    <script src="/assets/js/utils/counter.js"></script>
     <script type="module" src="/assets/js/main.js"></script>
     <script src="/assets/js/tools/dev-logic.js"></script>
 </body>

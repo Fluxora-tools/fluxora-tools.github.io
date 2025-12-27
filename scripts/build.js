@@ -85,6 +85,7 @@ async function build() {
         ensureDir(langDir);
 
         // 1. Homepage
+        const homeCanonical = `${CONFIG.baseUrl}/${lang}/`;
         const homeContent = `
             <h1>${locale.home.h1}</h1>
             <p>${locale.home.description}</p>
@@ -100,6 +101,9 @@ async function build() {
             lang,
             title: locale.home.title,
             description: locale.home.description,
+            canonical_url: homeCanonical,
+            total_operations_label: locale.total_operations,
+            faq_title: locale.faq_title || '',
             content: homeContent,
             hreflang_tags: generateHreflang('home', lang),
             switch_lang_url: getSwitchUrl('home', lang),
@@ -114,10 +118,18 @@ async function build() {
             const toolDir = path.join(langDir, tool.slug[lang]);
             ensureDir(toolDir);
 
+            const toolCanonical = `${CONFIG.baseUrl}/${lang}/${tool.slug[lang]}/`;
             const toolHtml = renderPage(layoutTemplate, {
                 lang,
                 title: toolLocale.title,
                 description: toolLocale.description,
+                canonical_url: toolCanonical,
+                total_operations_label: locale.total_operations,
+                faq_title: toolLocale.faq_title || locale.faq_title || '',
+                faq_q1: toolLocale.faq_q1 || '',
+                faq_a1: toolLocale.faq_a1 || '',
+                faq_q2: toolLocale.faq_q2 || '',
+                faq_a2: toolLocale.faq_a2 || '',
                 content: `
                     <div class="tool-page" data-tool-id="${tool.id}">
                         <h1>${toolLocale.h1}</h1>
@@ -138,10 +150,14 @@ async function build() {
         ['about', 'privacy'].forEach(page => {
             const pageDir = path.join(langDir, page);
             ensureDir(pageDir);
+            const pageCanonical = `${CONFIG.baseUrl}/${lang}/${page}/`;
             const html = renderPage(layoutTemplate, {
                 lang,
                 title: locale[page].title,
                 description: locale[page].description,
+                canonical_url: pageCanonical,
+                total_operations_label: locale.total_operations,
+                faq_title: locale.faq_title || '',
                 content: locale[page].content,
                 hreflang_tags: generateHreflang(page, lang),
                 switch_lang_url: getSwitchUrl(page, lang),
@@ -215,7 +231,7 @@ function renderPage(template, data) {
 
 function generateHreflang(pageId, currentLang) {
     return CONFIG.languages.map(l => {
-        let url = `/${l}/`;
+        let url = `${CONFIG.baseUrl}/${l}/`;
         if (pageId === 'about' || pageId === 'privacy') url += `${pageId}/`;
         else if (pageId !== 'home') {
             const tool = TOOLS.find(t => t.id === pageId);
@@ -227,10 +243,10 @@ function generateHreflang(pageId, currentLang) {
 
 function getSwitchUrl(pageId, currentLang) {
     const targetLang = currentLang === 'en' ? 'tr' : 'en';
-    if (pageId === 'home') return `/${targetLang}/`;
-    if (pageId === 'about' || pageId === 'privacy') return `/${targetLang}/${pageId}/`;
+    if (pageId === 'home') return `${CONFIG.baseUrl}/${targetLang}/`;
+    if (pageId === 'about' || pageId === 'privacy') return `${CONFIG.baseUrl}/${targetLang}/${pageId}/`;
     const tool = TOOLS.find(t => t.id === pageId);
-    return tool ? `/${targetLang}/${tool.slug[targetLang]}/` : `/${targetLang}/`;
+    return tool ? `${CONFIG.baseUrl}/${targetLang}/${tool.slug[targetLang]}/` : `${CONFIG.baseUrl}/${targetLang}/`;
 }
 
 build();

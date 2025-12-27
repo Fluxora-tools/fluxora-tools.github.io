@@ -289,15 +289,8 @@ function renderVideoTool(container, toolId, s, isTR) {
         try {
             const depth = window.location.pathname.split('/').length - 2;
             const navUp = depth > 0 ? '../'.repeat(depth) : '';
-            const mp4boxSrc = `${navUp}assets/js/libs/mp4box.all.min.js`;
-            // Try local first, then stable CDN
-            await loadScript(mp4boxSrc).catch(() => loadScript('https://unpkg.com/mp4box@0.5.2/dist/mp4box.all.min.js'));
+            await loadScript('https://unpkg.com/mp4box@0.5.2/dist/mp4box.all.min.js');
         } catch (e) {
-            console.warn("MP4Box load fail, falling back to slow mute");
-            return await processVideoSlow(file);
-        }
-
-        if (typeof MP4Box === 'undefined') {
             return await processVideoSlow(file);
         }
 
@@ -310,62 +303,54 @@ function renderVideoTool(container, toolId, s, isTR) {
 
             mp4box.onReady = function (info) {
                 const outMp4 = MP4Box.createFile();
-                let videoTrack = info.tracks.find(t => t.type === 'video');
+                const videoTrack = info.tracks.find(t => t.type === 'video');
 
                 if (!videoTrack) {
-                    alert(isTR ? "Hata: Video kanalı bulunamadı." : "Error: No video track found.");
-                    location.reload();
-                    return;
-                }
-
-                // Correct method name is setExtractionOptions
-                if (typeof mp4box.setExtractionOptions !== 'function') {
-                    console.warn("setExtractionOptions missing, falling back to slow mute");
                     processVideoSlow(file);
                     return;
                 }
 
+                // Setup output track
                 const trackOptions = {
                     id: videoTrack.id,
                     type: videoTrack.type,
                     timescale: videoTrack.timescale,
                     duration: videoTrack.duration,
-                    width: videoTrack.video.width,
-                    height: videoTrack.video.height,
                     nb_samples: videoTrack.nb_samples,
                     codec: videoTrack.codec,
-                    avcConfig: videoTrack.avcConfig,
-                    hevcConfig: videoTrack.hevcConfig
+                    width: videoTrack.video ? videoTrack.video.width : 0,
+                    height: videoTrack.video ? videoTrack.video.height : 0
                 };
 
-                outMp4.addTrack(trackOptions);
+                const outTrackId = outMp4.addTrack(trackOptions);
+
+                // Extraction logic
                 mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: videoTrack.nb_samples });
 
-                let samplesCount = 0;
                 mp4box.onSamples = function (id, user, samples) {
                     samples.forEach(sample => {
-                        outMp4.addSample(id, sample.data, {
+                        outMp4.addSample(outTrackId, sample.data, {
                             dts: sample.dts,
                             pts: sample.pts,
                             duration: sample.duration,
-                            description: sample.description,
                             is_sync: sample.is_sync
                         });
-                        samplesCount++;
                     });
 
-                    if (samplesCount >= videoTrack.nb_samples) {
-                        const blob = new Blob([outMp4.getBuffer()], { type: 'video/mp4' });
-                        showResult(blob, "fluxora_muted.mp4", "video");
-                    }
+                    const buffer = outMp4.getBuffer();
+                    const blob = new Blob([buffer], { type: 'video/mp4' });
+                    showResult(blob, "fluxora_muted.mp4", "video");
+                    if (window.incrementProcessCount) window.incrementProcessCount();
                 };
-                mp4box.extract();
+
+                mp4box.start();
             };
 
-            mp4box.onError = function (e) {
-                console.error("MP4Box Error:", e);
+            mp4box.onError = (err) => {
+                console.error("MP4Box Error:", err);
                 processVideoSlow(file);
             };
+
             mp4box.appendBuffer(arrayBuffer);
             mp4box.flush();
         };

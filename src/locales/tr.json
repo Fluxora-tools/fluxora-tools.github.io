@@ -1,21 +1,27 @@
 {
     "home": {
-        "title": "Fluxora – Hızlı Dosya Çevirme ve Medya Araçları",
-        "description": "Ücretsiz resim dönüştürücü (WebP, PNG, JPG, BMP) ve video işlem araçları. Kayıt yok, %100 güvenli.",
-        "h1": "Ücretsiz ve Güvenli Dosya Araçları"
+        "title": "Fluxora – En Hızlı Online Dosya Çevirme ve Medya Araçları",
+        "description": "Ücretsiz resim dönüştürücü (WebP, PNG, JPG, BMP) ve anlık video işlem araçları. Kayıt yok, %100 güvenli ve tarayıcı tabanlı.",
+        "h1": "Hızlı, Güvenli ve Tamamen Ücretsiz Dosya Araçları"
     },
+    "total_operations": "Toplam İşlem Sayısı",
+    "faq_title": "Sıkça Sorulan Sorular",
     "tools": {
         "png-to-jpg": {
-            "title": "PNG JPG Çevirme – Online ve Ücretsiz | Fluxora",
-            "description": "Hızlı PNG JPG çevirici. Resimlerinizi tarayıcıda anında dönüştürün.",
-            "h1": "Png to Jpg",
-            "content": "<p>PNG dosyalarınızı anında JPG formatına çevirin.</p><h2>Nasıl Kullanılır</h2><p>1. Dosyayı yükleyin.</p><p>2. JPG olarak indirin.</p>"
+            "title": "PNG JPG Çevirme (Online ve Ücretsiz) – Fluxora",
+            "description": "PNG'nizi JPG'ye saniyeler içinde dönüştürmenin en iyi yolu. %100 ücretsiz, güvenli ve kullanımı kolay!",
+            "h1": "PNG to JPG Çevirici",
+            "content": "<p>PNG dosyalarınızı anında yüksek kaliteli JPG formatına çevirin. Tüm işlem tarayıcınızda gerçekleşir, dosyalarınız asla sunucuya yüklenmez.</p>",
+            "faq_q1": "PNG'den JPG'ye dönüştürme kalitesi düşer mi?",
+            "faq_a1": "Fluxora, yüksek kaliteli sıkıştırma algoritmaları kullanarak görüntü kalitesini korumaya çalışır.",
+            "faq_q2": "Dosyalarım güvende mi?",
+            "faq_a2": "%100 güvenli. İşlemler tarayıcı tabanlıdır, verileriniz cihazınızdan çıkmaz."
         },
         "jpg-to-png": {
-            "title": "JPG PNG Çevirme | Fluxora",
-            "description": "JPG fotoğrafları PNG formatına dönüştürün.",
-            "h1": "JPG PNG Çevirme",
-            "content": "<p>JPG dosyalarını kolayca PNG yapın.</p>"
+            "title": "JPG'yi PNG'ye Çevir (Şeffaf Destekli) | Fluxora",
+            "description": "JPG resimlerinizi şeffaflık desteğiyle PNG formatına dönüştürün. Ücretsiz ve hızlı.",
+            "h1": "JPG'den PNG'ye Dönüştürücü",
+            "content": "<p>JPG dosyalarınızı kolayca PNG yapın ve şeffaflık özelliklerinden yararlanın.</p>"
         },
         "webp-to-png": {
             "title": "WebP PNG Çevirme | Fluxora",
@@ -48,10 +54,14 @@
             "content": "<p>Yerel video dosyalarınızdan ses parçasını anında çıkarın.</p>"
         },
         "video-mute": {
-            "title": "Video Sesi Silme | Fluxora",
-            "description": "Videonun sesini kapatın ve sessiz video oluşturun.",
-            "h1": "Video Sesi Kapatma",
-            "content": "<p>Videonuzdaki ses kaydını tamamen silerek sessiz bir dosya oluşturun.</p>"
+            "title": "Video Sesi Silme (Anlık ve Ücretsiz) | Fluxora",
+            "description": "Videonun sesini anında kapatın ve sessiz video oluşturun. Tek tıkla süper hızlı işlem.",
+            "h1": "Anlık Video Sesi Kapatma",
+            "content": "<p>Videonuzdaki ses kaydını milisaniyeler içinde silerek sessiz bir dosya oluşturun. Fluxora'nın özel teknolojisi sayesinde re-encoding beklemenize gerek kalmaz.</p>",
+            "faq_q1": "Video sesi silme işlemi ne kadar sürer?",
+            "faq_a1": "Fluxora ile bu işlem MP4 dosyaları için anlıktır. Bekleme süresi yoktur.",
+            "faq_q2": "Video kalitesi bozulur mu?",
+            "faq_a2": "Hayır, ses kanalı videonun görüntüsüne dokunulmadan sadece ayrıştırılır."
         },
         "pdf-to-txt": {
             "title": "PDF TXT Çevirme | Fluxora",
@@ -121,7 +131,7 @@
         },
         "markdown-to-html": {
             "title": "Markdown to HTML | Fluxora",
-            "description": "Markdown yazımlarını anında HTML koduna dönüştürün.",
+            "description": "Markdown yazımları anında HTML koduna dönüştürün.",
             "h1": "Markdown to HTML",
             "content": "<p>Markdown metninizi HTML'e çevirerek web sayfalarında kullanın.</p>"
         },
@@ -144,10 +154,14 @@
             "content": "<p>Yazılarınızın uzunluğunu ve detaylarını analiz edin.</p>"
         },
         "internet-speed-test": {
-            "title": "Internet Speed Test | Fluxora",
-            "description": "İnternet bağlantı hızınızı ve ping değerinizi ölçün.",
-            "h1": "Internet Speed Test",
-            "content": "<p>Ağ bağlantınızın performansını hemen test edin.</p>"
+            "title": "İnternet Hız Testi (1000 Mbps Gigabit Destekli) | Fluxora",
+            "description": "İnternet bağlantı hızınızı, ping ve jitter değerlerinizi en doğru şekilde ölçün. Gigabit bağlantılar için optimize edilmiştir.",
+            "h1": "Hassas İnternet Hız Testi",
+            "content": "<p>Ağ bağlantınızın gerçek performansını hemen test edin. Gelişmiş ölçüm algoritmalarımız sayesinde 1 Gbps ve üzeri hızlarda bile yanılma payı minimumdur.</p>",
+            "faq_q1": "Hız testi ne kadar doğru?",
+            "faq_a1": "Çoklu CDN ve paralel indirme işçilerimiz sayesinde en yakın sunucu kapasitesini doğru yansıtır.",
+            "faq_q2": "Gigabit internetim var, 1000 Mbps görebilir miyim?",
+            "faq_a2": "Evet, Fluxora gigabit ve üzeri hızları ölçebilecek şekilde optimize edilmiştir."
         },
         "txt-to-docx": {
             "title": "TXT DOCX Çevirme | Fluxora",
