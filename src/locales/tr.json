@@ -2,6 +2,7 @@
     "home": {
         "title": "Fluxora – En Hızlı Online Dosya Çevirme ve Medya Araçları",
         "description": "Ücretsiz resim dönüştürücü (WebP, PNG, JPG, BMP) ve anlık video işlem araçları. Kayıt yok, %100 güvenli ve tarayıcı tabanlı.",
+        "keywords": "dosya dönüştürücü, resim çevirici, video sessize alma, online araçlar, ücretsiz dosya araçları, png jpg çevirme, pdf txt çevirme, internet hız testi",
         "h1": "Hızlı, Güvenli ve Tamamen Ücretsiz Dosya Araçları"
     },
     "total_operations": "Toplam İşlem Sayısı",
@@ -156,7 +157,8 @@
         "internet-speed-test": {
             "title": "İnternet Hız Testi (1000 Mbps Gigabit Destekli) | Fluxora",
             "description": "İnternet bağlantı hızınızı, ping ve jitter değerlerinizi en doğru şekilde ölçün. Gigabit bağlantılar için optimize edilmiştir.",
-            "h1": "Hassas İnternet Hız Testi",
+            "keywords": "hız testi, internet hız testi, speed test, download hızı ölçme, fiber internet testi, gigabit hız testi, ping testi",
+            "h1": "İnternet Hız Testi",
             "content": "<p>Ağ bağlantınızın gerçek performansını hemen test edin. Gelişmiş ölçüm algoritmalarımız sayesinde 1 Gbps ve üzeri hızlarda bile yanılma payı minimumdur.</p>",
             "faq_q1": "Hız testi ne kadar doğru?",
             "faq_a1": "Çoklu CDN ve paralel indirme işçilerimiz sayesinde en yakın sunucu kapasitesini doğru yansıtır.",

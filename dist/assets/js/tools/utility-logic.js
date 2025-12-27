@@ -232,6 +232,8 @@ function renderSpeedTest(container) {
             let measurements = [];
             let lastByteCount = 0;
             let lastMeasureTime = startTime;
+            let smoothSpeed = 0;
+            const smoothingFactor = 0.2; // Smoothing for UI display
 
             const downloadWorker = async () => {
                 while (performance.now() - startTime < duration) {
@@ -266,17 +268,21 @@ function renderSpeedTest(container) {
                 const bytesDelta = totalLoaded - lastByteCount;
 
                 if (timeDiff > 0.1) { // Every 100ms approx
-                    const instantMbps = ((bytesDelta * 8) / timeDiff / 1000000).toFixed(1);
+                    const instantMbps = parseFloat(((bytesDelta * 8) / timeDiff / 1000000).toFixed(1));
                     const elapsed = (now - startTime) / 1000;
+
+                    // Smoothing for UI only
+                    if (smoothSpeed === 0) smoothSpeed = instantMbps;
+                    else smoothSpeed = (instantMbps * smoothingFactor) + (smoothSpeed * (1 - smoothingFactor));
 
                     // Filter out ramp-up (First 3 seconds) for the final result
                     if (elapsed > 3) {
-                        measurements.push(parseFloat(instantMbps));
+                        measurements.push(instantMbps);
                     }
 
-                    // Display current speed
-                    speedVal.textContent = instantMbps;
-                    const pct = Math.min((parseFloat(instantMbps) / 1000) * 100, 100);
+                    // Display current smooth speed
+                    speedVal.textContent = smoothSpeed.toFixed(1);
+                    const pct = Math.min((smoothSpeed / 1000) * 100, 100);
                     speedFill.style.height = pct + '%';
 
                     lastByteCount = totalLoaded;

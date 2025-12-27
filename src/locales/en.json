@@ -2,6 +2,7 @@
     "home": {
         "title": "Fluxora – Fastest Online File Conversion & Media Tools",
         "description": "Free online tools to convert images (WebP, PNG, JPG, BMP) and instant video processing tools. No registration, 100% secure and browser-based.",
+        "keywords": "file converter, image converter, mute video, online tools, free file tools, png to jpg, pdf to txt, internet speed test",
         "h1": "Fast, Secure and 100% Free File Tools"
     },
     "total_operations": "Total Operations",
@@ -156,7 +157,8 @@
         "internet-speed-test": {
             "title": "Internet Speed Test (1000 Mbps Gigabit Supported) | Fluxora",
             "description": "Measure your internet connection speed, ping, and jitter with maximum accuracy. Optimized for gigabit connections.",
-            "h1": "Precision Internet Speed Test",
+            "keywords": "speed test, internet speed test, download speed, upload speed, fiber speed test, gigabit speed test, ping test",
+            "h1": "Internet Speed Test",
             "content": "<p>Test your network performance instantly. Our advanced measurement algorithms ensure minimal error even at speeds of 1 Gbps and above.</p>",
             "faq_q1": "How accurate is the speed test?",
             "faq_a1": "Thanks to multiple CDNs and parallel download workers, it accurately reflects your nearest server capacity.",
