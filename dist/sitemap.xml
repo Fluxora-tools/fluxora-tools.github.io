@@ -1,292 +1,302 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://fluxora.pages.dev/en/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/about/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/privacy/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/privacy/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/about/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/privacy/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/privacy/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/png-to-jpg/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/png-to-jpg/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/png-jpg-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/png-jpg-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/jpg-to-png/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/jpg-to-png/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/jpg-png-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/jpg-png-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/pdf-to-txt/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/pdf-to-txt/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/pdf-txt-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/pdf-txt-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/word-to-txt/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/word-to-txt/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/word-txt-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/word-txt-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/png-to-avif/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/png-to-avif/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/png-avif-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/png-avif-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/avif-to-png/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/avif-to-png/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/avif-png-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/avif-png-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/jpg-to-webp/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/jpg-to-webp/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/jpg-webp-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/jpg-webp-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/webp-to-jpg/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/webp-to-jpg/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/webp-jpg-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/webp-jpg-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/webp-to-png/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/webp-to-png/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/webp-png-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/webp-png-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/png-to-webp/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/png-to-webp/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/png-webp-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/png-webp-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/jpg-to-bmp/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/jpg-to-bmp/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/jpg-bmp-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/jpg-bmp-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/bmp-to-jpg/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/bmp-to-jpg/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/bmp-jpg-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/bmp-jpg-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/gif-to-mp4/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/gif-to-mp4/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/gif-mp4-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/gif-mp4-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/mp4-to-gif/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/mp4-to-gif/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/mp4-gif-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/mp4-gif-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/video-to-mp3-converter/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/video-to-mp3-converter/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/videodan-mp3-yapma/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/videodan-mp3-yapma/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/mute-video/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/mute-video/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/video-sesi-silme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/video-sesi-silme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/json-formatter/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/json-formatter/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/json-duzenleyici/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/json-duzenleyici/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/lorem-ipsum-generator/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/lorem-ipsum-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/lorem-ipsum-olusturucu/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/lorem-ipsum-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/slug-generator/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/slug-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/slug-olusturucu/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/slug-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/markdown-to-html/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/markdown-to-html/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/markdown-html-cevirici/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/markdown-html-cevirici/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/qr-code-generator/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/qr-code-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/karekod-olusturucu/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/karekod-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/password-generator/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/password-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/sifre-olusturucu/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/sifre-olusturucu/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/word-counter/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/word-counter/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/kelime-sayaci/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/kelime-sayaci/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/internet-speed-test/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/internet-speed-test/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/internet-hiz-testi/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/internet-hiz-testi/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/txt-to-docx/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/txt-to-docx/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/txt-docx-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/txt-docx-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/en/txt-to-pdf/</loc>
+    <loc>https://fluxora-tools.vercel.app/en/txt-to-pdf/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fluxora.pages.dev/tr/txt-pdf-cevirme/</loc>
+    <loc>https://fluxora-tools.vercel.app/tr/txt-pdf-cevirme/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/en/png-to-ico/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/tr/png-ico-cevirme/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

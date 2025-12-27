@@ -176,6 +176,17 @@
             "description": "Metin dosyalarını PDF formatına dönüştürün.",
             "h1": "Txt to Pdf",
             "content": "<p>Yazılarınızı her cihazda okunabilir PDF formatına çevirin.</p>"
+        },
+        "png-to-ico": {
+            "title": "PNG ICO Çevirme (Ücretsiz ve Online) | Fluxora",
+            "description": "PNG resimlerinizi anında ICO (favicon) formatına dönüştürün. Ücretsiz, hızlı ve %100 güvenli.",
+            "keywords": "png to ico, png ico çevirme, favicon yapma, online ico dönüştürücü",
+            "h1": "PNG to ICO Çevirici",
+            "content": "<p>PNG dosyalarınızı web siteleriniz için uygun ICO formatına çevirin. Şeffaflık korunur ve en iyi kalite sağlanır.</p>",
+            "faq_q1": "PNG'den ICO'ya dönüştürme ücretsiz mi?",
+            "faq_a1": "Evet, Fluxora üzerindeki tüm araçlar gibi bu araç da tamamen ücretsizdir.",
+            "faq_q2": "ICO dosyası şeffaf olur mu?",
+            "faq_a2": "Eğer orijinal PNG dosyanız şeffaf ise, dönüştürülen ICO dosyası da şeffaflığı korur."
         }
     },
     "about": {

@@ -308,19 +308,24 @@ function renderVideoTool(container, toolId, s, isTR) {
                     return;
                 }
 
+                // Add video track with all properties
                 const outTrackId = outMp4.addTrack({
+                    id: videoTrack.id,
                     timescale: videoTrack.timescale,
                     duration: videoTrack.duration,
                     nb_samples: videoTrack.nb_samples,
                     codec: videoTrack.codec,
                     width: videoTrack.video ? videoTrack.video.width : 0,
-                    height: videoTrack.video ? videoTrack.video.height : 0
+                    height: videoTrack.video ? videoTrack.video.height : 0,
+                    type: 'video',
+                    avcC: videoTrack.avcC, // Try to preserve avcC if available
+                    hvcC: videoTrack.hvcC // Or hvcC
                 });
 
                 let samplesCount = 0;
                 const totalSamples = videoTrack.nb_samples;
 
-                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: 100 });
+                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: totalSamples });
 
                 mp4box.onSamples = function (id, user, samples) {
                     samples.forEach(sample => {
@@ -337,6 +342,7 @@ function renderVideoTool(container, toolId, s, isTR) {
                     progressText.innerText = (isTR ? "İşleniyor" : "Processing") + ` %${pct}`;
 
                     if (samplesCount >= totalSamples) {
+                        // Crucial: Finalize the file
                         const buffer = outMp4.getBuffer();
                         const blob = new Blob([buffer], { type: 'video/mp4' });
                         showResult(blob, "fluxora_muted.mp4", "video");

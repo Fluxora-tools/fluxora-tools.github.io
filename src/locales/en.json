@@ -176,6 +176,17 @@
             "description": "Convert plain text files to PDF format.",
             "h1": "Txt to Pdf",
             "content": "<p>Convert your writing into PDF format for universal reading.</p>"
+        },
+        "png-to-ico": {
+            "title": "PNG to ICO Converter (Free & Online) | Fluxora",
+            "description": "Convert PNG images to ICO (favicon) format instantly. Free, fast, and 100% secure.",
+            "keywords": "png to ico, convert png to ico, favicon generator, online ico converter",
+            "h1": "PNG to ICO Converter",
+            "content": "<p>Convert your PNG files to ICO format suitable for websites and applications. Transparency is preserved.</p>",
+            "faq_q1": "Is it free to convert PNG to ICO?",
+            "faq_a1": "Yes, like all tools on Fluxora, this tool is completely free to use.",
+            "faq_q2": "Will the ICO file be transparent?",
+            "faq_a2": "If your original PNG has transparency, the resulting ICO file will also be transparent."
         }
     },
     "about": {

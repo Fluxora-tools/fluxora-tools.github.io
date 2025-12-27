@@ -7,7 +7,7 @@ const CONFIG = {
     defaultLang: 'en',
     distDir: path.join(__dirname, '../dist'),
     srcDir: path.join(__dirname, '../src'),
-    baseUrl: 'https://fluxora.pages.dev'
+    baseUrl: 'https://fluxora-tools.vercel.app'
 };
 
 // Tool Definitions
@@ -57,7 +57,8 @@ const TOOLS = [
     { id: 'word-counter', slug: { en: 'word-counter', tr: 'kelime-sayaci' }, template: 'converter', type: 'utility' },
     { id: 'internet-speed-test', slug: { en: 'internet-speed-test', tr: 'internet-hiz-testi' }, template: 'converter', type: 'utility' },
     { id: 'txt-to-docx', slug: { en: 'txt-to-docx', tr: 'txt-docx-cevirme' }, template: 'converter', type: 'document' },
-    { id: 'txt-to-pdf', slug: { en: 'txt-to-pdf', tr: 'txt-pdf-cevirme' }, template: 'converter', type: 'document' }
+    { id: 'txt-to-pdf', slug: { en: 'txt-to-pdf', tr: 'txt-pdf-cevirme' }, template: 'converter', type: 'document' },
+    { id: 'png-to-ico', slug: { en: 'png-to-ico', tr: 'png-ico-cevirme' }, template: 'converter', type: 'image' }
 ];
 
 const loadLocale = (lang) => {
@@ -181,6 +182,17 @@ async function build() {
     fs.writeFileSync(path.join(CONFIG.distDir, 'index.html'), rootIndexHtml);
 
     generateSitemap(TOOLS, CONFIG.languages);
+
+    // 5. Google Verification
+    const googleFile = 'googlef2aefc909b2bfb5a.html';
+    if (fs.existsSync(path.join(CONFIG.srcDir, '../', googleFile))) {
+        fs.copySync(path.join(CONFIG.srcDir, '../', googleFile), path.join(CONFIG.distDir, googleFile));
+        console.log('Google verification file copied.');
+    } else if (fs.existsSync(path.join(CONFIG.srcDir, googleFile))) {
+        fs.copySync(path.join(CONFIG.srcDir, googleFile), path.join(CONFIG.distDir, googleFile));
+        console.log('Google verification file copied from src.');
+    }
+
     console.log('Build Complete.');
 }
 

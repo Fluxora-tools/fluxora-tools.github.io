@@ -89,6 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (toolId.includes('to-webp')) { format = 'image/webp'; ext = 'webp'; }
             else if (toolId.includes('to-avif')) { format = 'image/avif'; ext = 'avif'; }
             else if (toolId.includes('to-bmp')) { format = 'image/bmp'; ext = 'bmp'; }
+            else if (toolId.includes('to-ico')) {
+                // Special ICO handler
+                canvas.toBlob(async (blob) => {
+                    const pngBuffer = await blob.arrayBuffer();
+                    const icoBuffer = createIcoFromPng(pngBuffer, img.width, img.height);
+                    const icoBlob = new Blob([icoBuffer], { type: 'image/x-icon' });
+                    downloadBlob(icoBlob, `fluxora-${Date.now()}.ico`);
+                    finalizeConversion();
+                }, 'image/png');
+                return;
+            }
 
             canvas.toBlob((blob) => {
                 progressText.textContent = "Processing: %100";
@@ -107,4 +118,59 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         img.src = previewImg.src;
     });
+
+    function createIcoFromPng(pngBuffer, width, height) {
+        // ICO Header (6 bytes)
+        const header = new Uint8Array(6);
+        header.set([0, 0, 1, 0, 1, 0]); // Reserved, Type (1=ico), Count (1)
+
+        // Directory Entry (16 bytes)
+        const entry = new Uint8Array(16);
+        entry[0] = width >= 256 ? 0 : width;
+        entry[1] = height >= 256 ? 0 : height;
+        entry[2] = 0; // Palettes
+        entry[3] = 0; // Reserved
+        entry[4] = 1; // Planes
+        entry[5] = 1; // Reserved (actually bpp, but 1 plane / 0 bpp for PNG is often used or 32)
+        // bpp = 32
+        entry[6] = 32; entry[7] = 0;
+
+        const size = pngBuffer.byteLength;
+        // Data Size (4 bytes)
+        entry[8] = size & 0xFF;
+        entry[9] = (size >> 8) & 0xFF;
+        entry[10] = (size >> 16) & 0xFF;
+        entry[11] = (size >> 24) & 0xFF;
+
+        const offset = 6 + 16;
+        // Data Offset (4 bytes)
+        entry[12] = offset & 0xFF;
+        entry[13] = (offset >> 8) & 0xFF;
+        entry[14] = (offset >> 16) & 0xFF;
+        entry[15] = (offset >> 24) & 0xFF;
+
+        const ico = new Uint8Array(6 + 16 + size);
+        ico.set(header, 0);
+        ico.set(entry, 6);
+        ico.set(new Uint8Array(pngBuffer), 22);
+
+        return ico;
+    }
+
+    function downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function finalizeConversion() {
+        if (window.incrementProcessCount) window.incrementProcessCount();
+        loader.style.display = 'none';
+        previewArea.style.display = 'block';
+        statusMsg.textContent = 'Success! Download started.';
+        progressText.textContent = "Processing: %100";
+    }
 });
