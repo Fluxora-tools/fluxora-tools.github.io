@@ -12,6 +12,7 @@ I have successfully completed the requested optimizations and new feature integr
 
 ### 1. Instant Video Muting
 - **Optimization**: Switched from recording-based muting to source-level stream extraction using `MP4Box.js`.
+- **Bug Fix**: Resolved an issue where the muxing process was finalized too early, causing 0-second corrupted files. It now correctly waits for all video samples to be processed.
 - **Performance**: Processing time for MP4 files is now **instant** (less than 100ms).
 - **Quality**: No re-encoding means 100% original video quality is preserved.
 

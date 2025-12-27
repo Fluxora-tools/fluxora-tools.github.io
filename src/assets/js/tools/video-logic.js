@@ -287,8 +287,6 @@ function renderVideoTool(container, toolId, s, isTR) {
         progressText.innerText = isTR ? "Anlık Sessize Alınıyor..." : "Muting (Instant)...";
 
         try {
-            const depth = window.location.pathname.split('/').length - 2;
-            const navUp = depth > 0 ? '../'.repeat(depth) : '';
             await loadScript('https://unpkg.com/mp4box@0.5.2/dist/mp4box.all.min.js');
         } catch (e) {
             return await processVideoSlow(file);
@@ -310,22 +308,19 @@ function renderVideoTool(container, toolId, s, isTR) {
                     return;
                 }
 
-                // Setup output track
-                const trackOptions = {
-                    id: videoTrack.id,
-                    type: videoTrack.type,
+                const outTrackId = outMp4.addTrack({
                     timescale: videoTrack.timescale,
                     duration: videoTrack.duration,
                     nb_samples: videoTrack.nb_samples,
                     codec: videoTrack.codec,
                     width: videoTrack.video ? videoTrack.video.width : 0,
                     height: videoTrack.video ? videoTrack.video.height : 0
-                };
+                });
 
-                const outTrackId = outMp4.addTrack(trackOptions);
+                let samplesCount = 0;
+                const totalSamples = videoTrack.nb_samples;
 
-                // Extraction logic
-                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: videoTrack.nb_samples });
+                mp4box.setExtractionOptions(videoTrack.id, null, { nb_samples: 100 });
 
                 mp4box.onSamples = function (id, user, samples) {
                     samples.forEach(sample => {
@@ -335,12 +330,18 @@ function renderVideoTool(container, toolId, s, isTR) {
                             duration: sample.duration,
                             is_sync: sample.is_sync
                         });
+                        samplesCount++;
                     });
 
-                    const buffer = outMp4.getBuffer();
-                    const blob = new Blob([buffer], { type: 'video/mp4' });
-                    showResult(blob, "fluxora_muted.mp4", "video");
-                    if (window.incrementProcessCount) window.incrementProcessCount();
+                    const pct = Math.min(99, Math.round((samplesCount / totalSamples) * 100));
+                    progressText.innerText = (isTR ? "İşleniyor" : "Processing") + ` %${pct}`;
+
+                    if (samplesCount >= totalSamples) {
+                        const buffer = outMp4.getBuffer();
+                        const blob = new Blob([buffer], { type: 'video/mp4' });
+                        showResult(blob, "fluxora_muted.mp4", "video");
+                        if (window.incrementProcessCount) window.incrementProcessCount();
+                    }
                 };
 
                 mp4box.start();
