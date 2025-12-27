@@ -215,26 +215,30 @@ function renderSpeedTest(container) {
             const avgPing = Math.round(pings.reduce((a, b) => a + b) / pings.length);
             pingText.textContent = `Ping: ${avgPing} ms`;
 
-            // 2. High-Performance Multi-CDN Gigabit Saturation
+            // 2. High-Performance Multi-CDN Gigabit Saturation (Expanded)
             const targets = [
-                'https://speed.cloudflare.com/__down?bytes=500000000', // 500MB for better saturation
+                'https://speed.cloudflare.com/__down?bytes=500000000',
                 'https://speed.cloudflare.com/__down?bytes=200000000',
-                'https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js'
+                'https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js',
+                'https://edge.microsoft.com/pwa/assets/icons/icon-512x512.png', // Add diversity
+                'https://dl.google.com/chrome/install/latest/chrome_installer.exe'
             ];
 
             // Auto-scaling workers based on hardware
-            const concurrency = Math.max(32, (navigator.hardwareConcurrency || 8) * 6);
-            const duration = 10000; // 10 seconds for stable measurement
+            const concurrency = Math.max(32, (navigator.hardwareConcurrency || 8) * 8);
+            const duration = 10000; // 10 seconds total
             const startTime = performance.now();
             let totalLoaded = 0;
             let measurements = [];
+            let lastByteCount = 0;
+            let lastMeasureTime = startTime;
 
             const downloadWorker = async () => {
                 while (performance.now() - startTime < duration) {
                     const target = targets[Math.floor(Math.random() * targets.length)];
                     try {
                         const controller = new AbortController();
-                        const res = await fetch(`${target}&cb=${Math.random()}`, {
+                        const res = await fetch(`${target}?cb=${Math.random()}`, {
                             cache: 'no-store',
                             signal: controller.signal
                         });
@@ -258,24 +262,32 @@ function renderSpeedTest(container) {
 
             const uiInterval = setInterval(() => {
                 const now = performance.now();
-                const elapsed = (now - startTime) / 1000;
+                const timeDiff = (now - lastMeasureTime) / 1000; // time in seconds
+                const bytesDelta = totalLoaded - lastByteCount;
 
-                if (elapsed > 1) { // Skip first second for ramp-up
-                    const mbps = ((totalLoaded * 8) / elapsed / 1000000).toFixed(1);
-                    measurements.push(parseFloat(mbps));
+                if (timeDiff > 0.1) { // Every 100ms approx
+                    const instantMbps = ((bytesDelta * 8) / timeDiff / 1000000).toFixed(1);
+                    const elapsed = (now - startTime) / 1000;
 
-                    // Show current real-time speed (weighted towards recent)
-                    speedVal.textContent = mbps;
-                    const pct = Math.min((parseFloat(mbps) / 1000) * 100, 100);
+                    // Filter out ramp-up (First 3 seconds) for the final result
+                    if (elapsed > 3) {
+                        measurements.push(parseFloat(instantMbps));
+                    }
+
+                    // Display current speed
+                    speedVal.textContent = instantMbps;
+                    const pct = Math.min((parseFloat(instantMbps) / 1000) * 100, 100);
                     speedFill.style.height = pct + '%';
+
+                    lastByteCount = totalLoaded;
+                    lastMeasureTime = now;
                 }
             }, 100);
 
             await Promise.all(workers);
             clearInterval(uiInterval);
 
-            // Calculation Logic: Take the average of the top 30% measurements 
-            // to represent peak stable capacity, avoiding local network jitter.
+            // Final Calculation: Average of the top measurements (Peak Persistent Speed)
             measurements.sort((a, b) => b - a);
             const topSlice = measurements.slice(0, Math.max(1, Math.floor(measurements.length * 0.4)));
             const avgMbps = (topSlice.reduce((a, b) => a + b, 0) / topSlice.length).toFixed(1);
