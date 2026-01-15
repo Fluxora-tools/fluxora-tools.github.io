@@ -151,6 +151,56 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://fluxora-tools.vercel.app/en/bmp-to-png/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/tr/bmp-png-cevirme/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/en/png-to-bmp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/tr/png-bmp-cevirme/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/en/ico-to-png/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/tr/ico-png-cevirme/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/en/webp-to-avif/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/tr/webp-avif-cevirme/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/en/avif-to-webp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fluxora-tools.vercel.app/tr/avif-webp-cevirme/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://fluxora-tools.vercel.app/en/gif-to-mp4/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

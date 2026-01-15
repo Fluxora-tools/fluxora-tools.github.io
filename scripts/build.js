@@ -44,6 +44,13 @@ const TOOLS = [
     { id: 'png-to-webp', slug: { en: 'png-to-webp', tr: 'png-webp-cevirme' }, template: 'converter', type: 'image' },
     { id: 'jpg-to-bmp', slug: { en: 'jpg-to-bmp', tr: 'jpg-bmp-cevirme' }, template: 'converter', type: 'image' },
     { id: 'bmp-to-jpg', slug: { en: 'bmp-to-jpg', tr: 'bmp-jpg-cevirme' }, template: 'converter', type: 'image' },
+    // New Tools Added for Content Expansion
+    { id: 'bmp-to-png', slug: { en: 'bmp-to-png', tr: 'bmp-png-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'png-to-bmp', slug: { en: 'png-to-bmp', tr: 'png-bmp-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'ico-to-png', slug: { en: 'ico-to-png', tr: 'ico-png-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'webp-to-avif', slug: { en: 'webp-to-avif', tr: 'webp-avif-cevirme' }, template: 'converter', type: 'image' },
+    { id: 'avif-to-webp', slug: { en: 'avif-to-webp', tr: 'avif-webp-cevirme' }, template: 'converter', type: 'image' },
+    
     { id: 'gif-to-mp4', slug: { en: 'gif-to-mp4', tr: 'gif-mp4-cevirme' }, template: 'converter', type: 'video' },
     { id: 'mp4-to-gif', slug: { en: 'mp4-to-gif', tr: 'mp4-gif-cevirme' }, template: 'converter', type: 'video' },
     { id: 'video-to-mp3', slug: { en: 'video-to-mp3-converter', tr: 'videodan-mp3-yapma' }, template: 'converter', type: 'video' },
@@ -115,38 +122,60 @@ async function build() {
         fs.writeFileSync(path.join(langDir, 'index.html'), homeHtml);
 
         // 2. Tools
-        for (const tool of TOOLS) {
-            const toolLocale = locale.tools[tool.id];
-            const toolDir = path.join(langDir, tool.slug[lang]);
-            ensureDir(toolDir);
+        console.log(`Processing tools for ${lang}... Keys: ${Object.keys(locale)}`);
+        
+        if (!locale.tools) {
+            console.error(`CRITICAL: 'tools' property missing in ${lang}.json`);
+            continue;
+        }
 
-            const toolCanonical = `${CONFIG.baseUrl}/${lang}/${tool.slug[lang]}/`;
-            const toolHtml = renderPage(layoutTemplate, {
-                lang,
-                title: toolLocale.title,
-                description: toolLocale.description,
-                keywords: toolLocale.keywords || '',
-                canonical_url: toolCanonical,
-                total_operations_label: locale.total_operations,
-                faq_title: toolLocale.faq_title || locale.faq_title || '',
-                faq_q1: toolLocale.faq_q1 || '',
-                faq_a1: toolLocale.faq_a1 || '',
-                faq_q2: toolLocale.faq_q2 || '',
-                faq_a2: toolLocale.faq_a2 || '',
-                content: `
-                    <div class="tool-page" data-tool-id="${tool.id}">
-                        <h1>${toolLocale.h1}</h1>
-                        <div id="tool-interface"></div>
-                        <div class="tool-content">${toolLocale.content}</div>
-                    </div>
-                `,
-                hreflang_tags: generateHreflang(tool.id, lang),
-                switch_lang_url: getSwitchUrl(tool.id, lang),
-                switch_lang_label: lang === 'en' ? 'TR' : 'EN',
-                json_ld: generateJsonLd('tool', lang, tool),
-                extra_scripts: `<script src="/assets/js/tools/${tool.type}-logic.js"></script>`
-            });
-            fs.writeFileSync(path.join(toolDir, 'index.html'), toolHtml);
+        for (const tool of TOOLS) {
+            try {
+                console.log(`Processing tool ${tool.id} for ${lang}`);
+                const toolLocale = locale.tools[tool.id];
+                // Skip tool if no locale defined (prevent crash on new tools before translation)
+                if (!toolLocale) {
+                    console.warn(`Warning: No locale found for tool ${tool.id} in ${lang}`);
+                    continue;
+                }
+
+                const toolDir = path.join(langDir, tool.slug[lang]);
+                ensureDir(toolDir);
+
+                const toolCanonical = `${CONFIG.baseUrl}/${lang}/${tool.slug[lang]}/`;
+                const toolHtml = renderPage(layoutTemplate, {
+                    lang,
+                    title: toolLocale.title,
+                    description: toolLocale.description,
+                    keywords: toolLocale.keywords || '',
+                    canonical_url: toolCanonical,
+                    total_operations_label: locale.total_operations,
+                    faq_title: toolLocale.faq_title || locale.faq_title || '',
+                    faq_q1: toolLocale.faq_q1 || '',
+                    faq_a1: toolLocale.faq_a1 || '',
+                    faq_q2: toolLocale.faq_q2 || '',
+                    faq_a2: toolLocale.faq_a2 || '',
+                    content: `
+                        <div class="tool-page" data-tool-id="${tool.id}">
+                            <h1>${toolLocale.h1}</h1>
+                            <div id="tool-interface"></div>
+                            <div class="tool-content">${toolLocale.content}</div>
+                        </div>
+                    `,
+                    hreflang_tags: generateHreflang(tool.id, lang),
+                    switch_lang_url: getSwitchUrl(tool.id, lang),
+                    switch_lang_label: lang === 'en' ? 'TR' : 'EN',
+                    json_ld: generateJsonLd('tool', lang, tool, toolLocale),
+                    extra_scripts: `<script src="/assets/js/tools/${tool.type}-logic.js"></script>`
+                });
+                fs.writeFileSync(path.join(toolDir, 'index.html'), toolHtml);
+                console.log(`Success: ${tool.id}`);
+            } catch (err) {
+                const msg = `FATAL ERROR processing tool ${tool.id}: ${err.message}\nStack: ${err.stack}`;
+                console.error(msg);
+                fs.writeFileSync('error.log', msg);
+                throw err;
+            }
         }
 
         // 3. About & Privacy
@@ -201,18 +230,56 @@ function getIcon(type) {
     return icons[type] || 'fa-cog';
 }
 
-function generateJsonLd(type, lang, tool = null) {
+function generateJsonLd(type, lang, tool = null, toolLocale = null) {
     const baseUrl = CONFIG.baseUrl;
-    if (type === 'home') return JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", "name": "Fluxora", "url": `${baseUrl}/${lang}/` });
+    if (type === 'home') {
+        return JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Fluxora",
+            "url": `${baseUrl}/${lang}/`,
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": `${baseUrl}/${lang}/?q={search_term_string}`,
+                "query-input": "required name=search_term_string"
+            }
+        });
+    }
     if (!tool) return '{}';
+    
+    // Create rich HowTo schema for tools to boost content quality
+    const parts = tool.id.split('-');
+    const fromFormat = parts[0] ? parts[0].toUpperCase() : 'FILE';
+    const toFormat = parts.length > 2 ? parts[2].toUpperCase() : 'FILE';
+    
+    const howToSteps = [
+        {
+            "@type": "HowToStep",
+            "name": "Upload",
+            "text": `Select or drag and drop your ${fromFormat} file into the box.`
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Convert",
+            "text": "The tool automatically processes your file securely in your browser."
+        },
+        {
+            "@type": "HowToStep",
+            "name": "Download",
+            "text": `Download your converted ${toFormat} file instantly.`
+        }
+    ];
+
     return JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": tool.id,
-        "operatingSystem": "Any",
+        "@type": ["SoftwareApplication", "HowTo"],
+        "name": toolLocale?.title || tool.id,
+        "operatingSystem": "Any (Web Browser)",
         "applicationCategory": "UtilitiesApplication",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "url": `${baseUrl}/${lang}/${tool.slug[lang]}/`
+        "url": `${baseUrl}/${lang}/${tool.slug[lang]}/`,
+        "step": howToSteps,
+        "description": toolLocale?.description || `Free online tool to convert ${tool.id}.`
     });
 }
 
@@ -225,6 +292,7 @@ function generateSitemap(tools, languages) {
             xml += `\n  <url>\n    <loc>${baseUrl}/${lang}/${p}/</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>`;
         });
     });
+    // Ensure all tools including new ones are in sitemap
     tools.forEach(tool => {
         languages.forEach(lang => {
             xml += `\n  <url>\n    <loc>${baseUrl}/${lang}/${tool.slug[lang]}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
@@ -233,7 +301,6 @@ function generateSitemap(tools, languages) {
     xml += `\n</urlset>`;
     fs.writeFileSync(path.join(CONFIG.distDir, 'sitemap.xml'), xml);
 }
-
 function renderPage(template, data) {
     let html = template;
     for (const key in data) {
