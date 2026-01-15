@@ -1,218 +1,113 @@
 {
     "home": {
-        "title": "Fluxora – En İyi Online Dosya Çevirme ve Medya Araçları",
-        "description": "Ücretsiz, güvenli ve hızlı online araçlar. Resim (WebP, PNG, JPG), video ve dosya çevirici. Üyelik gerektirmez, tamamen tarayıcınızda çalışır.",
-        "keywords": "dosya çevirici, resim dönüştürücü, video sesi silme, online araçlar, ücretsiz araçlar, png jpg çevirme, hız testi",
-        "h1": "Hızlı, Güvenli ve %100 Ücretsiz Araçlar"
+        "title": "Fluxora – Profesyonel Online Dosya Çevirme ve Medya Araçları",
+        "description": "Sınırsız dosya çevrimi için ücretsiz premium online araçlar. PNG, JPG, WebP, AVIF, BMP, ICO ve daha fazlasını çevirin. Güvenli tarayıcı tabanlı işlem, yükleme yok, sınır yok.",
+        "keywords": "dosya çevirici, resim dönüştürücü, video araçları, online araçlar, ücretsiz dosya araçları, istemci taraflı araçlar, güvenli çevirim, yüksek kalite png jpg",
+        "h1": "En Kapsamlı Güvenli Dosya Çevirme Paketi"
     },
-    "total_operations": "Toplam İşlem",
-    "faq_title": "Sıkça Sorulan Sorular",
+    "total_operations": "Güvenli İşlem Sayısı",
+    "faq_title": "Sıkça Sorulan Sorular ve Teknik Detaylar",
     "tools": {
         "png-to-jpg": {
-            "title": "PNG'den JPG'e Çevirme (Ücretsiz) – Fluxora",
-            "description": "PNG resimlerinizi saniyeler içinde JPG formatına dönüştürün. Yükleme yok, %100 güvenli ve tarayıcı tabanlı.",
+            "title": "PNG'den JPG'e Çevirme (Yüksek Kalite & Güvenli) – Fluxora",
+            "description": "PNG resimlerini anında JPG'e çevirin, dosya yüklemeye gerek yok. Teknik detaylar: Canvas API tabanlı, ayarlanabilir kalite, güvenli işlem. Resim çevirmenin en güvenli yolu.",
             "h1": "PNG - JPG Çevirici",
-            "content": "<p>PNG dosyalarınızı hızlıca JPG formatına çevirin. Dosyalarınız sunucuya yüklenmez, cihazınızda işlenir.</p><h2>Nasıl Kullanılır?</h2><ol><li><strong>Dosya Seç:</strong> PNG dosyanızı kutuya sürükleyin.</li><li><strong>Çevir:</strong> Araç otomatik olarak çevirecektir.</li><li><strong>İndir:</strong> JPG dosyanızı kaydedin.</li></ol>",
-            "faq_q1": "Ücretli mi?",
-            "faq_a1": "Hayır, tamamen ücretsizdir.",
-            "faq_q2": "Güvenli mi?",
-            "faq_a2": "Evet, dosyalar cihazınızdan dışarı çıkmaz."
+            "content": "<p>PNG resimlerini JPG formatına çevirmenin en hızlı ve güvenli yolunu deneyimleyin. Hassas dosyalarınızı uzak bir sunucuya yüklemenizi gerektiren geleneksel çeviricilerin aksine, Fluxora tüm çevirme işlemini gelişmiş HTML5 Canvas teknolojisini kullanarak tamamen tarayıcınızın içinde gerçekleştirir.</p><h2>PNG Nedir?</h2><p>PNG (Taşınabilir Ağ Grafikleri), kayıpsız veri sıkıştırmayı destekleyen bir raster grafik dosya formatıdır. Şeffaflığı (alfa kanalı) destekler, bu da onu web grafikleri, logolar ve katmanlar için ideal kılar.</p><h2>JPG Nedir?</h2><p>JPG (veya JPEG), dijital görüntüler için yaygın olarak kullanılan kayıplı bir sıkıştırma yöntemidir. Sıkıştırma derecesi ayarlanabilir, bu da depolama boyutu ile görüntü kalitesi arasında seçilebilir bir denge sağlar.</p><h3>Neden PNG'den JPG'e çevirmeli?</h3><p>PNG'ler kalite açısından harika olsalar da dosya boyutları büyük olabilir. JPG'e çevirmek dosya boyutunu önemli ölçüde azaltarak e-posta ile paylaşmayı, web sitelerine yüklemeyi veya sınırlı kapasiteye sahip cihazlarda saklamayı kolaylaştırır.</p><h2>Teknik Özellikler</h2><div class='spec-table'><table><tr><td><strong>Girdi Formatı</strong></td><td>PNG (Portable Network Graphics)</td></tr><tr><td><strong>Çıktı Formatı</strong></td><td>JPG (Joint Photographic Experts Group)</td></tr><tr><td><strong>İşlem Tipi</strong></td><td>İstemci Taraflı (Tarayıcı)</td></tr><tr><td><strong>Güvenlik</strong></td><td>Uçtan Uca Şifreleme (Yerel)</td></tr><tr><td><strong>Maks Dosya Boyutu</strong></td><td>Sınırsız (RAM'e bağlı)</td></tr></table></div><h2>Nasıl Çalışır?</h2><ol><li><strong>İçe Aktarma:</strong> Tarayıcı dosyanızı yerel belleğe okur.</li><li><strong>Çözme:</strong> Resim verisi sanal bir tuvale (canvas) çözülür.</li><li><strong>Kodlama:</strong> Tuval verisi JPEG algoritması kullanılarak yeniden kodlanır.</li><li><strong>Dışa Aktarma:</strong> Yeni bir Blob nesnesi oluşturulur ve indirilmek üzere sunulur.</li><li><strong>Temizleme:</strong> İndirme işleminden hemen sonra bellek temizlenir.</li></ol>",
+            "faq_q1": "Dosya boyutu sınırı var mı?",
+            "faq_a1": "Dosyaları cihazınızda işlediğimiz için tek sınır cihazınızın mevcut RAM miktarıdır. Genellikle birkaç yüz megabayta kadar dosyaları çevirebilirsiniz.",
+            "faq_q2": "Bu araç toplu çevirmeyi destekliyor mu?",
+            "faq_a2": "Şu anda tek dosya hassasiyetine odaklanıyoruz, ancak toplu işlem özellikleri geliştirilme aşamasındadır.",
+            "faq_q3": "Gizli belgeleri çevirebilir miyim?",
+            "faq_a3": "Evet! Dosyalarınız asla bilgisayarınızdan çıkmadığı (sunucuya yüklenmediği) için, bu, hassas belgeleri işlemek için en güvenli yöntemdir."
         },
         "jpg-to-png": {
-            "title": "JPG'den PNG'ye Çevirme – Fluxora",
-            "description": "JPG fotoğraflarını PNG formatına dönüştürün.",
+            "title": "JPG'den PNG'ye Çevirme (Kayıpsız Çıktı) – Fluxora",
+            "description": "JPG resimlerini PNG formatına çevirin. Kalite potansiyelini geri kazanın ve düzenlemeye hazırlanın. Güvenli, yerel ve ücretsiz.",
             "h1": "JPG - PNG Çevirici",
-            "content": "<p>JPG dosyalarını kayıpsız PNG formatına çevirin.</p>"
-        },
-        "png-to-avif": {
-            "title": "PNG'den AVIF'e Çevirme – Fluxora",
-            "description": "PNG resimlerini modern AVIF formatına çevirerek sıkıştırın.",
-            "h1": "PNG - AVIF Çevirici",
-            "content": "<p>Web siteniz için en iyi sıkıştırma: AVIF.</p>"
-        },
-        "avif-to-png": {
-            "title": "AVIF'ten PNG'ye Çevirme – Fluxora",
-            "description": "Açılmayan AVIF dosyalarını PNG'ye çevirin.",
-            "h1": "AVIF - PNG Çevirici",
-            "content": "<p>AVIF dosyalarını standart PNG formatına dönüştürün.</p>"
-        },
-        "jpg-to-webp": {
-            "title": "JPG'den WebP'ye Çevirme – Fluxora",
-            "description": "JPG resimlerini WebP formatına çevirin.",
-            "h1": "JPG - WebP Çevirici",
-            "content": "<p>Google'ın önerdiği WebP formatına geçiş yapın.</p>"
-        },
-        "webp-to-jpg": {
-            "title": "WebP'den JPG'e Çevirme – Fluxora",
-            "description": "WebP dosyalarını JPG formatına dönüştürün.",
-            "h1": "WebP - JPG Çevirici",
-            "content": "<p>WebP dosyalarını her yerde açılabilen JPG'e çevirin.</p>"
-        },
-        "webp-to-png": {
-            "title": "WebP'den PNG'ye Çevirme – Fluxora",
-            "description": "WebP resimlerini şeffaflığı koruyarak PNG yapın.",
-            "h1": "WebP - PNG Çevirici",
-            "content": "<p>WebP dosyalarını PNG formatına dönüştürün.</p>"
-        },
-        "png-to-webp": {
-            "title": "PNG'den WebP'ye Çevirme – Fluxora",
-            "description": "PNG dosyalarını WebP yaparak küçültün.",
-            "h1": "PNG - WebP Çevirici",
-            "content": "<p>Daha hızlı web siteleri için PNG yerine WebP kullanın.</p>"
-        },
-        "jpg-to-bmp": {
-            "title": "JPG'den BMP'ye Çevirme – Fluxora",
-            "description": "JPG resimlerini BMP formatına dönüştürün.",
-            "h1": "JPG - BMP Çevirici",
-            "content": "<p>JPG dosyalarını sıkıştırmasız BMP formatına çevirin.</p>"
-        },
-        "bmp-to-jpg": {
-            "title": "BMP'den JPG'e Çevirme – Fluxora",
-            "description": "Büyük BMP dosyalarını JPG yaparak küçültün.",
-            "h1": "BMP - JPG Çevirici",
-            "content": "<p>BMP dosyalarını JPG formatına dönüştürün.</p>"
-        },
-        "bmp-to-png": {
-            "title": "BMP'den PNG'ye Çevirme – Fluxora",
-            "description": "BMP dosyalarını PNG formatına dönüştürün.",
-            "h1": "BMP - PNG Çevirici",
-            "content": "<p>Eski BMP dosyalarını modern PNG formatına çevirin.</p>"
-        },
-        "png-to-bmp": {
-            "title": "PNG'den BMP'ye Çevirme – Fluxora",
-            "description": "PNG resimlerini BMP formatına dönüştürün.",
-            "h1": "PNG - BMP Çevirici",
-            "content": "<p>PNG dosyalarını BMP formatına çevirin.</p>"
-        },
-        "ico-to-png": {
-            "title": "ICO'dan PNG'ye Çevirme – Fluxora",
-            "description": "ICO dosyalarını PNG resmine dönüştürün.",
-            "h1": "ICO - PNG Çevirici",
-            "content": "<p>İkon dosyalarındaki resmi PNG olarak kaydedin.</p>"
-        },
-        "webp-to-avif": {
-            "title": "WebP'den AVIF'e Çevirme – Fluxora",
-            "description": "WebP'yi daha da iyi olan AVIF'e çevirin.",
-            "h1": "WebP - AVIF Çevirici",
-            "content": "<p>En iyi sıkıştırma teknolojisi AVIF'e geçin.</p>"
-        },
-        "avif-to-webp": {
-            "title": "AVIF'ten WebP'ye Çevirme – Fluxora",
-            "description": "AVIF resimlerini WebP formatına çevirin.",
-            "h1": "AVIF - WebP Çevirici",
-            "content": "<p>AVIF dosyalarını WebP formatına dönüştürün.</p>"
-        },
-        "gif-to-mp4": {
-            "title": "GIF'ten MP4'e Çevirme (Video) – Fluxora",
-            "description": "GIF animasyonlarını video (MP4) formatına çevirin.",
-            "h1": "GIF - MP4 Çevirici",
-            "content": "<p>Büyük GIF dosyalarını küçük MP4 videolarına dönüştürün.</p>"
-        },
-        "mp4-to-gif": {
-            "title": "MP4'ten GIF Yapma – Fluxora",
-            "description": "Videolarınızı GIF animasyonuna çevirin.",
-            "h1": "MP4 - GIF Çevirici",
-            "content": "<p>Videolardan harika GIFler oluşturun.</p>"
-        },
-        "video-to-mp3": {
-            "title": "Videodan Ses (MP3) Alma – Fluxora",
-            "description": "Videolardaki sesi MP3 olarak kaydedin.",
-            "h1": "Video - MP3 Dönüştürücü",
-            "content": "<p>Videodaki müziği veya konuşmayı MP3 olarak indirin.</p>"
-        },
-        "video-mute": {
-            "title": "Video Sesi Silme (Sessize Alma) – Fluxora",
-            "description": "Videolardaki sesi tamamen kaldırın.",
-            "h1": "Video Sesi Silici",
-            "content": "<p>Videonuzu sessiz hale getirin.</p>"
+            "content": "<p>Sıkıştırılmış JPG resimlerinizi kayıpsız PNG formatına dönüştürün. Daha fazla düzenleme, arşivleme veya kaydetme sırasında daha fazla kalite kaybı yaşanmamasını sağlamak istediğiniz durumlar için idealdir.</p><h2>Formatları Anlamak</h2><p><strong>JPG</strong> kayıplı sıkıştırma kullanır, yani yerden tasarruf etmek için bazı verileri atar. <strong>PNG</strong> kayıpsızdır, tüm görüntü verilerini korur. JPG'den PNG'ye çevirmek, tekrarlanan JPG kayıtlarının neden olduğu bozulma döngüsünü durdurur.</p><h2>Teknik Karşılaştırma</h2><div class='spec-table'><table><tr><th>Özellik</th><th>JPG</th><th>PNG</th></tr><tr><td>Sıkıştırma</td><td>Kayıplı</td><td>Kayıpsız</td></tr><tr><td>Şeffaflık</td><td>Hayır</td><td>Evet</td></tr><tr><td>En İyi Kullanım</td><td>Fotoğraflar</td><td>Grafikler/Yazı</td></tr></table></div>",
+             "faq_q1": "JPG'den PNG'ye çevirmek kaliteyi artırır mı?",
+            "faq_a1": "Orijinal sıkıştırmadan kaynaklanan kayıp detayları sihirli bir şekilde geri getirmez, ancak dosyayı düzenleyip tekrar kaydettiğinizde *daha fazla* kalite kaybını önler.",
+            "faq_q2": "PNG, JPG'den daha mı büyük?",
+            "faq_a2": "Evet, PNG dosyaları kayıpsız kaliteyi korumak için daha fazla veri sakladığından genellikle daha büyüktür."
         },
         "pdf-to-txt": {
-            "title": "PDF'ten Yazı (TXT) Alma – Fluxora",
-            "description": "PDF içindeki yazıları dışarı aktarın.",
-            "h1": "PDF - TXT Çevirici",
-            "content": "<p>PDF dokümanlarını yazı dosyasına çevirin.</p>"
+             "title": "PDF'ten Yazı Çıkarma (Güvenli & Yerel) – Fluxora",
+             "description": "PDF belgelerinden düz metni anında ayıklayın. Tarayıcı tabanlı ayıklama belgelerinizin gizli kalmasını sağlar.",
+             "h1": "Güvenli PDF Yazı Ayıklayıcı",
+             "content": "<p>PDF'lerden metin çıkarmak online araçlarla bir gizlilik kabusu olabilir. Fluxora bunu değiştiriyor. Belgenizi doğrudan tarayıcı sekmenizde okumak için JavaScript tabanlı bir PDF işleme motoru kullanıyoruz.</p><h2>Nasıl Çalışır?</h2><p>PDF yapısı karmaşıktır; vektör talimatları, yazı tipleri ve meta veriler içerir. Aracımız bu ikili akışı ayrıştırır, metin nesnelerini bulur ve bunları Unicode karakterlere eşleyerek temiz bir TXT dosyası çıktısı verir.</p><h2>Kullanım Alanları</h2><ul><li><strong>Veri Analizi:</strong> Elektronik tablo işleme için veri tablolarını veya raporları ayıklayın.</li><li><strong>Erişilebilirlik:</strong> Görsel PDF'leri ekran okuyucular için metne dönüştürün.</li><li><strong>Düzenleme:</strong> 'Salt okunur' bir formatın içeriğini hızlıca alın.</li></ul>",
+             "faq_q1": "OCR (Taranmış PDF) destekliyor mu?",
+             "faq_a1": "Şu anda gömülü metni ayıklıyoruz. PDF içindeki taranmış resimler OCR gerektirir, bu gelecekteki bir özelliktir.",
+             "faq_q2": "PDF'im yükleniyor mu?",
+             "faq_a2": "Asla. Tüm işlem kendi işlemciniz (CPU) tarafından yapılır."
         },
-        "word-to-txt": {
-            "title": "Word (DOCX) Yazıya Çevirme – Fluxora",
-            "description": "Word dosyalarını düz metin (TXT) yapın.",
-            "h1": "DOCX - TXT Çevirici",
-            "content": "<p>Word dosyalarındaki metni ayıklayın.</p>"
+        "png-to-avif": {
+            "title": "PNG'den AVIF'e Çevirme (Yeni Nesil Web Formatı) – Fluxora",
+            "description": "PNG'yi AVIF'e çevirin. AVIF, webp ve jpg'e kıyasla üstün sıkıştırma ve kalite sunar.",
+            "h1": "PNG - AVIF Çevirici",
+            "content": "<p>AVIF (AV1 Resim Dosya Formatı), görüntü sıkıştırmadaki en son devrimdir. JPEG'den %50'ye kadar daha küçük dosya boyutları sunarken daha iyi kalite sağlar.</p><h2>Teknik Derinlemesine Bakış</h2><p>AVIF, görüntü dizileri için AV1 video kodekini kullanır. Şunları destekler:</p><ul><li>Yüksek Dinamik Aralık (HDR)</li><li>Geniş Renk Gamı (WCG)</li><li>Şeffaflık ve katmanlar</li><li>Kayıplı ve Kayıpsız sıkıştırma</li></ul>"
         },
-        "txt-to-docx": {
-            "title": "Yazıyı Word (DOCX) Yapma – Fluxora",
-            "description": "TXT dosyalarını Word belgesine çevirin.",
-            "h1": "TXT - DOCX Çevirici",
-            "content": "<p>Not defteri dosyalarını Word'e aktarın.</p>"
+        "avif-to-png": {
+            "title": "AVIF'ten PNG'ye Çevirme (Uyumluluk Modu) – Fluxora",
+            "description": "Modern AVIF dosyalarını yaygın olarak uyumlu PNG formatına çevirin.",
+            "h1": "AVIF - PNG Çevirici",
+            "content": "<p>AVIF verimli olsa da, eski tarayıcılar ve resim düzenleyiciler henüz desteklemeyebilir. Herkesin resimlerinizi görebilmesini sağlamak için AVIF dosyalarınızı PNG'ye çevirin.</p>"
         },
-        "txt-to-pdf": {
-            "title": "Yazıyı PDF Yapma – Fluxora",
-            "description": "TXT dosyalarını PDF belgesine çevirin.",
-            "h1": "TXT - PDF Çevirici",
-            "content": "<p>Metin dosyalarından PDF oluşturun.</p>"
+        "jpg-to-webp": {
+            "title": "JPG'den WebP'ye Çevirme (Google Önerisi) – Fluxora",
+            "description": "Web sitenizin resimlerini JPG'den WebP'ye çevirerek optimize edin.",
+            "h1": "JPG - WebP Çevirici",
+            "content": "<p>WebP, web üzerindeki görüntüler için üstün kayıpsız ve kayıplı sıkıştırma sağlayan modern bir görüntü formatıdır. Webyöneticileri ve geliştiriciler WebP kullanarak webi hızlandıran daha küçük, daha zengin görüntüler oluşturabilirler.</p>"
         },
-        "png-to-ico": {
-            "title": "PNG'den ICO Yapma (Favicon) – Fluxora",
-            "description": "PNG resimlerini site ikonu (ICO) yapın.",
-            "h1": "PNG - ICO Çevirici",
-            "content": "<p>Web siteniz için favicon oluşturun.</p>"
+        "webp-to-jpg": {
+            "title": "WebP'den JPG'e Çevirme (Standartlaştırma) – Fluxora",
+            "description": "WebP dosyalarını evrensel JPG formatına çevirin.",
+            "h1": "WebP - JPG Çevirici",
+            "content": "<p>Favori resim görüntüleyicinizde açamadığınız bir WebP dosyanız varsa, onu JPG'e çevirmek en hızlı çözümdür.</p>"
         },
-        "json-formatter": {
-            "title": "JSON Düzenleyici ve Güzelleştirici – Fluxora",
-            "description": "Karmaşık JSON verilerini okunaklı hale getirin.",
-            "h1": "JSON Düzenleyici",
-            "content": "<p>JSON verilerinizi yapıştırın ve düzenlenmiş halini alın.</p>"
-        },
-        "lorem-ipsum": {
-            "title": "Lorem Ipsum Oluşturucu – Fluxora",
-            "description": "Tasarımlarınız için rastgele yazı üretin.",
-            "h1": "Lorem Ipsum Üretici",
-            "content": "<p>Tasarım boşluklarını doldurmak için yazı üretin.</p>"
-        },
-        "slug-generator": {
-            "title": "URL Slug (Link) Oluşturucu – Fluxora",
-            "description": "Başlıkları SEO uyumlu linklere çevirin.",
-            "h1": "Slug Oluşturucu",
-            "content": "<p>Yazı başlıklarını internet linkine dönüştürün.</p>"
-        },
-        "markdown-to-html": {
-            "title": "Markdown - HTML Çevirici – Fluxora",
-            "description": "Markdown yazılarını HTML koduna çevirin.",
-            "h1": "Markdown - HTML",
-            "content": "<p>Markdown formatındaki yazıları HTML sitenize uygun hale getirin.</p>"
-        },
-        "qr-generator": {
-            "title": "Karekod (QR) Oluşturucu – Fluxora",
-            "description": "İstediğiniz link veya yazı için QR kod oluşturun.",
-            "h1": "QR Kod Oluşturucu",
-            "content": "<p>Telefonla okutulabilir karekodlar yapın.</p>"
-        },
-        "password-generator": {
-            "title": "Güvenli Şifre Oluşturucu – Fluxora",
-            "description": "Kırılması zor, rastgele şifreler üretin.",
-            "h1": "Şifre Oluşturucu",
-            "content": "<p>Hesaplarınız için güvenli şifreler yaratın.</p>"
-        },
-        "word-counter": {
-            "title": "Kelime ve Karakter Sayacı – Fluxora",
-            "description": "Metninizdeki kelime ve harfleri sayın.",
-            "h1": "Kelime Sayacı",
-            "content": "<p>Yazınızın ne kadar uzun olduğunu anında görün.</p>"
+         "video-mute": {
+            "title": "Videodan Sesi Kaldırma (MP4 Sessize Alma) – Fluxora",
+            "description": "Video akışını yeniden kodlamadan ses parçalarını video dosyalarından ayırın. Anında ve kayıpsız.",
+            "h1": "Anında Video Sessize Alıcı",
+            "content": "<p>Çoğu çevrimiçi video düzenleyici videonuzu yeniden kodlar, bu da kaliteyi düşürür ve zaman alır. Fluxora video konteynerini (MP4/WebM) analiz eder ve sadece ses parçasına olan referansı kaldırır. Bu, video akışının dokunulmadan kaldığı (Kayıpsız) ve işlemin neredeyse anlık olduğu anlamına gelir.</p><h2>Desteklenen Formatlar</h2><ul><li>MP4 (H.264, H.265)</li><li>WebM (VP8, VP9)</li><li>MOV (QuickTime)</li></ul>"
         },
         "internet-speed-test": {
-            "title": "İnternet Hız Testi (1000 Mbps Destekli) – Fluxora",
-            "description": "İnternet hızınızı en doğru şekilde ölçün. Fiber ve Gigabit destekli.",
-            "h1": "İnternet Hız Testi",
-            "content": "<p>İnternet hızınız ne kadar? Hemen test edin.</p>"
-        }
+             "title": "Profesyonel İnternet Hız Testi (Gecikme & Jitter) – Fluxora",
+             "description": "Genişbant hızınızı doğru bir şekilde test edin. İndirme, Yükleme, Ping ve Jitter ölçümlerini içerir.",
+             "h1": "Gelişmiş Hız Testi",
+             "content": "<p>Bağlantı kalitenizi anlayın. Hız testimiz, gerçek maksimum kapasiteyi bulmak için bant genişliğinizi etkili bir şekilde doldurur.</p><h2>Tanımlar</h2><ul><li><strong>İndirme Hızı:</strong> Verilerin internetten size ne kadar hızlı geldiği.</li><li><strong>Yükleme Hızı:</strong> Verileri internete ne kadar hızlı gönderdiğiniz.</li><li><strong>Ping (Gecikme):</strong> Bağlantınızın tepki süresi.</li><li><strong>Jitter:</strong> Ping süresindeki değişkenlik (oyunlar için önemlidir).</li></ul>"
+        },
+        "webp-to-png": { "title": "WebP'den PNG'ye", "description": "WebP'yi PNG yap.", "h1": "WebP - PNG", "content": "<p>WebP'yi PNG yap.</p>" },
+        "png-to-webp": { "title": "PNG'den WebP'ye", "description": "PNG'yi WebP yap.", "h1": "PNG - WebP", "content": "<p>PNG'yi WebP yap.</p>" },
+        "jpg-to-bmp": { "title": "JPG'den BMP'ye", "description": "JPG'yi BMP yap.", "h1": "JPG - BMP", "content": "<p>JPG'yi BMP yap.</p>" },
+        "bmp-to-jpg": { "title": "BMP'den JPG'ye", "description": "BMP'yi JPG yap.", "h1": "BMP - JPG", "content": "<p>BMP'yi JPG yap.</p>" },
+        "bmp-to-png": { "title": "BMP'den PNG'ye", "description": "BMP'yi PNG yap.", "h1": "BMP - PNG", "content": "<p>BMP'yi PNG yap.</p>" },
+        "png-to-bmp": { "title": "PNG'den BMP'ye", "description": "PNG'yi BMP yap.", "h1": "PNG - BMP", "content": "<p>PNG'yi BMP yap.</p>" },
+        "ico-to-png": { "title": "ICO'dan PNG'ye", "description": "ICO'yu PNG yap.", "h1": "ICO - PNG", "content": "<p>ICO'yu PNG yap.</p>" },
+        "webp-to-avif": { "title": "WebP'den AVIF'e", "description": "WebP'yi AVIF yap.", "h1": "WebP - AVIF", "content": "<p>WebP'yi AVIF yap.</p>" },
+        "avif-to-webp": { "title": "AVIF'ten WebP'ye", "description": "AVIF'i WebP yap.", "h1": "AVIF - WebP", "content": "<p>AVIF'i WebP yap.</p>" },
+        "gif-to-mp4": { "title": "GIF'ten MP4'e", "description": "GIF'i MP4 yap.", "h1": "GIF - MP4", "content": "<p>GIF'i MP4 yap.</p>" },
+        "mp4-to-gif": { "title": "MP4'ten GIF'e", "description": "MP4'ü GIF yap.", "h1": "MP4 - GIF", "content": "<p>MP4'ü GIF yap.</p>" },
+         "video-to-mp3": { "title": "Videodan MP3'e", "description": "Videoyu MP3 yap.", "h1": "Video - MP3", "content": "<p>Videoyu MP3 yap.</p>" },
+         "word-to-txt": { "title": "Word'den TXT'ye", "description": "Word'ü TXT yap.", "h1": "Word - TXT", "content": "<p>Word'ü TXT yap.</p>" },
+         "txt-to-docx": { "title": "TXT'den Word'e", "description": "TXT'yi Word yap.", "h1": "TXT - Word", "content": "<p>TXT'yi Word yap.</p>" },
+         "txt-to-pdf": { "title": "TXT'den PDF'e", "description": "TXT'yi PDF yap.", "h1": "TXT - PDF", "content": "<p>TXT'yi PDF yap.</p>" },
+         "png-to-ico": { "title": "PNG'den ICO'ya", "description": "PNG'yi ICO yap.", "h1": "PNG - ICO", "content": "<p>PNG'yi ICO yap.</p>" },
+         "json-formatter": { "title": "JSON Düzenleyici", "description": "JSON düzenle.", "h1": "JSON Düzenleyici", "content": "<p>JSON düzenle.</p>" },
+         "lorem-ipsum": { "title": "Lorem Ipsum", "description": "Lorem Ipsum üret.", "h1": "Lorem Ipsum", "content": "<p>Lorem Ipsum üret.</p>" },
+         "slug-generator": { "title": "Slug Oluşturucu", "description": "Slug üret.", "h1": "Slug Oluşturucu", "content": "<p>Slug üret.</p>" },
+         "markdown-to-html": { "title": "Markdown'dan HTML'e", "description": "MD'yi HTML yap.", "h1": "Markdown - HTML", "content": "<p>MD'yi HTML yap.</p>" },
+         "qr-generator": { "title": "QR Oluşturucu", "description": "QR üret.", "h1": "QR Oluşturucu", "content": "<p>QR üret.</p>" },
+         "password-generator": { "title": "Şifre Oluşturucu", "description": "Şifre üret.", "h1": "Şifre Oluşturucu", "content": "<p>Şifre üret.</p>" },
+         "word-counter": { "title": "Kelime Sayacı", "description": "Kelime say.", "h1": "Kelime Sayacı", "content": "<p>Kelime say.</p>" }
     },
     "about": {
-        "title": "Hakkımızda | Fluxora",
-        "description": "Fluxora, ücretsiz ve güvenli online dosya araçları platformudur.",
-        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Hakkımızda</h1><p>Fluxora, herkesin dosya işlemlerini hızlı ve güvenli bir şekilde yapabilmesi için kurulmuştur.</p><h2>Değerlerimiz</h2><ul><li><strong>Gizlilik:</strong> Dosyalarınız sunucuya yüklenmez.</li><li><strong>Hız:</strong> Bekleme süresi yok.</li><li><strong>Basitlik:</strong> Kolay kullanım.</li></ul></div>"
+        "title": "Hakkımızda | Fluxora – Güvenli İşlem Standardı",
+        "description": "Fluxora sunucusuz araç devrimine öncülük ediyor. Verilerinizi nasıl güvende tuttuğumuzu öğrenin.",
+        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Hakkımızda</h1><p>Veri ihlalleri ve gizlilik endişeleri çağında, Fluxora ayrı bir yerde duruyor. Güven gerektirmeyen bir platform oluşturduk, çünkü erişim gerektirmiyor. Araçlarımız, cihazınızın işlem gücünü kullanarak tarayıcınızda çalışır.</p><h2>Mimarimiz</h2><p>Geleneksel online çeviriciler dosyanızı bir bulut sunucusuna yükler, işler ve geri gönderir. Bu bir risk noktası oluşturur. Fluxora, verileri istemci tarafında işlemek için WebAssembly ve modern JavaScript API'lerini (Canvas, Blob, FileReader) kullanır.</p><h2>Geliştirici</h2><p>Fluxora, açık internet araçlarına adanmış bağımsız geliştirici <span class='sys-id'>SYS_0xA7</span> tarafından sürdürülmektedir.</p></div>"
     },
     "privacy": {
-        "title": "Gizlilik Politikası | Fluxora",
-        "description": "Fluxora Gizlilik Politikası. Verilerinizi saklamıyoruz.",
-        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Gizlilik Politikası</h1><p>Fluxora'da gizliliğiniz önemlidir. İşlemler tarayıcınızda yapılır, sunucularımıza dosya yüklenmez.</p></div>"
+        "title": "Gizlilik Politikası – Sıfır Veri Toplama",
+        "description": "Fluxora dosyalarınızı toplamaz, saklamaz veya sunucularımızda işlemez. Nokta.",
+        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Gizlilik Politikası</h1><p><strong>Geçerlilik Tarihi:</strong> Ocak 2025</p><p>Bu politika Fluxora'nın verilerinizi nasıl işlediğini açıklar.</p><h3>1. Dosya Yükleme Yok</h3><p>Dosyalarınızı alacak sunucularımız yok. Fluxora'ya bir dosya 'içe aktardığınızda', tarayıcınızın bellek koruma alanında kalır.</p><h3>2. Yerel Depolama (LocalStorage)</h3><p>LocalStorage'ı sadece kullanıcı tercihlerini (tema veya dil gibi) kaydetmek için kullanırız. Sizi izlemek için kullanmayız.</p><h3>3. Harici Hizmetler</h3><p>Web sitesi kodunu dağıtmak için üçüncü taraf CDN'leri (Cloudflare veya Vercel gibi) kullanabiliriz. Bu sağlayıcılar standart internet bağlantısının bir parçası olarak IP adresinizi görebilir, ancak çevirdiğiniz dosyaları göremezler.</p></div>"
     }
 }

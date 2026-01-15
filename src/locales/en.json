@@ -1,218 +1,113 @@
 {
     "home": {
-        "title": "Fluxora – Ultimate Online File Conversion & Media Tools",
-        "description": "Free, secure, and fast online tools to convert images (WebP, PNG, JPG, BMP), documents, and video. No registration required. Client-side processing for maximum privacy.",
-        "keywords": "file converter, image converter, video tools, online tools, free file tools, png to jpg, pdf to txt, internet speed test, client-side tools",
-        "h1": "Fast, Secure, and 100% Free File Tools"
+        "title": "Fluxora – Professional Online File Conversion & Media Utilities",
+        "description": "Premium free online tools for unlimited file conversion. Convert between PNG, JPG, WebP, AVIF, BMP, ICO and more. Secure client-side processing, no uploads, no limits.",
+        "keywords": "file converter, image converter, video tools, online tools, free file tools, client-side tools, secure conversion, png to jpg high quality",
+        "h1": "The Ultimate Secure File Conversion Suite"
     },
-    "total_operations": "Total Operations",
-    "faq_title": "Frequently Asked Questions",
+    "total_operations": "Total Secured Operations",
+    "faq_title": "Frequently Asked Questions & Technical Details",
     "tools": {
         "png-to-jpg": {
-            "title": "Convert PNG to JPG Online (Fast & Secure) – Fluxora",
-            "description": "Convert PNG images to JPG instantly in your browser. No file upload required – verified secure and free high-quality conversion.",
+            "title": "Convert PNG to JPG Online (High Fidelity & Secure) – Fluxora",
+            "description": "Convert PNG to JPG instantly with no file upload. Technical details: Canvas API based, adjustable quality, client-side security. The safest way to convert images.",
             "h1": "PNG to JPG Converter",
-            "content": "<p>Need to convert a PNG image to JPG? Fluxora offers the fastest and most secure solution. Unlike other servers, we process your images directly in your browser using advanced HTML5 technology.</p><h2>How to Convert PNG to JPG?</h2><ol><li><strong>Select File:</strong> Drag and drop your PNG file into the box above.</li><li><strong>Convert:</strong> The tool will automatically process the image.</li><li><strong>Download:</strong> Click the download button to save your new JPG file.</li></ol><h2>Why Use Fluxora?</h2><ul><li><strong>100% Secure:</strong> Your photos never leave your device.</li><li><strong>No Quality Loss:</strong> We use high-fidelity compression.</li><li><strong>Unlimited:</strong> Convert as many files as you want for free.</li></ul>",
-            "faq_q1": "Is it free?",
-            "faq_a1": "Yes, completely free with no daily limits.",
-            "faq_q2": "Do you lose transparency?",
-            "faq_a2": "JPG does not support transparency, so transparent areas will become white."
+            "content": "<p>Experience the fastest and most secure way to convert PNG images to JPG format. Unlike traditional converters that require you to upload your sensitive files to a remote server, Fluxora performs the entire conversion process locally within your web browser using advanced HTML5 Canvas technology.</p><h2>What is PNG?</h2><p>PNG (Portable Network Graphics) is a raster-graphics file-format that supports lossless data compression. It allows for transparency (alpha channel), making it ideal for web graphics, logos, and overlays.</p><h2>What is JPG?</h2><p>JPG (or JPEG) is a commonly used method of lossy compression for digital images, particularly for those images produced by digital photography. The degree of compression can be adjusted, allowing a selectable tradeoff between storage size and image quality.</p><h3>Why convert PNG to JPG?</h3><p>While PNGs are great for quality, they can be large in file size. Converting to JPG significantly reduces the file size, making it easier to share via email, upload to websites, or store on devices with limited capacity.</p><h2>Technical Specifications</h2><div class='spec-table'><table><tr><td><strong>Input Format</strong></td><td>PNG (Portable Network Graphics)</td></tr><tr><td><strong>Output Format</strong></td><td>JPG (Joint Photographic Experts Group)</td></tr><tr><td><strong>Processing Type</strong></td><td>Client-Side (Browser)</td></tr><tr><td><strong>Security</strong></td><td>End-to-End Encryption (Local)</td></tr><tr><td><strong>Max File Size</strong></td><td>Unlimited (Depends on RAM)</td></tr></table></div><h2>How it Works</h2><ol><li><strong>Import:</strong> The browser reads your file into local memory.</li><li><strong>Decoding:</strong> The image data is decoded onto a virtual canvas.</li><li><strong>Encoding:</strong> The canvas data is re-encoded using the JPEG algorithm.</li><li><strong>Export:</strong> A new Blob object is created and served for download.</li><li><strong>Cleanup:</strong> Memory is immediately freed after download.</li></ol>",
+            "faq_q1": "Is there a file size limit?",
+            "faq_a1": "Since we process files on your device, the only limit is your device's available RAM. You can typically convert files up to several hundred megabytes.",
+            "faq_q2": "Does this tool support batch conversion?",
+            "faq_a2": "Currently, we focus on single-file precision, but batch processing features are in development.",
+            "faq_q3": "Can I convert confidential documents?",
+            "faq_a3": "Yes! Because your files never leave your computer (no server upload), this is the safest method for handling sensitive documents."
         },
         "jpg-to-png": {
-            "title": "Convert JPG to PNG Online (High Quality) – Fluxora",
-            "description": "Transform your JPG photos into PNG format suitable for editing and web use. Free, fast, and secure conversion.",
+            "title": "Convert JPG to PNG Online (Lossless Output) – Fluxora",
+            "description": "Convert JPG images to PNG format. Recover quality potential and prepare for editing. Secure, local, and free.",
             "h1": "JPG to PNG Converter",
-            "content": "<p>Convert your JPEG/JPG images to the lossless PNG format easily.</p><h2>How to use?</h2><ol><li>Upload your JPG image.</li><li>Wait for the instant conversion.</li><li>Download your high-quality PNG.</li></ol><h2>Features</h2><ul><li>Preserves image details.</li><li>Works on Mobile and Desktop.</li><li>No software installation needed.</li></ul>"
-        },
-        "png-to-avif": {
-            "title": "Convert PNG to AVIF (Next-Gen Compression) – Fluxora",
-            "description": "Reduce file size significantly by converting PNG to AVIF. The modern image format for the web.",
-            "h1": "PNG to AVIF Converter",
-            "content": "<p>AVIF is a modern image format that offers superior compression. Use this tool to modernize your website images.</p><h2>Benefits of AVIF</h2><ul><li>Smaller file sizes than JPEG and WebP.</li><li>HDR color support.</li><li>Supported by modern browsers.</li></ul>"
-        },
-        "avif-to-png": {
-            "title": "Convert AVIF to PNG Online – Fluxora",
-            "description": "Convert AVIF files back to standard PNG format for broad compatibility.",
-            "h1": "AVIF to PNG Converter",
-            "content": "<p>Having trouble opening an AVIF file? Convert it to the universally supported PNG format instantly.</p><h2>Steps</h2><ol><li>Upload AVIF file.</li><li>Click Convert.</li><li>Download PNG.</li></ol>"
-        },
-        "jpg-to-webp": {
-            "title": "Convert JPG to WebP (Web Optimization) – Fluxora",
-            "description": "Optimize your images for websites by converting JPG to WebP. Google recommended format.",
-            "h1": "JPG to WebP Converter",
-            "content": "<p>WebP images are 25-35% smaller than comparable JPEG images. Make your website load faster.</p>"
-        },
-        "webp-to-jpg": {
-            "title": "Convert WebP to JPG Online – Fluxora",
-            "description": "Convert WebP images to standard JPG format for sharing and compatibility.",
-            "h1": "WebP to JPG Converter",
-            "content": "<p>Convert Google's WebP format to the standard JPG format compatible with all image viewers.</p>"
-        },
-        "webp-to-png": {
-            "title": "Convert WebP to PNG (Transparent) – Fluxora",
-            "description": "Convert WebP to PNG while preserving quality and transparency.",
-            "h1": "WebP to PNG Converter",
-            "content": "<p>Need a PNG from a WebP source? We handle it instantly.</p>"
-        },
-        "png-to-webp": {
-            "title": "Convert PNG to WebP Online – Fluxora",
-            "description": "Convert PNG to WebP for smaller file sizes with transparency support.",
-            "h1": "PNG to WebP Converter",
-            "content": "<p>Reduce your PNG file sizes dramatically by converting to WebP.</p>"
-        },
-        "jpg-to-bmp": {
-            "title": "Convert JPG to BMP – Fluxora",
-            "description": "Convert compressed JPG images to uncompressed BMP format.",
-            "h1": "JPG to BMP Converter",
-            "content": "<p>Create a raw bitmap (BMP) file from your JPG image.</p>"
-        },
-        "bmp-to-jpg": {
-            "title": "Convert BMP to JPG – Fluxora",
-            "description": "Compress large BMP files into efficient JPG images.",
-            "h1": "BMP to JPG Converter",
-            "content": "<p>Save disk space by converting large Bitmap files to JPG.</p>"
-        },
-        "bmp-to-png": {
-            "title": "Convert BMP to PNG Online – Fluxora",
-            "description": "Convert BMP to PNG for web usage. Lossless conversion.",
-            "h1": "BMP to PNG Converter",
-            "content": "<p>Transform old BMP files into the modern, web-friendly PNG format.</p>"
-        },
-        "png-to-bmp": {
-            "title": "Convert PNG to BMP – Fluxora",
-            "description": "Convert PNG to BMP format. Useful for legacy software.",
-            "h1": "PNG to BMP Converter",
-            "content": "<p>Need a BMP file? Convert your PNGs instantly.</p>"
-        },
-        "ico-to-png": {
-            "title": "Convert ICO to PNG – Fluxora",
-            "description": "Extract images from ICO files to standard PNG format.",
-            "h1": "ICO to PNG Converter",
-            "content": "<p>Get the high-quality image inside an icon file by converting ICO to PNG.</p>"
-        },
-        "webp-to-avif": {
-            "title": "Convert WebP to AVIF – Fluxora",
-            "description": "Convert WebP to the even more efficient AVIF format.",
-            "h1": "WebP to AVIF Converter",
-            "content": "<p>Upgrade from WebP to AVIF for the absolute best compression rates available today.</p>"
-        },
-        "avif-to-webp": {
-            "title": "Convert AVIF to WebP – Fluxora",
-            "description": "Convert AVIF images to WebP format.",
-            "h1": "AVIF to WebP Converter",
-            "content": "<p>Convert AVIF to the widely supported WebP format.</p>"
-        },
-        "gif-to-mp4": {
-            "title": "Convert GIF to MP4 (Video) – Fluxora",
-            "description": "Turn oversized GIFs into efficient, shareable MP4 videos.",
-            "h1": "GIF to MP4 Converter",
-            "content": "<p>GIFs are huge files. Convert them to MP4 to reduce size by up to 90% and allow for pausing/seeking.</p>"
-        },
-        "mp4-to-gif": {
-            "title": "Convert MP4 to GIF Animation – Fluxora",
-            "description": "Create GIFs from your MP4 videos instantly.",
-            "h1": "MP4 to GIF Converter",
-            "content": "<p>Turn your video clips into shareable, looping GIF animations.</p>"
-        },
-        "video-to-mp3": {
-            "title": "Video to MP3 Extractor – Fluxora",
-            "description": "Extract high-quality audio (MP3) from any video file.",
-            "h1": "Video to MP3 Converter",
-            "content": "<p>Want just the song or speech from a video? Extract it as an MP3 file in seconds.</p>"
-        },
-        "video-mute": {
-            "title": "Mute Video Online (Remove Audio) – Fluxora",
-            "description": "Remove sound from video files instantly. Fast and free.",
-            "h1": "Remove Audio from Video",
-            "content": "<p>Create a silent video by stripping the audio track. Useful for background videos or copyright compliance.</p>"
+            "content": "<p>Transform your compressed JPG images into the lossless PNG format. ideal for further editing, archiving, or when you need to ensure no further quality loss occurs during saving.</p><h2>Understanding the Formats</h2><p><strong>JPG</strong> uses lossy compression, meaning it discards some data to save space. <strong>PNG</strong> is lossless, retaining all image data. Converting JPG to PNG stops the degradation cycle of repeated JPG saves.</p><h2>Technical Comparison</h2><div class='spec-table'><table><tr><th>Feature</th><th>JPG</th><th>PNG</th></tr><tr><td>Compression</td><td>Lossy</td><td>Lossless</td></tr><tr><td>Transparency</td><td>No</td><td>Yes</td></tr><tr><td>Best For</td><td>Photos</td><td>Graphics/Text</td></tr></table></div>",
+             "faq_q1": "Will converting JPG to PNG improve quality?",
+            "faq_a1": "It will not magically restore lost details from the original compression, but it prevents *further* quality loss when you edit and save the file again.",
+            "faq_q2": "Is PNG larger than JPG?",
+            "faq_a2": "Yes, PNG files are typically larger because they store more data to maintain lossless quality."
         },
         "pdf-to-txt": {
-            "title": "PDF to Text Converter – Fluxora",
-            "description": "Extract plain text from PDF documents for editing.",
-            "h1": "PDF to TXT Converter",
-            "content": "<p>Locked in a PDF? Extract the text content into a simple TXT file.</p>"
+             "title": "Extract Text from PDF (Secure & Local) – Fluxora",
+             "description": "Extract plain text from PDF documents instantly. Browser-based extraction ensures your documents remain private.",
+             "h1": "Secure PDF Text Extractor",
+             "content": "<p>Extracting text from PDFs can be a privacy nightmare with online tools. Fluxora changes that. We use a JavaScript-based PDF parsing engine to read your document directly in your browser tab.</p><h2>How it Works</h2><p>The PDF structure is complex, containing vector instructions, fonts, and metadata. Our tool parses this binary stream, locates text objects, and maps them to Unicode characters, outputting a clean TXT file.</p><h2>Use Cases</h2><ul><li><strong>Data Analysis:</strong> Extract data tables or reports for spreadsheet processing.</li><li><strong>Accessibility:</strong> Convert visual PDFs to text for screen readers.</li><li><strong>Editing:</strong> Quickly get the content out of a 'read-only' format.</li></ul>",
+             "faq_q1": "Does it support OCR (Scanned PDFs)?",
+             "faq_a1": "Currently, we extract embedded text. Scanned images inside PDFs require OCR, which is a future feature.",
+             "faq_q2": "Is my PDF uploaded?",
+             "faq_a2": "Never. All processing is done by your own CPU."
         },
-        "word-to-txt": {
-            "title": "Word (DOCX) to Text Converter – Fluxora",
-            "description": "Convert Word documents to plain text files.",
-            "h1": "DOCX to TXT Converter",
-            "content": "<p>Strip formatting and get the raw text from your Word documents.</p>"
+        "png-to-avif": {
+            "title": "Convert PNG to AVIF (Next-Gen Web Format) – Fluxora",
+            "description": "Convert PNG to AVIF. AVIF offers superior compression and quality compared to webp and jpg.",
+            "h1": "PNG to AVIF Converter",
+            "content": "<p>AVIF (AV1 Image File Format) is the latest revolution in image compression. It offers up to 50% smaller file sizes than JPEG with better quality.</p><h2>Technical Deep Dive</h2><p>AVIF uses the AV1 video codec for image sequences. It supports:</p><ul><li>High Dynamic Range (HDR)</li><li>Wide Color Gamut (WCG)</li><li>Transparency and overlays</li><li>Lossy and Lossless compression</li></ul>"
         },
-        "txt-to-docx": {
-            "title": "Convert Text to Word (DOCX) – Fluxora",
-            "description": "Convert plain text files into Microsoft Word documents.",
-            "h1": "TXT to DOCX Converter",
-            "content": "<p>Turn your notes into a formal Word document.</p>"
+        "avif-to-png": {
+            "title": "Convert AVIF to PNG (Compatibility Mode) – Fluxora",
+            "description": "Convert modern AVIF files to widely compatible PNG format.",
+            "h1": "AVIF to PNG Converter",
+            "content": "<p>While AVIF is efficient, older browsers and image editors may not support it yet. Convert your AVIF files to PNG to ensure everyone can view your images.</p>"
         },
-        "txt-to-pdf": {
-            "title": "Convert Text to PDF – Fluxora",
-            "description": "Convert text files to professional PDF documents.",
-            "h1": "TXT to PDF Converter",
-            "content": "<p>Create a universally readable PDF from your text files.</p>"
+        "jpg-to-webp": {
+            "title": "Convert JPG to WebP (Google Recommended) – Fluxora",
+            "description": "Optimize your website images by converting JPG to WebP.",
+            "h1": "JPG to WebP Converter",
+            "content": "<p>WebP is a modern image format that provides superior lossless and lossy compression for images on the web. Using WebP, webmasters and web developers can create smaller, richer images that make the web faster.</p>"
         },
-        "png-to-ico": {
-            "title": "PNG to ICO Converter (Favicon) – Fluxora",
-            "description": "Create favicons from PNG images. Supports transparency.",
-            "h1": "PNG to ICO Converter",
-            "content": "<p>Create the perfect favicon for your website by converting PNG to ICO.</p>"
+        "webp-to-jpg": {
+            "title": "Convert WebP to JPG (Standardize) – Fluxora",
+            "description": "Convert WebP files to the universal JPG format.",
+            "h1": "WebP to JPG Converter",
+            "content": "<p>If you have a WebP file that you can't open in your favorite image viewer, converting it to JPG is the quickest solution.</p>"
         },
-        "json-formatter": {
-            "title": "JSON Formatter & Validator – Fluxora",
-            "description": "Beautify and validate JSON code. Developer tools.",
-            "h1": "JSON Formatter",
-            "content": "<p>Make your JSON readable. Paste minified JSON and get a structured, beautiful output.</p>"
-        },
-        "lorem-ipsum": {
-            "title": "Lorem Ipsum Generator – Fluxora",
-            "description": "Generate placeholder text for design and mockups.",
-            "h1": "Lorem Ipsum Generator",
-            "content": "<p>Quickly generate 'Lorem Ipsum' placeholder text for your design projects.</p>"
-        },
-        "slug-generator": {
-            "title": "URL Slug Generator – Fluxora",
-            "description": "Create SEO-friendly URL slugs from text strings.",
-            "h1": "Slug Generator",
-            "content": "<p>Convert article titles into clean, SEO-friendly URL slugs.</p>"
-        },
-        "markdown-to-html": {
-            "title": "Markdown to HTML Converter – Fluxora",
-            "description": "Convert Markdown syntax to raw HTML code.",
-            "h1": "Markdown to HTML",
-            "content": "<p>Write in Markdown, publish in HTML. A simple converter for writers and bloggers.</p>"
-        },
-        "qr-generator": {
-            "title": "QR Code Generator (Free) – Fluxora",
-            "description": "Create custom QR codes for URLs, text, and more.",
-            "h1": "QR Code Generator",
-            "content": "<p>Generate scannable QR codes for your website, Wi-Fi, or business card.</p>"
-        },
-        "password-generator": {
-            "title": "Secure Password Generator – Fluxora",
-            "description": "Generate strong, random passwords to protect your accounts.",
-            "h1": "Password Generator",
-            "content": "<p>Create uncrackable passwords with custom length and character settings.</p>"
-        },
-        "word-counter": {
-            "title": "Online Word Counter – Fluxora",
-            "description": "Count words, characters, sentences, and paragraphs.",
-            "h1": "Word Counter Tool",
-            "content": "<p>A simple tool to count words and characters in your text. Perfect for essays and posts.</p>"
+         "video-mute": {
+            "title": "Remove Audio from Video (Mute MP4) – Fluxora",
+            "description": "Strip audio tracks from video files without re-encoding the video stream. Instant and lossless.",
+            "h1": "Instant Video Muter",
+            "content": "<p>Most online video editors re-encode your video, which reduces quality and takes time. Fluxora analyzes the video container (MP4/WebM) and simply removes the reference to the audio track. This means the video stream is untouched (Lossless) and the process is nearly instant.</p><h2>Supported Formats</h2><ul><li>MP4 (H.264, H.265)</li><li>WebM (VP8, VP9)</li><li>MOV (QuickTime)</li></ul>"
         },
         "internet-speed-test": {
-            "title": "Internet Speed Test (Gigabit & accurate) – Fluxora",
-            "description": "Test your download, upload and ping speeds accurately.",
-            "h1": "Internet Speed Test",
-            "content": "<p>How fast is your internet? Test it now with our high-performance server network.</p><h2>How it works</h2><p>We download small chunks of data to your browser to calculate the exact speed of your connection.</p>"
-        }
+             "title": "Professional Internet Speed Test (Latency & Jitter) – Fluxora",
+             "description": "Test your broadband speed accurately. Measures Download, Upload, Ping and Jitter.",
+             "h1": "Advanced Speed Test",
+             "content": "<p>Understand your connection quality. Our speed test effectively saturates your bandwidth to find the true maximum capacity.</p><h2>Definitions</h2><ul><li><strong>Download Speed:</strong> How fast data comes from the internet to you.</li><li><strong>Upload Speed:</strong> How fast you send data to the internet.</li><li><strong>Ping (Latency):</strong> The reaction time of your connection.</li><li><strong>Jitter:</strong> The variability in ping over time (important for gaming).</li></ul>"
+        },
+        "webp-to-png": { "title": "WebP to PNG", "description": "Convert WebP to PNG.", "h1": "WebP to PNG", "content": "<p>Convert WebP to PNG.</p>" },
+        "png-to-webp": { "title": "PNG to WebP", "description": "Convert PNG to WebP.", "h1": "PNG to WebP", "content": "<p>Convert PNG to WebP.</p>" },
+        "jpg-to-bmp": { "title": "JPG to BMP", "description": "Convert JPG to BMP.", "h1": "JPG to BMP", "content": "<p>Convert JPG to BMP.</p>" },
+        "bmp-to-jpg": { "title": "BMP to JPG", "description": "Convert BMP to JPG.", "h1": "BMP to JPG", "content": "<p>Convert BMP to JPG.</p>" },
+        "bmp-to-png": { "title": "BMP to PNG", "description": "Convert BMP to PNG.", "h1": "BMP to PNG", "content": "<p>Convert BMP to PNG.</p>" },
+        "png-to-bmp": { "title": "PNG to BMP", "description": "Convert PNG to BMP.", "h1": "PNG to BMP", "content": "<p>Convert PNG to BMP.</p>" },
+        "ico-to-png": { "title": "ICO to PNG", "description": "Convert ICO to PNG.", "h1": "ICO to PNG", "content": "<p>Convert ICO to PNG.</p>" },
+        "webp-to-avif": { "title": "WebP to AVIF", "description": "Convert WebP to AVIF.", "h1": "WebP to AVIF", "content": "<p>Convert WebP to AVIF.</p>" },
+        "avif-to-webp": { "title": "AVIF to WebP", "description": "Convert AVIF to WebP.", "h1": "AVIF to WebP", "content": "<p>Convert AVIF to WebP.</p>" },
+        "gif-to-mp4": { "title": "GIF to MP4", "description": "Convert GIF to MP4.", "h1": "GIF to MP4", "content": "<p>Convert GIF to MP4.</p>" },
+        "mp4-to-gif": { "title": "MP4 to GIF", "description": "Convert MP4 to GIF.", "h1": "MP4 to GIF", "content": "<p>Convert MP4 to GIF.</p>" },
+         "video-to-mp3": { "title": "Video to MP3", "description": "Convert Video to MP3.", "h1": "Video to MP3", "content": "<p>Convert Video to MP3.</p>" },
+         "word-to-txt": { "title": "Word to TXT", "description": "Convert Word to TXT.", "h1": "Word to TXT", "content": "<p>Convert Word to TXT.</p>" },
+         "txt-to-docx": { "title": "TXT to Word", "description": "Convert TXT to Word.", "h1": "TXT to Word", "content": "<p>Convert TXT to Word.</p>" },
+         "txt-to-pdf": { "title": "TXT to PDF", "description": "Convert TXT to PDF.", "h1": "TXT to PDF", "content": "<p>Convert TXT to PDF.</p>" },
+         "png-to-ico": { "title": "PNG to ICO", "description": "Convert PNG to ICO.", "h1": "PNG to ICO", "content": "<p>Convert PNG to ICO.</p>" },
+         "json-formatter": { "title": "JSON Formatter", "description": "Format JSON.", "h1": "JSON Formatter", "content": "<p>Format JSON.</p>" },
+         "lorem-ipsum": { "title": "Lorem Ipsum", "description": "Generate Lorem Ipsum.", "h1": "Lorem Ipsum", "content": "<p>Generate Lorem Ipsum.</p>" },
+         "slug-generator": { "title": "Slug Generator", "description": "Generate Slug.", "h1": "Slug Generator", "content": "<p>Generate Slug.</p>" },
+         "markdown-to-html": { "title": "Markdown to HTML", "description": "Convert MD to HTML.", "h1": "Markdown to HTML", "content": "<p>Convert MD to HTML.</p>" },
+         "qr-generator": { "title": "QR Generator", "description": "Generate QR.", "h1": "QR Generator", "content": "<p>Generate QR.</p>" },
+         "password-generator": { "title": "Pass Generator", "description": "Generate Password.", "h1": "Password Generator", "content": "<p>Generate Password.</p>" },
+         "word-counter": { "title": "Word Counter", "description": "Count Words.", "h1": "Word Counter", "content": "<p>Count Words.</p>" }
     },
     "about": {
-        "title": "About Fluxora – Free Online Utilities",
-        "description": "Fluxora is a suite of free, privacy-focused online tools for file conversion and developer utilities.",
-        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>About Fluxora</h1><p>Fluxora was built with a single mission: <strong>To provide fast, free, and private tools for everyone.</strong></p><h2>Our Core Values</h2><ul><li><strong>Privacy First:</strong> We prioritize client-side processing. Your files shouldn't leave your computer unless absolutely necessary (and we use secure memory even then).</li><li><strong>Speed:</strong> No queues, no waiting times. Tools load instantly.</li><li><strong>Simplicity:</strong> Clean design, no clutter.</li></ul><h2>The Team</h2><p>Fluxora is developed by independent developer <span class='sys-id'>SYS_0xA7</span>. If you have suggestions, please contact us.</p></div>"
+        "title": "About Fluxora – The Secure Processing Standard",
+        "description": "Fluxora is pioneering the serverless tool revolution. Learn how we keep your data safe.",
+        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>About Fluxora</h1><p>In an era of data breaches and privacy concerns, Fluxora stands apart. We built a platform that does not require trust, because it does not require access. Our tools run in your browser, utilizing your device's processing power.</p><h2>Our Architecture</h2><p>Traditional online converters upload your file to a cloud server, process it, and send it back. This creates a risk point. Fluxora uses WebAssembly and modern JavaScript APIs (Canvas, Blob, FileReader) to manipulate data client-side.</p><h2>The Developer</h2><p>Fluxora is maintained by <span class='sys-id'>SYS_0xA7</span>, a developer dedicated to open internet utilities.</p></div>"
     },
     "privacy": {
-        "title": "Privacy Policy – Fluxora",
-        "description": "Fluxora Privacy Policy. We do not store your data.",
-        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Privacy Policy</h1><p>Last updated: 2025</p><p>We respect your privacy. Here is how we handle your data:</p><h3>1. Data Processing</h3><p>Fluxora operates primarily as a <strong>client-side</strong> application. This means image conversions, text processing, and other calculations happen <strong>on your device</strong> (in your browser). We do not upload your files to our servers.</p><h3>2. Analytics</h3><p>We use anonymous analytics to track simple usage metrics (like 'Page Views') to improve the site. No personal identifiable information (PII) is collected.</p><h3>3. Cookies</h3><p>We use local storage to remember your preferences (like theme or language). We do not use tracking cookies for advertising.</p></div>"
+        "title": "Privacy Policy – Zero Data Collection",
+        "description": "Fluxora does not collect, store, or process your files on our servers. Period.",
+        "content": "<div class='container' style='max-width:800px; padding: 40px 0;'><h1>Privacy Policy</h1><p><strong>Effective Date:</strong> January 2025</p><p>This policy describes how Fluxora handles your data.</p><h3>1. No File Uploads</h3><p>We do not have servers to receive your files. When you 'import' a file into Fluxora, it stays in your browser's memory sandbox.</p><h3>2. Local Storage</h3><p>We use LocalStorage only to save user preferences (like theme or language). We do not use it to track you.</p><h3>3. External Services</h3><p>We may use third-party CDNs (like Cloudflare or Vercel) to deliver the website code. These providers may see your IP address as part of standard internet connectivity, but they cannot see the files you convert.</p></div>"
     }
 }
